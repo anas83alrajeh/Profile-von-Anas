@@ -1578,6 +1578,53 @@ html{
     #pf-root .lang-btn { padding: 0.25rem 0.45rem; font-size: 0.65rem; }
   }
 
+/* ========================================
+     RTL SUPPORT (Arabic)
+  ======================================== */
+  #pf-root[dir="rtl"],
+  [dir="rtl"] #pf-root {
+    direction: rtl;
+    text-align: right;
+  }
+  [dir="rtl"] #pf-root .eyebrow::before { display: none; }
+  [dir="rtl"] #pf-root .eyebrow::after {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  [dir="rtl"] #pf-root .timeline-item {
+    padding-left: 0;
+    padding-right: 2rem;
+    border-left: none;
+    border-right: 2px solid var(--line-strong);
+  }
+  [dir="rtl"] #pf-root .timeline-item::before {
+    left: auto;
+    right: -6px;
+  }
+  [dir="rtl"] #pf-root .section-head {
+    grid-template-columns: auto 1fr auto;
+  }
+  [dir="rtl"] #pf-root .nav-inner {
+    flex-direction: row-reverse;
+  }
+  [dir="rtl"] #pf-root .nav-links {
+    flex-direction: row-reverse;
+  }
+  [dir="rtl"] #pf-root .hero-grid {
+    direction: rtl;
+  }
+  [dir="rtl"] #pf-root .hero-buttons {
+    flex-direction: row-reverse;
+  }
+  [dir="rtl"] #pf-root .about-grid {
+    direction: rtl;
+  }
+  [dir="rtl"] #pf-root .contact-headline {
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -1606,6 +1653,7 @@ html{
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('de')">DE</button>
       <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ar')">AR</button>
     </div>
   </div>
 </nav>
@@ -1681,8 +1729,8 @@ html{
 
     <div class="about-grid">
       <aside class="about-aside">
-        <span class="label">Mein Ansatz</span>
-        <p class="about-quote">
+        <span class="label" data-i18n="about.approach">Mein Ansatz</span>
+        <p class="about-quote" data-i18n-html="about.quote">
           „Echte Datenwissenschaft beginnt dort, wo <span class="gold-mark">Zahlen</span> auf <span class="gold-mark">Geschäftslogik</span> treffen — und endet, wenn Entscheidungen einfacher werden."
         </p>
 
@@ -1690,37 +1738,37 @@ html{
           <div class="highlight-card">
             <i class="ph-fill ph-graduation-cap"></i>
             <div class="num">17+</div>
-            <div class="label">Jahre Erfahrung</div>
+            <div class="label" data-i18n="about.hl1">Jahre Erfahrung</div>
           </div>
           <div class="highlight-card">
             <i class="ph-fill ph-certificate"></i>
             <div class="num">1.080h</div>
-            <div class="label">Zertifizierung</div>
+            <div class="label" data-i18n="about.hl2">Zertifizierung</div>
           </div>
           <div class="highlight-card">
             <i class="ph-fill ph-translate"></i>
             <div class="num">C1</div>
-            <div class="label">Deutsch · DSH-2</div>
+            <div class="label" data-i18n="about.hl3">Deutsch · DSH-2</div>
           </div>
           <div class="highlight-card">
             <i class="ph-fill ph-medal"></i>
             <div class="num">03</div>
-            <div class="label">Publikationen</div>
+            <div class="label" data-i18n="about.hl4">Publikationen</div>
           </div>
         </div>
       </aside>
 
       <div class="about-text">
-        <p>
+        <p data-i18n-html="about.p1">
           Mein Weg in die Datenwissenschaft begann <strong>2006 als Dozent für Statistik</strong> an der Universität Damaskus. Über die folgenden 17 Jahre habe ich komplexe Datensätze interpretiert — von wissenschaftlichen Studien in Jordanien bis hin zur Industrieautomatisierung in Deutschland.
         </p>
-        <p>
+        <p data-i18n-html="about.p2">
           Bei <strong>Magna Exteriors (Hannover)</strong> habe ich für <strong>Volkswagen AG</strong> Full-Stack-Datenerfassungssysteme, Echtzeit-KPI-Dashboards und Logistik-Automatisierungen entwickelt. Das Ergebnis: <strong>40&nbsp;% schnellere Analysen</strong> und <strong>25&nbsp;% höhere Berichtsgenauigkeit</strong>.
         </p>
-        <p>
+        <p data-i18n-html="about.p3">
           Heute kombiniere ich klassische statistische Methoden mit modernster <strong>Generativer KI</strong> — XGBoost trifft GPT-4o, Power BI trifft RAG-Architekturen. Mein Ziel: Lösungen schaffen, die nicht nur technisch elegant, sondern wirtschaftlich messbar sind.
         </p>
-        <p>
+        <p data-i18n-html="about.p4">
           Ich bin <strong>akademisch geprägt</strong> (BSc Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).
         </p>
       </div>
@@ -1742,8 +1790,8 @@ html{
     <div class="expertise-grid">
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-code"></i></div>
-        <h3>Python &amp; Data Science</h3>
-        <p>Datenmanipulation, statistische Modellierung, Zeitreihenanalyse und explorative Datenanalyse mit modernem Python-Stack.</p>
+        <h3 data-i18n="exp.card1.title">Python &amp; Data Science</h3>
+        <p data-i18n="exp.card1.desc">Datenmanipulation, statistische Modellierung, Zeitreihenanalyse und explorative Datenanalyse mit modernem Python-Stack.</p>
         <div class="expertise-tags">
           <span class="tech-tag">Python</span>
           <span class="tech-tag">Pandas</span>
@@ -1755,8 +1803,8 @@ html{
 
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-brain"></i></div>
-        <h3>Machine Learning &amp; Deep Learning</h3>
-        <p>Predictive Analytics, Klassifikation, Clustering und neuronale Netze für reale Geschäftsprobleme.</p>
+        <h3 data-i18n="exp.card2.title">Machine Learning &amp; Deep Learning</h3>
+        <p data-i18n="exp.card2.desc">Predictive Analytics, Klassifikation, Clustering und neuronale Netze für reale Geschäftsprobleme.</p>
         <div class="expertise-tags">
           <span class="tech-tag">XGBoost</span>
           <span class="tech-tag">Scikit-learn</span>
@@ -1768,8 +1816,8 @@ html{
 
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-chart-line-up"></i></div>
-        <h3>Business Intelligence</h3>
-        <p>Echtzeit-Dashboards, KPI-Tracking und ETL-Pipelines für datengestützte Geschäftsentscheidungen.</p>
+        <h3 data-i18n="exp.card3.title">Business Intelligence</h3>
+        <p data-i18n="exp.card3.desc">Echtzeit-Dashboards, KPI-Tracking und ETL-Pipelines für datengestützte Geschäftsentscheidungen.</p>
         <div class="expertise-tags">
           <span class="tech-tag">Power BI</span>
           <span class="tech-tag">DAX</span>
@@ -1781,8 +1829,8 @@ html{
 
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-robot"></i></div>
-        <h3>Generative KI &amp; LLMs</h3>
-        <p>KI-Agenten, RAG-Architekturen und Workflow-Automatisierungen mit modernen Sprachmodellen.</p>
+        <h3 data-i18n="exp.card4.title">Generative KI &amp; LLMs</h3>
+        <p data-i18n="exp.card4.desc">KI-Agenten, RAG-Architekturen und Workflow-Automatisierungen mit modernen Sprachmodellen.</p>
         <div class="expertise-tags">
           <span class="tech-tag">GPT-4o</span>
           <span class="tech-tag">RAG</span>
@@ -1794,8 +1842,8 @@ html{
 
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-database"></i></div>
-        <h3>Datenbanken</h3>
-        <p>Relationale und NoSQL-Datenbanken, Graph-Datenbanken und Cloud-basierte Datenspeicherung.</p>
+        <h3 data-i18n="exp.card5.title">Datenbanken</h3>
+        <p data-i18n="exp.card5.desc">Relationale und NoSQL-Datenbanken, Graph-Datenbanken und Cloud-basierte Datenspeicherung.</p>
         <div class="expertise-tags">
           <span class="tech-tag">PostgreSQL</span>
           <span class="tech-tag">MongoDB</span>
@@ -1806,8 +1854,8 @@ html{
 
       <div class="expertise-card">
         <div class="expertise-icon"><i class="ph ph-stack"></i></div>
-        <h3>DevOps &amp; Tools</h3>
-        <p>Containerisierung, Versionskontrolle und Microsoft-Ökosystem für Unternehmensumgebungen.</p>
+        <h3 data-i18n="exp.card6.title">DevOps &amp; Tools</h3>
+        <p data-i18n="exp.card6.desc">Containerisierung, Versionskontrolle und Microsoft-Ökosystem für Unternehmensumgebungen.</p>
         <div class="expertise-tags">
           <span class="tech-tag">Docker</span>
           <span class="tech-tag">Git</span>
@@ -1849,46 +1897,46 @@ html{
 
     <div class="timeline">
       <div class="timeline-item">
-        <div class="timeline-date">04/2025 — Heute</div>
-        <div class="timeline-title">Freiberufliche Data Science Projekte</div>
-        <div class="timeline-org">AI &amp; Data Science Portfolio · Hannover</div>
-        <div class="timeline-desc">
+        <div class="timeline-date" data-i18n="tl1.date">04/2025 — Heute</div>
+        <div class="timeline-title" data-i18n="tl1.title">Freiberufliche Data Science Projekte</div>
+        <div class="timeline-org" data-i18n="tl1.org">AI &amp; Data Science Portfolio · Hannover</div>
+        <div class="timeline-desc" data-i18n="tl1.desc">
           Entwicklung modularer KI-Agenten mit n8n und GPT-4o, Predictive Analytics mit XGBoost, sowie GA4-Implementierungen für Kundenprojekte. Aufbau eines technischen Portfolios mit Fokus auf produktionsreife AI-Lösungen.
         </div>
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-date">04/2025 — 10/2025</div>
-        <div class="timeline-title">Data Scientist Vollqualifikation</div>
-        <div class="timeline-org">Educx GmbH · Nürnberg (AZAV / CERT IT)</div>
-        <div class="timeline-desc">
+        <div class="timeline-date" data-i18n="tl2.date">04/2025 — 10/2025</div>
+        <div class="timeline-title" data-i18n="tl2.title">Data Scientist Vollqualifikation</div>
+        <div class="timeline-org" data-i18n="tl2.org">Educx GmbH · Nürnberg (AZAV / CERT IT)</div>
+        <div class="timeline-desc" data-i18n="tl2.desc">
           1.080 Stunden intensive Weiterbildung in 6 Modulen: Python &amp; Data Science, Machine Learning &amp; Deep Learning, Big Data &amp; Business Intelligence, KI-Anwendungen &amp; Generative KI. Zertifiziert nach deutschen Qualitätsstandards.
         </div>
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-date">01/2024 — 12/2024</div>
-        <div class="timeline-title">Data Analyst</div>
-        <div class="timeline-org">Magna Exteriors (Germany) GmbH · Hannover (Kundenprojekte für Volkswagen AG)</div>
-        <div class="timeline-desc">
+        <div class="timeline-date" data-i18n="tl3.date">01/2024 — 12/2024</div>
+        <div class="timeline-title" data-i18n="tl3.title">Data Analyst</div>
+        <div class="timeline-org" data-i18n="tl3.org">Magna Exteriors (Germany) GmbH · Hannover (Kundenprojekte für Volkswagen AG)</div>
+        <div class="timeline-desc" data-i18n="tl3.desc">
           Full-Stack-Datenerfassungssystem (+25% Berichtsgenauigkeit), Echtzeit-KPI-Dashboards für VW-Produktionslinie (-40% Analysezeit) und Automatisierung der Logistik-Wochenplanung mit Power BI, Power Apps und Dataverse.
         </div>
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-date">04/2013 — 08/2015</div>
-        <div class="timeline-title">Wissenschaftlicher Mitarbeiter</div>
-        <div class="timeline-org">Al Jawhara Forschungszentrum · Jordanien</div>
-        <div class="timeline-desc">
+        <div class="timeline-date" data-i18n="tl4.date">04/2013 — 08/2015</div>
+        <div class="timeline-title" data-i18n="tl4.title">Wissenschaftlicher Mitarbeiter</div>
+        <div class="timeline-org" data-i18n="tl4.org">Al Jawhara Forschungszentrum · Jordanien</div>
+        <div class="timeline-desc" data-i18n="tl4.desc">
           Interdisziplinäre Datenanalyse in Soziologie, Medizin, Wirtschaft und Bildungsentwicklung. Statistische Modellierung und Berichterstellung mit SPSS und R.
         </div>
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-date">09/2006 — 03/2013</div>
-        <div class="timeline-title">Dozent für Statistik &amp; Datenanalyse</div>
-        <div class="timeline-org">Universität Damaskus · Syrien</div>
-        <div class="timeline-desc">
+        <div class="timeline-date" data-i18n="tl5.date">09/2006 — 03/2013</div>
+        <div class="timeline-title" data-i18n="tl5.title">Dozent für Statistik &amp; Datenanalyse</div>
+        <div class="timeline-org" data-i18n="tl5.org">Universität Damaskus · Syrien</div>
+        <div class="timeline-desc" data-i18n="tl5.desc">
           Vermittlung von Statistik, analytischem Denken und methodischer Kompetenz an Studierende. Betreuung von Forschungsprojekten mit SPSS, R, JASP und Python.
         </div>
       </div>
@@ -1910,20 +1958,20 @@ html{
     <div class="pub-grid">
       <article class="pub-card">
         <div class="pub-year">2023</div>
-        <h3 class="pub-title">The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study</h3>
-        <p class="pub-source">International Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5</p>
+        <h3 class="pub-title" data-i18n="pub1.title">The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study</h3>
+        <p class="pub-source" data-i18n="pub1.source">International Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5</p>
       </article>
 
       <article class="pub-card">
         <div class="pub-year">2019</div>
-        <h3 class="pub-title">Multi-Logistic Regression Binary Response Technique to Determine the most Important Affecting Factors of Diakonie's Role in integrating Syrian Refugees in Germany</h3>
-        <p class="pub-source">Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin</p>
+        <h3 class="pub-title" data-i18n="pub2.title">Multi-Logistic Regression Binary Response Technique to Determine the most Important Affecting Factors of Diakonie's Role in integrating Syrian Refugees in Germany</h3>
+        <p class="pub-source" data-i18n="pub2.source">Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin</p>
       </article>
 
       <article class="pub-card">
         <div class="pub-year">2018</div>
-        <h3 class="pub-title">The reality of Alienation among the Arab Students in University — A comparative Study between Syrian and Iraqi Refugee Students in Jordan</h3>
-        <p class="pub-source">Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada</p>
+        <h3 class="pub-title" data-i18n="pub3.title">The reality of Alienation among the Arab Students in University — A comparative Study between Syrian and Iraqi Refugee Students in Jordan</h3>
+        <p class="pub-source" data-i18n="pub3.source">Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada</p>
       </article>
     </div>
   </div>
@@ -2640,14 +2688,19 @@ html{
     document.getElementById("projectsCount").textContent =
       String(projects.length).padStart(2, "0") + " " + t('proj.count');
 
-    list.innerHTML = projects.map((p, i) => `
+    list.innerHTML = projects.map((p, i) => {
+      const tr = getProjectTranslation(p.id);
+      const name = tr ? tr.name : p.name;
+      const desc = tr ? tr.desc : p.desc;
+      const result = tr ? tr.result : p.result;
+      return `
       <article class="project-row">
         <div class="project-index">${String(i + 1).padStart(2, "0")}</div>
         <div class="project-content">
           <div class="project-main">
             <span class="project-company">${escapeHtml(p.company)}</span>
-            <h3>${p.name}</h3>
-            <p class="project-desc">${escapeHtml(p.desc)}</p>
+            <h3>${name}</h3>
+            <p class="project-desc">${escapeHtml(desc)}</p>
             <div class="project-tech-list">
               ${p.tech.split(",").map(t2 => `<span class="tech-tag">${escapeHtml(t2.trim())}</span>`).join("")}
             </div>
@@ -2659,7 +2712,7 @@ html{
             </div>
             <div class="project-meta-row">
               <span class="meta-label">${t('proj.impact')}</span>
-              <span class="meta-value">${escapeHtml(p.result)}</span>
+              <span class="meta-value">${escapeHtml(result)}</span>
             </div>
             <div class="project-links">
               ${p.pdf ? `<button class="project-link-btn" onclick="viewPdf('${p.id}')"><i class="ph ph-file-pdf"></i> ${t('proj.pdf')}</button>` : ""}
@@ -2670,8 +2723,58 @@ html{
         </div>
         <div class="project-arrow"><i class="ph ph-arrow-up-right"></i></div>
       </article>
-    `).join("");
+    `}).join("");
   }
+
+  function getProjectTranslation(id) {
+    if (currentLang === 'de') return null;
+    return (projectsI18n[currentLang] || {})[id] || null;
+  }
+
+  const projectsI18n = {
+    en: {
+      1:  { name: "Staff Data Acquisition Management", desc: "Development of a complete platform for employee attendance and absence tracking. Integration of SAP data into SharePoint and Power BI to automate manual HR processes. Python backend, PostgreSQL database, responsive web frontend.", result: "+25% Reporting Accuracy" },
+      2:  { name: "KPIs for Production Risk Management", desc: "Analysis of production data and creation of interactive KPI dashboards for management. Implementation of complex DAX calculations for real-time monitoring of quality and risk metrics on the VW production line.", result: "−40% Analysis Time" },
+      3:  { name: "Logistics & Vendor Management Weekly Plan", desc: "Digitalization of operational shift planning and vendor management with Microsoft Power Platform. Power Apps frontend for dispatchers, Dataverse as data source, and Power BI for capacity and vendor KPI reports.", result: "100% Workflow Automation" },
+      4:  { name: "Intelligent AI Agents & Automation", desc: "Development of a modular automation platform with n8n integrating various AI-powered assistants: calendar assistant (Telegram → Google Calendar), intelligent accountant (voice/text input → Google Sheets), application assistant with RAG & vector databases for precise CV-based answers.", result: "15 hrs/week saved" },
+      5:  { name: "Customer Churn Prediction (Telecom)", desc: "Building a predictive analytics model to forecast customer churn in the telecom sector. Feature engineering, hyperparameter tuning, SHAP explanations for business stakeholders, and an interactive Streamlit deployment app.", result: "92% Model Accuracy (AUC-ROC)" },
+      6:  { name: "Web Analytics & KPI Visualization", desc: "Complete GA4 implementation with custom events, conversion tracking, and Looker Studio dashboards. Building marketing funnels and performance monitoring for SMB clients.", result: "+18% Data Accuracy" },
+      7:  { name: "RHK Online Shop — E-Commerce Platform", desc: "Development of a complete e-commerce platform for selling notebooks. Responsive frontend with modern UI, backend integration for product management, shopping cart, and order processing. Built entirely in Vanilla JavaScript without framework dependencies.", result: "Complete E-Commerce Stack" },
+      8:  { name: "Plant Disease Detection with Deep Learning", desc: "Development of a CNN-based image classification model for automatic detection of plant diseases using the Kaggle PlantVillage dataset. Model training with Keras, evaluation with KNIME Analytics Platform.", result: "High CNN Classification Accuracy" },
+      9:  { name: "Skin Cancer Detection with Deep Learning", desc: "Deep learning model for classifying skin cancer images (benign vs. malignant) based on a Kaggle dataset. A convolutional neural network with Keras and evaluation via KNIME workflows for medical decision support.", result: "Medical Image Classification" },
+      10: { name: "Driver Fatigue Detection in Videos", desc: "Real-time driver fatigue detection via video analysis. Using MobileNetV2 as base architecture, optimized with Grey Wolf Optimizer (GWO). Deployed on HuggingFace Spaces, video preprocessing with OpenCV.", result: "Real-Time Safety System" },
+      11: { name: "AI-Powered CV Chatbot", desc: "Intelligent CV chatbot based on RAG architecture. Accurately answers questions about the resume by combining a FAISS vector database, LangChain pipeline, and GPT-4o-mini. PDF processing for dynamic document parsing.", result: "Interactive AI Application Assistant" },
+      12: { name: "AI-Powered Fraud Analysis with Power BI", desc: "End-to-end fraud detection system: ML models in Python for anomaly classification, LLM integration for explainability of fraud cases, and interactive Power BI dashboards with DAX metrics for risk management.", result: "Automated Fraud Detection" },
+      13: { name: "Intelligent Hospital Appointment Booking", desc: "AI-powered system to optimize hospital appointment scheduling. XGBoost and LightGBM for patient load prediction, Hugging Face models for NLP-based requests, Power BI dashboards for capacity planning.", result: "ML-Optimized Scheduling" },
+      14: { name: "Customer Feedback Analysis for UX Improvement", desc: "NLP-based analysis of customer reviews and feedback texts to identify UX weaknesses. Text mining with KNIME, sentiment analysis, word cloud visualization, and automatic topic clustering.", result: "Data-Driven UX Insights" },
+      15: { name: "Hanover Weather Data Analysis", desc: "Exploratory data analysis of historical weather data for Hanover via the OpenWeatherMap API. Time-series visualizations, seasonality analysis, and statistical evaluations with Python. Interactive Matplotlib/Seaborn charts.", result: "Complete EDA Pipeline" },
+      16: { name: "Customer & Marketing Performance with ML", desc: "Holistic marketing analytics platform: ML models for customer segmentation and campaign optimization combined with interactive Power BI dashboards. DAX measures for ROI, CLV, and conversion rates.", result: "Data-Driven Marketing Strategy" },
+      17: { name: "Retail BI: Dashboards & Predictive Analytics", desc: "Business intelligence solution for retail: sales dashboards in Tableau, inventory analysis, predictive revenue forecasts with Excel Forecast function, and seasonal trend analysis for strategic purchasing decisions.", result: "Complete Retail BI Solution" },
+      18: { name: "Order Analysis with Tableau", desc: "Interactive Tableau dashboards for analyzing order patterns, delivery times, and customer segments. Visualization of KPIs such as average order value, order frequency, and geographic revenue distribution.", result: "Interactive Order Analysis" },
+      19: { name: "Sales & Profit Analysis with Power BI", desc: "Comprehensive analysis of sales data and creation of interactive Power BI reports for management reporting. DAX calculations for contribution margin analysis, margin tracking, and sales rep performance comparisons.", result: "Complete Sales Reporting" }
+    },
+    ar: {
+      1:  { name: "إدارة جمع بيانات الموظفين", desc: "تطوير منصة متكاملة لتتبع حضور وغياب الموظفين. دمج بيانات SAP في SharePoint وPower BI لأتمتة عمليات الموارد البشرية اليدوية. واجهة خلفية بـPython وقاعدة بيانات PostgreSQL وواجهة أمامية متجاوبة.", result: "+25% دقة التقارير" },
+      2:  { name: "مؤشرات الأداء لإدارة مخاطر الإنتاج", desc: "تحليل بيانات الإنتاج وإنشاء لوحات مؤشرات أداء تفاعلية للإدارة. تطبيق حسابات DAX معقدة لمراقبة آنية لمقاييس الجودة والمخاطر على خط إنتاج VW.", result: "−40% وقت التحليل" },
+      3:  { name: "الخطة الأسبوعية للوجستيات وإدارة الموردين", desc: "رقمنة تخطيط المناوبات التشغيلية وإدارة الموردين بمنصة Microsoft Power Platform. واجهة Power Apps للمشغلين وDataverse كقاعدة بيانات وPower BI لتقارير الطاقة الاستيعابية ومؤشرات الموردين.", result: "100% أتمتة سير العمل" },
+      4:  { name: "وكلاء ذكاء اصطناعي ذكية وأتمتة", desc: "تطوير منصة أتمتة معيارية بـn8n تدمج مساعدين متعددين مدعومين بالذكاء الاصطناعي: مساعد تقويم (Telegram → Google Calendar)، محاسب ذكي (إدخال صوتي/نصي → Google Sheets)، مساعد توظيف بـRAG وقواعد بيانات متجهية لإجابات دقيقة.", result: "15 ساعة/أسبوع موفَّرة" },
+      5:  { name: "التنبؤ بمغادرة العملاء (الاتصالات)", desc: "بناء نموذج تحليلات تنبؤية للتنبؤ بمغادرة العملاء في قطاع الاتصالات. هندسة الميزات وضبط المعامل الفائقة وتفسيرات SHAP لأصحاب المصلحة وتطبيق Streamlit تفاعلي.", result: "92% دقة النموذج (AUC-ROC)" },
+      6:  { name: "تحليلات الويب وتصور مؤشرات الأداء", desc: "تطبيق GA4 كامل مع أحداث مخصصة وتتبع التحويل ولوحات Looker Studio. بناء مسارات تسويقية ورصد الأداء لعملاء الشركات الصغيرة والمتوسطة.", result: "+18% دقة البيانات" },
+      7:  { name: "متجر RHK الإلكتروني — منصة تجارة إلكترونية", desc: "تطوير منصة تجارة إلكترونية متكاملة لبيع أجهزة الكمبيوتر المحمول. واجهة أمامية متجاوبة بتصميم حديث وتكامل خلفي لإدارة المنتجات وسلة التسوق ومعالجة الطلبات. مبنية كلياً بـVanilla JavaScript.", result: "مكدس تجارة إلكترونية متكامل" },
+      8:  { name: "اكتشاف أمراض النباتات بالتعلم العميق", desc: "تطوير نموذج تصنيف صور CNN للكشف التلقائي عن أمراض النباتات باستخدام مجموعة بيانات Kaggle PlantVillage. تدريب النموذج بـKeras وتقييمه بمنصة KNIME.", result: "دقة تصنيف CNN عالية" },
+      9:  { name: "الكشف عن سرطان الجلد بالتعلم العميق", desc: "نموذج تعلم عميق لتصنيف صور سرطان الجلد (حميدة أو خبيثة) بناءً على مجموعة Kaggle. شبكة عصبية تلافيفية بـKeras وتقييم عبر سير عمل KNIME لدعم القرارات الطبية.", result: "تصنيف الصور الطبية" },
+      10: { name: "اكتشاف تعب السائق في الفيديو", desc: "اكتشاف تعب السائق آنياً عبر تحليل الفيديو. استخدام MobileNetV2 كبنية أساسية محسَّنة بـGrey Wolf Optimizer. نشر على HuggingFace Spaces ومعالجة الفيديو بـOpenCV.", result: "نظام سلامة آني" },
+      11: { name: "روبوت محادثة للسيرة الذاتية بالذكاء الاصطناعي", desc: "روبوت محادثة ذكي للسيرة الذاتية قائم على بنية RAG. يجيب بدقة على أسئلة السيرة الذاتية بدمج FAISS وLangChain وGPT-4o-mini. معالجة PDF للتحليل الديناميكي للوثائق.", result: "مساعد توظيف ذكاء اصطناعي تفاعلي" },
+      12: { name: "تحليل الاحتيال بالذكاء الاصطناعي مع Power BI", desc: "نظام متكامل للكشف عن الاحتيال: نماذج ML في Python لتصنيف الشذوذ، دمج نموذج لغوي كبير لشرح حالات الاحتيال، ولوحات Power BI تفاعلية بمقاييس DAX لإدارة المخاطر.", result: "كشف آلي عن الاحتيال" },
+      13: { name: "حجز مواعيد المستشفيات الذكي", desc: "نظام مدعوم بالذكاء الاصطناعي لتحسين جدولة مواعيد المستشفيات. XGBoost وLightGBM للتنبؤ بحجم المرضى ونماذج Hugging Face للطلبات القائمة على NLP ولوحات Power BI لتخطيط الطاقة الاستيعابية.", result: "جدولة محسَّنة بالتعلم الآلي" },
+      14: { name: "تحليل ملاحظات العملاء لتحسين تجربة المستخدم", desc: "تحليل قائم على NLP لمراجعات العملاء ونصوص الملاحظات لتحديد نقاط الضعف في تجربة المستخدم. استخراج النصوص بـKNIME وتحليل المشاعر وتصور السحابة الكلمية والتجميع التلقائي للمواضيع.", result: "رؤى تجربة مستخدم مبنية على البيانات" },
+      15: { name: "تحليل بيانات الطقس في هانوفر", desc: "تحليل استكشافي للبيانات التاريخية للطقس في هانوفر عبر OpenWeatherMap API. تصورات السلاسل الزمنية وتحليل الموسمية والتقييمات الإحصائية بـPython. رسوم بيانية تفاعلية بـMatplotlib/Seaborn.", result: "خط أنابيب EDA كامل" },
+      16: { name: "أداء العملاء والتسويق مع التعلم الآلي", desc: "منصة تحليلات تسويقية شاملة: نماذج ML لتجزئة العملاء وتحسين الحملات مع لوحات Power BI تفاعلية. قياسات DAX لعائد الاستثمار وقيمة العميل مدى الحياة ومعدلات التحويل.", result: "استراتيجية تسويق مبنية على البيانات" },
+      17: { name: "ذكاء أعمال التجزئة: لوحات معلومات وتحليلات تنبؤية", desc: "حل ذكاء أعمال لقطاع التجزئة: لوحات مبيعات في Tableau وتحليلات المخزون وتوقعات إيرادات تنبؤية بدالة Excel Forecast وتحليل الاتجاهات الموسمية لقرارات الشراء الاستراتيجية.", result: "حل BI كامل للتجزئة" },
+      18: { name: "تحليل الطلبات بـTableau", desc: "لوحات Tableau تفاعلية لتحليل أنماط الطلبات وأوقات التسليم وشرائح العملاء. تصور مؤشرات الأداء كمتوسط قيمة الطلب وتكرار الطلبات والتوزيع الجغرافي للإيرادات.", result: "تحليل طلبات تفاعلي" },
+      19: { name: "تحليل المبيعات والأرباح مع Power BI", desc: "تحليل شامل لبيانات المبيعات وإنشاء تقارير Power BI تفاعلية لتقارير الإدارة. حسابات DAX لتحليل هامش المساهمة وتتبع الهامش ومقارنات أداء مندوبي المبيعات.", result: "تقارير مبيعات متكاملة" }
+    }
+  };
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({
@@ -3108,8 +3211,30 @@ html{
       'hero.available':'Verfügbar',
       'about.title':   'Über mich',
       'about.meta':    'Profil',
+      'about.approach':'Mein Ansatz',
+      'about.quote':   '„Echte Datenwissenschaft beginnt dort, wo <span class="gold-mark">Zahlen</span> auf <span class="gold-mark">Geschäftslogik</span> treffen — und endet, wenn Entscheidungen einfacher werden."',
+      'about.hl1':     'Jahre Erfahrung',
+      'about.hl2':     'Zertifizierung',
+      'about.hl3':     'Deutsch · DSH-2',
+      'about.hl4':     'Publikationen',
+      'about.p1':      'Mein Weg in die Datenwissenschaft begann <strong>2006 als Dozent für Statistik</strong> an der Universität Damaskus. Über die folgenden 17 Jahre habe ich komplexe Datensätze interpretiert — von wissenschaftlichen Studien in Jordanien bis hin zur Industrieautomatisierung in Deutschland.',
+      'about.p2':      'Bei <strong>Magna Exteriors (Hannover)</strong> habe ich für <strong>Volkswagen AG</strong> Full-Stack-Datenerfassungssysteme, Echtzeit-KPI-Dashboards und Logistik-Automatisierungen entwickelt. Das Ergebnis: <strong>40&nbsp;% schnellere Analysen</strong> und <strong>25&nbsp;% höhere Berichtsgenauigkeit</strong>.',
+      'about.p3':      'Heute kombiniere ich klassische statistische Methoden mit modernster <strong>Generativer KI</strong> — XGBoost trifft GPT-4o, Power BI trifft RAG-Architekturen. Mein Ziel: Lösungen schaffen, die nicht nur technisch elegant, sondern wirtschaftlich messbar sind.',
+      'about.p4':      'Ich bin <strong>akademisch geprägt</strong> (BSc Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).',
       'expertise.title':'Expertise',
       'expertise.meta': 'Technologien & Fähigkeiten',
+      'exp.card1.title':'Python & Data Science',
+      'exp.card1.desc': 'Datenmanipulation, statistische Modellierung, Zeitreihenanalyse und explorative Datenanalyse mit modernem Python-Stack.',
+      'exp.card2.title':'Machine Learning & Deep Learning',
+      'exp.card2.desc': 'Predictive Analytics, Klassifikation, Clustering und neuronale Netze für reale Geschäftsprobleme.',
+      'exp.card3.title':'Business Intelligence',
+      'exp.card3.desc': 'Echtzeit-Dashboards, KPI-Tracking und ETL-Pipelines für datengestützte Geschäftsentscheidungen.',
+      'exp.card4.title':'Generative KI & LLMs',
+      'exp.card4.desc': 'KI-Agenten, RAG-Architekturen und Workflow-Automatisierungen mit modernen Sprachmodellen.',
+      'exp.card5.title':'Datenbanken',
+      'exp.card5.desc': 'Relationale und NoSQL-Datenbanken, Graph-Datenbanken und Cloud-basierte Datenspeicherung.',
+      'exp.card6.title':'DevOps & Tools',
+      'exp.card6.desc': 'Containerisierung, Versionskontrolle und Microsoft-Ökosystem für Unternehmensumgebungen.',
       'projects.title': 'Ausgewählte Projekte',
       'proj.period':    'Zeitraum',
       'proj.impact':    'Impact',
@@ -3118,8 +3243,34 @@ html{
       'proj.count':     'Projekte',
       'exp.title':      'Werdegang',
       'exp.meta':       'Beruflicher Verlauf',
+      'tl1.date':       '04/2025 — Heute',
+      'tl1.title':      'Freiberufliche Data Science Projekte',
+      'tl1.org':        'AI & Data Science Portfolio · Hannover',
+      'tl1.desc':       'Entwicklung modularer KI-Agenten mit n8n und GPT-4o, Predictive Analytics mit XGBoost, sowie GA4-Implementierungen für Kundenprojekte. Aufbau eines technischen Portfolios mit Fokus auf produktionsreife AI-Lösungen.',
+      'tl2.date':       '04/2025 — 10/2025',
+      'tl2.title':      'Data Scientist Vollqualifikation',
+      'tl2.org':        'Educx GmbH · Nürnberg (AZAV / CERT IT)',
+      'tl2.desc':       '1.080 Stunden intensive Weiterbildung in 6 Modulen: Python & Data Science, Machine Learning & Deep Learning, Big Data & Business Intelligence, KI-Anwendungen & Generative KI. Zertifiziert nach deutschen Qualitätsstandards.',
+      'tl3.date':       '01/2024 — 12/2024',
+      'tl3.title':      'Data Analyst',
+      'tl3.org':        'Magna Exteriors (Germany) GmbH · Hannover (Kundenprojekte für Volkswagen AG)',
+      'tl3.desc':       'Full-Stack-Datenerfassungssystem (+25% Berichtsgenauigkeit), Echtzeit-KPI-Dashboards für VW-Produktionslinie (-40% Analysezeit) und Automatisierung der Logistik-Wochenplanung mit Power BI, Power Apps und Dataverse.',
+      'tl4.date':       '04/2013 — 08/2015',
+      'tl4.title':      'Wissenschaftlicher Mitarbeiter',
+      'tl4.org':        'Al Jawhara Forschungszentrum · Jordanien',
+      'tl4.desc':       'Interdisziplinäre Datenanalyse in Soziologie, Medizin, Wirtschaft und Bildungsentwicklung. Statistische Modellierung und Berichterstellung mit SPSS und R.',
+      'tl5.date':       '09/2006 — 03/2013',
+      'tl5.title':      'Dozent für Statistik & Datenanalyse',
+      'tl5.org':        'Universität Damaskus · Syrien',
+      'tl5.desc':       'Vermittlung von Statistik, analytischem Denken und methodischer Kompetenz an Studierende. Betreuung von Forschungsprojekten mit SPSS, R, JASP und Python.',
       'pub.title':      'Wissenschaftliche Publikationen',
       'pub.meta':       'Peer-Reviewed',
+      'pub1.title':     'The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study',
+      'pub1.source':    'International Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5',
+      'pub2.title':     'Multi-Logistic Regression Binary Response Technique to Determine the most Important Affecting Factors of Diakonie\'s Role in integrating Syrian Refugees in Germany',
+      'pub2.source':    'Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin',
+      'pub3.title':     'The reality of Alienation among the Arab Students in University — A comparative Study between Syrian and Iraqi Refugee Students in Jordan',
+      'pub3.source':    'Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada',
       'contact.eyebrow':'Kontakt aufnehmen',
       'contact.headline':'Lassen Sie uns über <em class="italic">Ihre nächsten</em> Datenherausforderungen sprechen.',
       'contact.btn':    'E-Mail senden',
@@ -3149,8 +3300,30 @@ html{
       'hero.available':'Available',
       'about.title':   'About Me',
       'about.meta':    'Profile',
+      'about.approach':'My Approach',
+      'about.quote':   '"Real data science begins where <span class="gold-mark">numbers</span> meet <span class="gold-mark">business logic</span> — and ends when decisions become easier."',
+      'about.hl1':     'Years of Experience',
+      'about.hl2':     'Certification',
+      'about.hl3':     'German · DSH-2',
+      'about.hl4':     'Publications',
+      'about.p1':      'My journey into data science began <strong>in 2006 as a statistics lecturer</strong> at the University of Damascus. Over the following 17 years, I interpreted complex datasets — from scientific studies in Jordan to industrial automation in Germany.',
+      'about.p2':      'At <strong>Magna Exteriors (Hanover)</strong>, I built full-stack data acquisition systems, real-time KPI dashboards, and logistics automations for <strong>Volkswagen AG</strong>. The result: <strong>40% faster analyses</strong> and <strong>25% higher reporting accuracy</strong>.',
+      'about.p3':      'Today I combine classical statistical methods with cutting-edge <strong>Generative AI</strong> — XGBoost meets GPT-4o, Power BI meets RAG architectures. My goal: solutions that are not just technically elegant, but economically measurable.',
+      'about.p4':      'I am <strong>academically grounded</strong> (BSc Computer Science Hildesheim, M. Measurement & Evaluation), <strong>practically proven</strong> (industrial clients VW & freelance), and <strong>linguistically versatile</strong> (German C1, English B2, Arabic native).',
       'expertise.title':'Expertise',
       'expertise.meta': 'Technologies & Skills',
+      'exp.card1.title':'Python & Data Science',
+      'exp.card1.desc': 'Data manipulation, statistical modeling, time-series analysis, and exploratory data analysis with a modern Python stack.',
+      'exp.card2.title':'Machine Learning & Deep Learning',
+      'exp.card2.desc': 'Predictive analytics, classification, clustering, and neural networks for real-world business problems.',
+      'exp.card3.title':'Business Intelligence',
+      'exp.card3.desc': 'Real-time dashboards, KPI tracking, and ETL pipelines for data-driven business decisions.',
+      'exp.card4.title':'Generative AI & LLMs',
+      'exp.card4.desc': 'AI agents, RAG architectures, and workflow automations with modern language models.',
+      'exp.card5.title':'Databases',
+      'exp.card5.desc': 'Relational and NoSQL databases, graph databases, and cloud-based data storage.',
+      'exp.card6.title':'DevOps & Tools',
+      'exp.card6.desc': 'Containerization, version control, and Microsoft ecosystem for enterprise environments.',
       'projects.title': 'Selected Projects',
       'proj.period':    'Period',
       'proj.impact':    'Impact',
@@ -3159,8 +3332,34 @@ html{
       'proj.count':     'Projects',
       'exp.title':      'Experience',
       'exp.meta':       'Career Path',
+      'tl1.date':       '04/2025 — Present',
+      'tl1.title':      'Freelance Data Science Projects',
+      'tl1.org':        'AI & Data Science Portfolio · Hanover',
+      'tl1.desc':       'Development of modular AI agents with n8n and GPT-4o, predictive analytics with XGBoost, and GA4 implementations for client projects. Building a technical portfolio focused on production-ready AI solutions.',
+      'tl2.date':       '04/2025 — 10/2025',
+      'tl2.title':      'Data Scientist Full Qualification',
+      'tl2.org':        'Educx GmbH · Nuremberg (AZAV / CERT IT)',
+      'tl2.desc':       '1,080 hours of intensive training in 6 modules: Python & Data Science, Machine Learning & Deep Learning, Big Data & Business Intelligence, AI Applications & Generative AI. Certified to German quality standards.',
+      'tl3.date':       '01/2024 — 12/2024',
+      'tl3.title':      'Data Analyst',
+      'tl3.org':        'Magna Exteriors (Germany) GmbH · Hanover (Client projects for Volkswagen AG)',
+      'tl3.desc':       'Full-stack data acquisition system (+25% reporting accuracy), real-time KPI dashboards for VW production line (-40% analysis time), and logistics weekly planning automation with Power BI, Power Apps, and Dataverse.',
+      'tl4.date':       '04/2013 — 08/2015',
+      'tl4.title':      'Research Associate',
+      'tl4.org':        'Al Jawhara Research Center · Jordan',
+      'tl4.desc':       'Interdisciplinary data analysis in sociology, medicine, economics, and education development. Statistical modeling and reporting with SPSS and R.',
+      'tl5.date':       '09/2006 — 03/2013',
+      'tl5.title':      'Lecturer in Statistics & Data Analysis',
+      'tl5.org':        'University of Damascus · Syria',
+      'tl5.desc':       'Teaching statistics, analytical thinking, and methodological competence to students. Supervision of research projects using SPSS, R, JASP, and Python.',
       'pub.title':      'Scientific Publications',
       'pub.meta':       'Peer-Reviewed',
+      'pub1.title':     'The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study',
+      'pub1.source':    'International Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5',
+      'pub2.title':     'Multi-Logistic Regression Binary Response Technique to Determine the most Important Affecting Factors of Diakonie\'s Role in integrating Syrian Refugees in Germany',
+      'pub2.source':    'Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin',
+      'pub3.title':     'The reality of Alienation among the Arab Students in University — A comparative Study between Syrian and Iraqi Refugee Students in Jordan',
+      'pub3.source':    'Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada',
       'contact.eyebrow':'Get in Touch',
       'contact.headline':'Let\'s talk about <em class="italic">your next</em> data challenge.',
       'contact.btn':    'Send E-Mail',
@@ -3169,6 +3368,95 @@ html{
       'contact.location.label':'Location',
       'contact.avail.label':   'Availability',
       'contact.avail.value':   'Immediately · Full-time',
+    },
+    ar: {
+      'nav.about':        'عني',
+      'nav.expertise':    'خبرات',
+      'nav.projects':     'مشاريع',
+      'nav.experience':   'المسيرة',
+      'nav.publications': 'منشورات',
+      'nav.contact':      'تواصل',
+      'hero.eyebrow':  'عالم بيانات · هانوفر',
+      'hero.title.pre':'تحويل البيانات إلى',
+      'hero.title.mid':'رؤى',
+      'hero.title.suf':'.',
+      'hero.tagline':  '<strong>عالم بيانات</strong> معتمد مع أكثر من عام من الخبرة الصناعية في <strong>Magna Exteriors</strong> (مشاريع لفولكسفاغن). متخصص في التعلم الآلي وذكاء الأعمال والذكاء الاصطناعي التوليدي.',
+      'hero.stat1':    'ساعة تدريب وتأهيل',
+      'hero.stat2':    'تحليلات أسرع',
+      'hero.stat3':    'منشورات علمية',
+      'hero.btn1':     'عرض المشاريع',
+      'hero.btn2':     'طلب محادثة',
+      'hero.available':'متاح',
+      'about.title':   'عني',
+      'about.meta':    'الملف الشخصي',
+      'about.approach':'نهجي',
+      'about.quote':   '«علم البيانات الحقيقي يبدأ حيث تلتقي <span class="gold-mark">الأرقام</span> بـ<span class="gold-mark">منطق الأعمال</span> — وينتهي حين تصبح القرارات أيسر.»',
+      'about.hl1':     'سنوات خبرة',
+      'about.hl2':     'شهادة احترافية',
+      'about.hl3':     'ألماني · DSH-2',
+      'about.hl4':     'منشورات',
+      'about.p1':      'بدأت مسيرتي في علم البيانات <strong>عام 2006 محاضراً للإحصاء</strong> في جامعة دمشق. على مدار 17 عاماً تاليةً تعاملت مع مجموعات بيانات معقدة، من الدراسات العلمية في الأردن إلى أتمتة الصناعة في ألمانيا.',
+      'about.p2':      'في <strong>Magna Exteriors (هانوفر)</strong> طورت لصالح <strong>Volkswagen AG</strong> أنظمة جمع بيانات متكاملة ولوحات مؤشرات أداء آنية وأنظمة أتمتة لوجستية؛ مما أسفر عن <strong>تحليلات أسرع بنسبة 40%</strong> ودقة تقارير أعلى <strong>بنسبة 25%</strong>.',
+      'about.p3':      'اليوم أجمع بين الأساليب الإحصائية الكلاسيكية وأحدث تقنيات <strong>الذكاء الاصطناعي التوليدي</strong> — XGBoost مع GPT-4o وPower BI مع بنيات RAG. هدفي: حلول لا تكتفي بالأناقة التقنية بل تُقاس اقتصادياً.',
+      'about.p4':      'أنا <strong>أكاديمي الأصل</strong> (بكالوريوس علوم الحاسوب هيلدسهايم، ماجستير القياس والتقييم)، <strong>مُجرَّب ميدانياً</strong> (عملاء صناعيون VW وعمل حر)، و<strong>متعدد اللغات</strong> (ألماني C1، إنجليزي B2، عربي كلغة أم).',
+      'expertise.title':'الخبرات',
+      'expertise.meta': 'التقنيات والمهارات',
+      'exp.card1.title':'Python وعلم البيانات',
+      'exp.card1.desc': 'معالجة البيانات والنمذجة الإحصائية وتحليل السلاسل الزمنية والتحليل الاستكشافي بأدوات Python الحديثة.',
+      'exp.card2.title':'التعلم الآلي والتعلم العميق',
+      'exp.card2.desc': 'تحليلات تنبؤية وتصنيف وتجميع وشبكات عصبية لحل مشكلات الأعمال الواقعية.',
+      'exp.card3.title':'ذكاء الأعمال',
+      'exp.card3.desc': 'لوحات معلومات فورية وتتبع مؤشرات الأداء وخطوط أنابيب ETL لاتخاذ قرارات مبنية على البيانات.',
+      'exp.card4.title':'الذكاء الاصطناعي التوليدي ونماذج اللغة',
+      'exp.card4.desc': 'وكلاء ذكاء اصطناعي وبنيات RAG وأتمتة سير العمل بنماذج لغوية حديثة.',
+      'exp.card5.title':'قواعد البيانات',
+      'exp.card5.desc': 'قواعد بيانات علائقية وNoSQL وقواعد بيانات الرسم البياني والتخزين السحابي.',
+      'exp.card6.title':'DevOps والأدوات',
+      'exp.card6.desc': 'الحاويات والتحكم في الإصدارات ونظام Microsoft البيئي لبيئات المؤسسات.',
+      'projects.title': 'مشاريع مختارة',
+      'proj.period':    'الفترة',
+      'proj.impact':    'الأثر',
+      'proj.pdf':       'عرض PDF',
+      'proj.live':      'مباشر',
+      'proj.count':     'مشاريع',
+      'exp.title':      'المسيرة المهنية',
+      'exp.meta':       'المسار الوظيفي',
+      'tl1.date':       '04/2025 — حتى الآن',
+      'tl1.title':      'مشاريع علم البيانات الحرة',
+      'tl1.org':        'محفظة الذكاء الاصطناعي وعلم البيانات · هانوفر',
+      'tl1.desc':       'تطوير وكلاء ذكاء اصطناعي معيارية باستخدام n8n وGPT-4o، وتحليلات تنبؤية بـXGBoost، وتطبيقات GA4 لمشاريع العملاء. بناء محفظة تقنية تركز على حلول الذكاء الاصطناعي الجاهزة للإنتاج.',
+      'tl2.date':       '04/2025 — 10/2025',
+      'tl2.title':      'تأهيل كامل لعالم البيانات',
+      'tl2.org':        'Educx GmbH · نورنبرغ (AZAV / CERT IT)',
+      'tl2.desc':       '1.080 ساعة تدريب مكثف في 6 وحدات: Python وعلم البيانات، التعلم الآلي والعميق، البيانات الضخمة وذكاء الأعمال، تطبيقات الذكاء الاصطناعي والتوليدي. معتمد وفق معايير الجودة الألمانية.',
+      'tl3.date':       '01/2024 — 12/2024',
+      'tl3.title':      'محلل بيانات',
+      'tl3.org':        'Magna Exteriors (Germany) GmbH · هانوفر (مشاريع لـ Volkswagen AG)',
+      'tl3.desc':       'نظام جمع بيانات متكامل (+25% دقة التقارير)، لوحات مؤشرات أداء آنية لخط إنتاج VW (−40% وقت التحليل)، وأتمتة التخطيط الأسبوعي للوجستيات بـPower BI وPower Apps وDataverse.',
+      'tl4.date':       '04/2013 — 08/2015',
+      'tl4.title':      'باحث علمي',
+      'tl4.org':        'مركز الجوهرة للبحوث · الأردن',
+      'tl4.desc':       'تحليل بيانات متعدد التخصصات في علم الاجتماع والطب والاقتصاد وتطوير التعليم. نمذجة إحصائية وإعداد التقارير بـSPSS وR.',
+      'tl5.date':       '09/2006 — 03/2013',
+      'tl5.title':      'محاضر في الإحصاء وتحليل البيانات',
+      'tl5.org':        'جامعة دمشق · سوريا',
+      'tl5.desc':       'تدريس الإحصاء والتفكير التحليلي والكفاءة المنهجية للطلاب. الإشراف على مشاريع البحث باستخدام SPSS وR وJASP وPython.',
+      'pub.title':      'المنشورات العلمية',
+      'pub.meta':       'محكَّمة علمياً',
+      'pub1.title':     'تطبيق تقنيات التعلم الآلي في التحقيق وتحليل ظاهرة التنمر المدرسي: دراسة تطبيقية باستخدام الانحدار اللوجستي الثنائي',
+      'pub1.source':    'المجلة الدولية للبحوث والدراسات متعددة التخصصات المتقدمة · المجلد 3، العدد 5',
+      'pub2.title':     'تقنية الاستجابة الثنائية بالانحدار اللوجستي المتعدد لتحديد أهم العوامل المؤثرة في دور Diakonie في دمج اللاجئين السوريين في ألمانيا',
+      'pub2.source':    'مجلة العلوم السياسية والقانون · المجلد 3، العدد 13 · المركز الديمقراطي العربي، برلين',
+      'pub3.title':     'واقع الاغتراب لدى الطلاب العرب في الجامعة — دراسة مقارنة بين الطلاب اللاجئين السوريين والعراقيين في الأردن',
+      'pub3.source':    'المجلة الكندية لدراسات الشرق الأوسط · المجلد 2، العدد 2 · IMESC، كندا',
+      'contact.eyebrow':'تواصل معي',
+      'contact.headline':'لنتحدث عن <em class="italic">تحدياتك</em> القادمة في عالم البيانات.',
+      'contact.btn':    'إرسال بريد إلكتروني',
+      'contact.email.label':   'البريد الإلكتروني',
+      'contact.phone.label':   'الهاتف',
+      'contact.location.label':'الموقع',
+      'contact.avail.label':   'التوفر',
+      'contact.avail.value':   'فوراً · دوام كامل',
     }
   };
 
@@ -3179,9 +3467,22 @@ html{
 
   function setLang(lang) {
     currentLang = lang;
-    // Update html dir for RTL
-    document.documentElement.setAttribute('dir', 'ltr');
+    const isRTL = lang === 'ar';
+    // Update html dir and lang
     document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    // Update pf-root direction
+    const root = document.getElementById('pf-root');
+    if (root) {
+      root.style.direction = isRTL ? 'rtl' : 'ltr';
+      root.style.textAlign = isRTL ? 'right' : 'left';
+      // Update font for Arabic
+      if (isRTL) {
+        root.style.fontFamily = '"Segoe UI", "Noto Sans Arabic", "Cairo", Tahoma, sans-serif';
+      } else {
+        root.style.fontFamily = '"Manrope", -apple-system, system-ui, sans-serif';
+      }
+    }
     // Highlight active button
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
