@@ -1,0 +1,3103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anas Al Rajeh — Data Scientist & Machine Learning Engineer</title>
+<meta name="description" content="Portfolio von Anas Al Rajeh — Zertifizierter Data Scientist mit Industrieerfahrung bei Magna Exteriors / Volkswagen">
+
+<!-- Fonts: Fraunces (display serif) + Manrope (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Phosphor Icons (more professional than Font Awesome) -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+
+/* Odoo Bootstrap isolation */
+#pf-root {
+  all: initial;
+  display: block;
+  font-family: "Manrope", -apple-system, system-ui, sans-serif;
+  background: #0a0e1a;
+  color: #f4f1ea;
+  line-height: 1.65;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+#pf-root *, #pf-root *::before, #pf-root *::after {
+  box-sizing: border-box;
+}
+#pf-root /* ========================================
+     RESET & BASE
+  ======================================== */
+  *, #pf-root *::before, #pf-root *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+:root{
+    /* Refined editorial palette */
+    --ink:        #0a0e1a;
+    --ink-soft:   #141828;
+    --ink-deeper: #050811;
+    --paper:      #f4f1ea;
+    --paper-soft: #e8e3d6;
+    --gold:       #c9a961;
+    --gold-soft:  #d4b974;
+    --gold-deep:  #a8884a;
+    --emerald:    #5b8c7c;
+    --rust:       #b85842;
+    --muted:      #6b7280;
+    --line:       rgba(201, 169, 97, 0.18);
+    --line-strong: rgba(201, 169, 97, 0.35);
+    --glass:      rgba(244, 241, 234, 0.04);
+    --glass-hover: rgba(244, 241, 234, 0.08);
+
+    /* Typography scale */
+    --font-display: "Fraunces", "Times New Roman", serif;
+    --font-body:    "Manrope", -apple-system, system-ui, sans-serif;
+    --font-mono:    "JetBrains Mono", "SF Mono", monospace;
+
+    /* Spacing scale (8pt grid) */
+    --sp-1: 0.5rem;
+    --sp-2: 1rem;
+    --sp-3: 1.5rem;
+    --sp-4: 2rem;
+    --sp-5: 3rem;
+    --sp-6: 4rem;
+    --sp-7: 6rem;
+    --sp-8: 8rem;
+    --sp-9: 12rem;
+  }
+html{
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+#pf-root{
+    font-family: var(--font-body);
+    font-weight: 400;
+    background: var(--ink);
+    color: var(--paper);
+    line-height: 1.65;
+    letter-spacing: -0.005em;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-feature-settings: "ss01", "ss02", "cv01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+/* Subtle paper grain texture */
+  #pf-root::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(at 20% 30%, rgba(201, 169, 97, 0.04) 0px, transparent 50%),
+      radial-gradient(at 80% 70%, rgba(91, 140, 124, 0.03) 0px, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+#pf-root::after{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+#pf-root a{ color: inherit; text-decoration: none; }
+#pf-root button{ font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+#pf-root img{ max-width: 100%; display: block; }
+#pf-root /* ========================================
+     TYPOGRAPHY
+  ======================================== */
+  .display{
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-feature-settings: "ss01";
+  }
+#pf-root h1.display{
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+#pf-root h2.display{
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+#pf-root h3.display{
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+#pf-root .italic{ font-style: italic; font-variation-settings: "opsz" 144; }
+#pf-root .gold{ color: var(--gold); }
+#pf-root .gold-bright{ color: var(--gold-soft); }
+#pf-root .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+#pf-root .eyebrow::before{
+    content: "";
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+#pf-root .lede{
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+    color: rgba(244, 241, 234, 0.78);
+    font-weight: 400;
+    max-width: 62ch;
+  }
+#pf-root .number-display{
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+#pf-root /* ========================================
+     LAYOUT
+  ======================================== */
+  .container{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    position: relative;
+    z-index: 2;
+  }
+#pf-root .container-narrow{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    position: relative;
+    z-index: 2;
+  }
+#pf-root section{
+    padding: var(--sp-8) 0;
+    position: relative;
+  }
+#pf-root /* ========================================
+     NAVIGATION
+  ======================================== */
+  nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 0;
+    background: rgba(10, 14, 26, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s ease;
+  }
+#pf-root .nav-inner{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+#pf-root .nav-logo{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+#pf-root .nav-logo .dot{
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: inline-block;
+  }
+#pf-root .nav-links{
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+#pf-root .nav-links a{
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(244, 241, 234, 0.7);
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.25s ease;
+  }
+#pf-root .nav-links a:hover{ color: var(--gold); }
+#pf-root .nav-links a::after{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+#pf-root .nav-links a:hover::after{ transform: scaleX(1); }
+#pf-root .nav-cta{
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 100px;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+#pf-root .nav-cta:hover{
+    background: var(--gold);
+    color: var(--ink);
+  }
+#pf-root /* ========================================
+     HERO
+  ======================================== */
+  .hero{
+    min-height: 100vh;
+    padding: 8rem 0 4rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+#pf-root .hero-decoration{
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.08) 0%, transparent 60%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+#pf-root .hero-grid{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+#pf-root .hero-content{
+    max-width: 720px;
+  }
+#pf-root .hero-meta{
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+#pf-root .hero h1{
+    margin-bottom: 1.5rem;
+  }
+#pf-root .hero h1 .line{
+    display: block;
+    overflow: hidden;
+  }
+#pf-root .hero h1 span{
+    display: inline-block;
+    animation: lineUp 1s cubic-bezier(0.65, 0, 0.35, 1) backwards;
+  }
+#pf-root .hero h1 .line:nth-child(1) span{ animation-delay: 0.2s; }
+#pf-root .hero h1 .line:nth-child(2) span{ animation-delay: 0.4s; }
+#pf-root .hero h1 .line:nth-child(3) span{ animation-delay: 0.6s; }
+@keyframes lineUp{
+    from { transform: translateY(110%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+#pf-root .hero-tagline{
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    color: rgba(244, 241, 234, 0.7);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 56ch;
+    animation: fadeIn 1s ease 0.8s backwards;
+  }
+#pf-root .hero-tagline strong{
+    color: var(--paper);
+    font-weight: 500;
+  }
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+#pf-root .hero-stats{
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    animation: fadeIn 1s ease 1s backwards;
+  }
+#pf-root .stat{
+    border-left: 1px solid var(--line-strong);
+    padding-left: 1.25rem;
+  }
+#pf-root .stat-number{
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.03em;
+  }
+#pf-root .stat-label{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+#pf-root .hero-buttons{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeIn 1s ease 1.2s backwards;
+  }
+#pf-root .btn{
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+#pf-root .btn i{
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+#pf-root .btn-primary{
+    background: var(--gold);
+    color: var(--ink);
+  }
+#pf-root .btn-primary:hover{
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(201, 169, 97, 0.4);
+  }
+#pf-root .btn-primary:hover i{ transform: translateX(4px); }
+#pf-root .btn-ghost{
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid var(--line-strong);
+  }
+#pf-root .btn-ghost:hover{
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+#pf-root .hero-portrait{
+    width: 320px;
+    height: 400px;
+    position: relative;
+    animation: fadeIn 1.2s ease 0.4s backwards;
+  }
+#pf-root .hero-portrait-frame{
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 40px 80px -20px rgba(0, 0, 0, 0.6),
+      0 0 0 1px var(--line-strong);
+  }
+#pf-root .hero-portrait-frame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.05);
+  }
+#pf-root .hero-portrait::before{
+    content: "";
+    position: absolute;
+    inset: -20px -20px 20px 20px;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    z-index: -1;
+  }
+#pf-root .portrait-tag{
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--ink);
+    border: 1px solid var(--gold);
+    padding: 0.75rem 1.25rem;
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+#pf-root .portrait-tag .dot{
+    width: 6px;
+    height: 6px;
+    background: #5dc97c;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #5dc97c;
+    animation: pulse 2s infinite;
+  }
+@keyframes pulse{
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+#pf-root /* ========================================
+     SECTION HEADER
+  ======================================== */
+  .section-head{
+    margin-bottom: var(--sp-6);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: end;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2rem;
+  }
+#pf-root .section-num{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+  }
+#pf-root .section-title{
+    margin: 0;
+  }
+#pf-root .section-meta{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+#pf-root /* ========================================
+     ABOUT
+  ======================================== */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: var(--sp-6);
+    align-items: start;
+  }
+#pf-root .about-aside{
+    position: sticky;
+    top: 7rem;
+  }
+#pf-root .about-aside .label{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+#pf-root .about-quote{
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.35;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin-bottom: 2rem;
+  }
+#pf-root .about-quote .gold-mark{
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+#pf-root .about-text{
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(244, 241, 234, 0.82);
+  }
+#pf-root .about-text p{ margin-bottom: 1.5rem; }
+#pf-root .about-text strong{ color: var(--paper); font-weight: 600; }
+#pf-root .highlight-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+#pf-root .highlight-card{
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+#pf-root .highlight-card:hover{
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    background: var(--glass-hover);
+  }
+#pf-root .highlight-card i{
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+#pf-root .highlight-card .num{
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+#pf-root .highlight-card .label{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+#pf-root /* ========================================
+     EXPERTISE / SKILLS
+  ======================================== */
+  #expertise{
+    background: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+#pf-root .expertise-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+#pf-root .expertise-card{
+    background: var(--ink-soft);
+    padding: 2.5rem 2rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+#pf-root .expertise-card::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+#pf-root .expertise-card:hover::before{ transform: scaleX(1); }
+#pf-root .expertise-card:hover{
+    background: var(--ink-deeper);
+  }
+#pf-root .expertise-icon{
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    background: rgba(201, 169, 97, 0.08);
+    border: 1px solid var(--line-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+#pf-root .expertise-card:hover .expertise-icon{
+    background: var(--gold);
+    color: var(--ink);
+    transform: scale(1.05);
+  }
+#pf-root .expertise-card h3{
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--paper);
+  }
+#pf-root .expertise-card p{
+    font-size: 0.95rem;
+    color: rgba(244, 241, 234, 0.65);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+#pf-root .expertise-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+#pf-root .tech-tag{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    background: rgba(201, 169, 97, 0.08);
+    border: 1px solid var(--line);
+    color: rgba(244, 241, 234, 0.85);
+    border-radius: 4px;
+  }
+#pf-root /* ========================================
+     PROJECTS
+  ======================================== */
+  .projects-list{
+    display: flex;
+    flex-direction: column;
+  }
+#pf-root .project-row{
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+#pf-root .project-row:last-child{
+    border-bottom: 1px solid var(--line);
+  }
+#pf-root .project-row::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.03), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+#pf-root .project-row:hover::before{ opacity: 1; }
+#pf-root .project-row:hover .project-title{ color: var(--gold); }
+#pf-root .project-row:hover .project-arrow{ transform: translateX(8px); color: var(--gold); }
+#pf-root .project-index{
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    padding-top: 0.5rem;
+  }
+#pf-root .project-content{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+#pf-root .project-main h3{
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+    color: var(--paper);
+  }
+#pf-root .project-company{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: inline-block;
+  }
+#pf-root .project-desc{
+    color: rgba(244, 241, 234, 0.7);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+#pf-root .project-tech-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+#pf-root .project-aside{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+#pf-root .project-meta-row{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+#pf-root .meta-label{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+#pf-root .meta-value{
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+#pf-root .meta-value-small{
+    font-size: 0.95rem;
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-weight: 500;
+  }
+#pf-root .project-links{
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+#pf-root .project-link-btn{
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(244, 241, 234, 0.8);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.25s ease;
+  }
+#pf-root .project-link-btn i{ font-size: 1rem; }
+#pf-root .project-link-btn:hover{
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201, 169, 97, 0.05);
+  }
+#pf-root .project-arrow{
+    color: var(--muted);
+    font-size: 1.5rem;
+    padding-top: 0.5rem;
+    transition: all 0.3s ease;
+  }
+#pf-root /* ========================================
+     EXPERIENCE / TIMELINE
+  ======================================== */
+  .timeline{
+    position: relative;
+    padding-left: 2rem;
+  }
+#pf-root .timeline::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--line) 100%);
+  }
+#pf-root .timeline-item{
+    position: relative;
+    padding-bottom: 3.5rem;
+  }
+#pf-root .timeline-item:last-child{ padding-bottom: 0; }
+#pf-root .timeline-item::before{
+    content: "";
+    position: absolute;
+    left: -2rem;
+    top: 0.75rem;
+    width: 11px;
+    height: 11px;
+    background: var(--ink);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 4px var(--ink);
+  }
+#pf-root .timeline-date{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+#pf-root .timeline-title{
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--paper);
+  }
+#pf-root .timeline-org{
+    font-size: 0.95rem;
+    color: var(--gold-soft);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+#pf-root .timeline-desc{
+    color: rgba(244, 241, 234, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+#pf-root /* ========================================
+     PUBLICATIONS
+  ======================================== */
+  .pub-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+#pf-root .pub-card{
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+#pf-root .pub-card::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-top: 30px solid rgba(201, 169, 97, 0.15);
+    transition: border-top-color 0.3s ease;
+  }
+#pf-root .pub-card:hover{
+    border-color: var(--gold);
+    background: var(--glass-hover);
+    transform: translateY(-4px);
+  }
+#pf-root .pub-card:hover::after{
+    border-top-color: var(--gold);
+  }
+#pf-root .pub-year{
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+#pf-root .pub-title{
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    color: var(--paper);
+  }
+#pf-root .pub-source{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-style: italic;
+  }
+#pf-root /* ========================================
+     CONTACT
+  ======================================== */
+  #contact{
+    background: var(--ink-deeper);
+    border-top: 1px solid var(--line);
+    padding: var(--sp-9) 0 var(--sp-6);
+    position: relative;
+    overflow: hidden;
+  }
+#pf-root #contact::before{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.08) 0%, transparent 60%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+#pf-root .contact-headline{
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.2vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+#pf-root .contact-headline .italic{
+    color: var(--gold);
+  }
+#pf-root .contact-cta{
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+#pf-root .contact-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 4rem;
+  }
+#pf-root .contact-item{
+    background: var(--ink-deeper);
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+  }
+#pf-root .contact-item:hover{
+    background: var(--ink-soft);
+  }
+#pf-root .contact-item i{
+    font-size: 1.3rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+#pf-root .contact-item .label{
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+#pf-root .contact-item .value{
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    color: var(--paper);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+#pf-root .contact-item a.value:hover{ color: var(--gold); }
+#pf-root .socials{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+#pf-root .social-btn{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+  }
+#pf-root .social-btn:hover{
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--ink);
+    transform: translateY(-4px);
+  }
+#pf-root /* ========================================
+     FOOTER
+  ======================================== */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 2rem 0;
+    text-align: center;
+    background: var(--ink-deeper);
+  }
+#pf-root footer p{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+#pf-root /* ========================================
+     ADMIN BUTTON
+  ======================================== */
+  .admin-toggle{
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 8px 24px rgba(201, 169, 97, 0.35);
+    z-index: 99;
+    transition: all 0.3s ease;
+  }
+#pf-root .admin-toggle:hover{
+    transform: scale(1.1) rotate(45deg);
+    box-shadow: 0 12px 32px rgba(201, 169, 97, 0.5);
+  }
+#pf-root /* ========================================
+     ADMIN PANEL
+  ======================================== */
+  .admin-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 17, 0.96);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+  }
+#pf-root .admin-overlay.active{ display: block; }
+#pf-root .admin-panel{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    color: var(--paper);
+  }
+#pf-root .admin-header-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 3rem;
+  }
+#pf-root .admin-header-row h1{
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+#pf-root .admin-header-row h1 i{ color: var(--gold); margin-right: 0.5rem; }
+#pf-root .admin-close{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    color: var(--paper);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+#pf-root .admin-close:hover{
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: rotate(90deg);
+  }
+#pf-root .admin-tabs{
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+#pf-root .admin-tab{
+    padding: 1rem 1.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+#pf-root .admin-tab i{ font-size: 1.1rem; }
+#pf-root .admin-tab:hover{ color: var(--paper); }
+#pf-root .admin-tab.active{
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+#pf-root .admin-tab-content{ display: none; }
+#pf-root .admin-tab-content.active{ display: block; }
+#pf-root .admin-section{
+    background: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+#pf-root .admin-section h2{
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--paper);
+  }
+#pf-root .admin-section h2 i{ color: var(--gold); font-size: 1.3rem; }
+#pf-root .form-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+#pf-root .form-row-full{ grid-template-columns: 1fr; }
+#pf-root .form-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+#pf-root .form-field label{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+#pf-root .form-field input, #pf-root .form-field textarea, #pf-root .form-field select{
+    background: var(--ink-deeper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+  }
+#pf-root .form-field input:focus, #pf-root .form-field textarea:focus, #pf-root .form-field select:focus{
+    outline: none;
+    border-color: var(--gold);
+    background: var(--ink);
+  }
+#pf-root .form-field textarea{
+    resize: vertical;
+    min-height: 110px;
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+#pf-root /* File Upload */
+  .file-upload{
+    display: block;
+    cursor: pointer;
+    border: 2px dashed var(--line-strong);
+    border-radius: 6px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: var(--ink-deeper);
+  }
+#pf-root .file-upload:hover{
+    border-color: var(--gold);
+    background: var(--ink);
+  }
+#pf-root .file-upload i{
+    font-size: 2.5rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+#pf-root .file-upload-text{
+    font-size: 0.95rem;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+#pf-root .file-upload-hint{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+#pf-root .file-upload input{ display: none; }
+#pf-root .file-preview{
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--ink-deeper);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+#pf-root .file-preview img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+#pf-root .file-preview-info{
+    flex: 1;
+  }
+#pf-root .file-preview-name{
+    font-weight: 600;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+#pf-root .file-preview-size{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+#pf-root /* PDF Icon */
+  .pdf-preview-icon{
+    width: 80px;
+    height: 80px;
+    background: var(--rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 1.8rem;
+  }
+#pf-root /* Admin Buttons */
+  .admin-actions{
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+#pf-root .btn-admin{
+    padding: 0.85rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+#pf-root .btn-admin i{ font-size: 1.1rem; }
+#pf-root .btn-admin-primary{
+    background: var(--gold);
+    color: var(--ink);
+  }
+#pf-root .btn-admin-primary:hover{
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+  }
+#pf-root .btn-admin-ghost{
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid var(--line-strong);
+  }
+#pf-root .btn-admin-ghost:hover{
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+#pf-root .btn-admin-danger{
+    background: transparent;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+  }
+#pf-root .btn-admin-danger:hover{
+    background: var(--rust);
+    color: var(--paper);
+  }
+#pf-root /* Admin Items List */
+  .admin-items-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+#pf-root .admin-item-row{
+    background: var(--ink-deeper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.25s ease;
+  }
+#pf-root .admin-item-row:hover{
+    border-color: var(--gold);
+  }
+#pf-root .admin-item-info{
+    flex: 1;
+    min-width: 0;
+  }
+#pf-root .admin-item-info h4{
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+#pf-root .admin-item-info p{
+    font-size: 0.85rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+#pf-root .admin-item-actions{
+    display: flex;
+    gap: 0.5rem;
+  }
+#pf-root .btn-icon{
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+#pf-root .btn-icon:hover{ border-color: var(--gold); color: var(--gold); }
+#pf-root .btn-icon.danger:hover{ border-color: var(--rust); color: var(--rust); }
+#pf-root .admin-item-badges{
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+#pf-root .admin-badge{
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(201, 169, 97, 0.1);
+    color: var(--gold);
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+#pf-root .admin-badge.pdf{
+    background: rgba(184, 88, 66, 0.15);
+    color: var(--rust);
+  }
+#pf-root /* Toast */
+  .toast{
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background: var(--ink-soft);
+    border: 1px solid var(--gold);
+    color: var(--paper);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    animation: toastIn 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+#pf-root .toast i{ color: var(--gold); font-size: 1.2rem; }
+@keyframes toastIn{
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+#pf-root /* PDF Modal */
+  .pdf-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 10000;
+    display: none;
+    padding: 2rem;
+  }
+#pf-root .pdf-modal.active{ display: flex; flex-direction: column; }
+#pf-root .pdf-modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    color: var(--paper);
+  }
+#pf-root .pdf-modal-header h3{
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+#pf-root .pdf-modal iframe{
+    flex: 1;
+    width: 100%;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: white;
+  }
+#pf-root /* ========================================
+     RESPONSIVE
+  ======================================== */
+  @media (max-width: 980px){
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .hero-portrait {
+      width: 240px;
+      height: 300px;
+      margin-top: 2rem;
+    }
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-aside { position: static; }
+    .project-content {
+      grid-template-columns: 1fr;
+    }
+    .project-row {
+      grid-template-columns: 60px 1fr;
+    }
+    .project-arrow { display: none; }
+    .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+    .pub-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+@media (max-width: 720px){
+    section { padding: 5rem 0; }
+    .nav-links { display: none; }
+    .nav-cta i { display: none; }
+    .hero { padding: 6rem 0 3rem; }
+    .hero-stats { gap: 1.5rem; }
+    .stat { padding-left: 1rem; }
+    .stat-number { font-size: 1.8rem; }
+    h1.display { white-space: normal; }
+    .contact-headline { white-space: normal; }
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .highlight-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .admin-panel { padding: 2rem 1rem; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .pub-grid { grid-template-columns: 1fr; }
+  }
+#pf-root /* ========================================
+     LANGUAGE SWITCHER
+  ======================================== */
+  .lang-switcher{
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: rgba(201, 169, 97, 0.06);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    padding: 0.25rem;
+  }
+#pf-root .lang-btn{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 100px;
+    color: rgba(244,241,234,0.55);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+#pf-root .lang-btn:hover{ color: var(--paper); }
+#pf-root .lang-btn.active{
+    background: var(--gold);
+    color: var(--ink);
+  }
+#pf-root content: "";
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+
+
+
+
+
+
+
+
+
+  @media (max-width: 860px){
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+@media (max-width: 520px){
+    .contact-grid { grid-template-columns: 1fr; }
+    .lang-switcher { gap: 0.1rem; }
+    .lang-btn { padding: 0.25rem 0.45rem; font-size: 0.65rem; }
+  }
+
+</style>
+</head>
+<body>
+<div id="pf-root">
+
+<!-- ========================================
+     NAVIGATION
+======================================== -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="dot"></span>
+      Anas Al Rajeh
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">Über mich</a></li>
+      <li><a href="#expertise" data-i18n="nav.expertise">Expertise</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projekte</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Werdegang</a></li>
+      <li><a href="#publications" data-i18n="nav.publications">Publikationen</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">
+      <i class="ph ph-paper-plane-tilt"></i>
+      <span data-i18n="nav.contact">Kontakt</span>
+    </a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========================================
+     HERO
+======================================== -->
+<section class="hero">
+  <div class="hero-decoration"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-meta">
+          <span class="eyebrow" data-i18n="hero.eyebrow">Data Scientist · Hannover</span>
+        </div>
+        <h1 class="display">
+          <span data-i18n="hero.title.pre">Daten in</span> <em class="italic gold" data-i18n="hero.title.mid">Erkenntnisse</em> <span data-i18n="hero.title.suf">verwandeln.</span>
+        </h1>
+        <p class="hero-tagline" data-i18n-html="hero.tagline">
+          Zertifizierter <strong>Data Scientist</strong> mit über einem Jahr Industrieerfahrung bei <strong>Magna Exteriors</strong> (Kundenprojekte für Volkswagen AG). Spezialisiert auf Machine Learning, Business Intelligence und Generative KI.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">1.080</div>
+            <div class="stat-label" data-i18n="hero.stat1">Stunden Zertifizierung</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">+40%</div>
+            <div class="stat-label" data-i18n="hero.stat2">Schnellere Analysen</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">03</div>
+            <div class="stat-label" data-i18n="hero.stat3">Wissenschaftliche Publikationen</div>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">
+            <span data-i18n="hero.btn1">Projekte ansehen</span>
+            <i class="ph ph-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn btn-ghost">
+            <i class="ph ph-envelope-simple"></i>
+            <span data-i18n="hero.btn2">Gespräch anfragen</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-portrait">
+        <div class="hero-portrait-frame">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop" alt="Anas Al Rajeh" id="heroPortrait">
+        </div>
+        <div class="portrait-tag">
+          <span class="dot"></span>
+          <span data-i18n="hero.available">Verfügbar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     ABOUT
+======================================== -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01 ——</div>
+      <h2 class="section-title display" data-i18n="about.title">Über mich</h2>
+      <div class="section-meta" data-i18n="about.meta">Profil</div>
+    </div>
+
+    <div class="about-grid">
+      <aside class="about-aside">
+        <span class="label">Mein Ansatz</span>
+        <p class="about-quote">
+          „Echte Datenwissenschaft beginnt dort, wo <span class="gold-mark">Zahlen</span> auf <span class="gold-mark">Geschäftslogik</span> treffen — und endet, wenn Entscheidungen einfacher werden."
+        </p>
+
+        <div class="highlight-grid">
+          <div class="highlight-card">
+            <i class="ph-fill ph-graduation-cap"></i>
+            <div class="num">17+</div>
+            <div class="label">Jahre Erfahrung</div>
+          </div>
+          <div class="highlight-card">
+            <i class="ph-fill ph-certificate"></i>
+            <div class="num">1.080h</div>
+            <div class="label">Zertifizierung</div>
+          </div>
+          <div class="highlight-card">
+            <i class="ph-fill ph-translate"></i>
+            <div class="num">C1</div>
+            <div class="label">Deutsch · DSH-2</div>
+          </div>
+          <div class="highlight-card">
+            <i class="ph-fill ph-medal"></i>
+            <div class="num">03</div>
+            <div class="label">Publikationen</div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="about-text">
+        <p>
+          Mein Weg in die Datenwissenschaft begann <strong>2006 als Dozent für Statistik</strong> an der Universität Damaskus. Über die folgenden 17 Jahre habe ich komplexe Datensätze interpretiert — von wissenschaftlichen Studien in Jordanien bis hin zur Industrieautomatisierung in Deutschland.
+        </p>
+        <p>
+          Bei <strong>Magna Exteriors (Hannover)</strong> habe ich für <strong>Volkswagen AG</strong> Full-Stack-Datenerfassungssysteme, Echtzeit-KPI-Dashboards und Logistik-Automatisierungen entwickelt. Das Ergebnis: <strong>40&nbsp;% schnellere Analysen</strong> und <strong>25&nbsp;% höhere Berichtsgenauigkeit</strong>.
+        </p>
+        <p>
+          Heute kombiniere ich klassische statistische Methoden mit modernster <strong>Generativer KI</strong> — XGBoost trifft GPT-4o, Power BI trifft RAG-Architekturen. Mein Ziel: Lösungen schaffen, die nicht nur technisch elegant, sondern wirtschaftlich messbar sind.
+        </p>
+        <p>
+          Ich bin <strong>akademisch geprägt</strong> (BSc Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     EXPERTISE
+======================================== -->
+<section id="expertise">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02 ——</div>
+      <h2 class="section-title display" data-i18n="expertise.title">Expertise</h2>
+      <div class="section-meta" data-i18n="expertise.meta">Technologien &amp; Fähigkeiten</div>
+    </div>
+
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-code"></i></div>
+        <h3>Python &amp; Data Science</h3>
+        <p>Datenmanipulation, statistische Modellierung, Zeitreihenanalyse und explorative Datenanalyse mit modernem Python-Stack.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">NumPy</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">R</span>
+        </div>
+      </div>
+
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-brain"></i></div>
+        <h3>Machine Learning &amp; Deep Learning</h3>
+        <p>Predictive Analytics, Klassifikation, Clustering und neuronale Netze für reale Geschäftsprobleme.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">XGBoost</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">Keras</span>
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">CNN</span>
+        </div>
+      </div>
+
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-chart-line-up"></i></div>
+        <h3>Business Intelligence</h3>
+        <p>Echtzeit-Dashboards, KPI-Tracking und ETL-Pipelines für datengestützte Geschäftsentscheidungen.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">DAX</span>
+          <span class="tech-tag">Tableau</span>
+          <span class="tech-tag">Looker Studio</span>
+          <span class="tech-tag">ETL/ELT</span>
+        </div>
+      </div>
+
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-robot"></i></div>
+        <h3>Generative KI &amp; LLMs</h3>
+        <p>KI-Agenten, RAG-Architekturen und Workflow-Automatisierungen mit modernen Sprachmodellen.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">GPT-4o</span>
+          <span class="tech-tag">RAG</span>
+          <span class="tech-tag">n8n</span>
+          <span class="tech-tag">Hugging Face</span>
+          <span class="tech-tag">Ollama</span>
+        </div>
+      </div>
+
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-database"></i></div>
+        <h3>Datenbanken</h3>
+        <p>Relationale und NoSQL-Datenbanken, Graph-Datenbanken und Cloud-basierte Datenspeicherung.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Neo4j</span>
+          <span class="tech-tag">Dataverse</span>
+        </div>
+      </div>
+
+      <div class="expertise-card">
+        <div class="expertise-icon"><i class="ph ph-stack"></i></div>
+        <h3>DevOps &amp; Tools</h3>
+        <p>Containerisierung, Versionskontrolle und Microsoft-Ökosystem für Unternehmensumgebungen.</p>
+        <div class="expertise-tags">
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Git</span>
+          <span class="tech-tag">Power Apps</span>
+          <span class="tech-tag">SAP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     PROJECTS
+======================================== -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03 ——</div>
+      <h2 class="section-title display" data-i18n="projects.title">Ausgewählte Projekte</h2>
+      <div class="section-meta" id="projectsCount">06 Projekte</div>
+    </div>
+
+    <div class="projects-list" id="projectsList">
+      <!-- Dynamically rendered -->
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     EXPERIENCE
+======================================== -->
+<section id="experience">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">04 ——</div>
+      <h2 class="section-title display" data-i18n="exp.title">Werdegang</h2>
+      <div class="section-meta" data-i18n="exp.meta">Beruflicher Verlauf</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">04/2025 — Heute</div>
+        <div class="timeline-title">Freiberufliche Data Science Projekte</div>
+        <div class="timeline-org">AI &amp; Data Science Portfolio · Hannover</div>
+        <div class="timeline-desc">
+          Entwicklung modularer KI-Agenten mit n8n und GPT-4o, Predictive Analytics mit XGBoost, sowie GA4-Implementierungen für Kundenprojekte. Aufbau eines technischen Portfolios mit Fokus auf produktionsreife AI-Lösungen.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">04/2025 — 10/2025</div>
+        <div class="timeline-title">Data Scientist Vollqualifikation</div>
+        <div class="timeline-org">Educx GmbH · Nürnberg (AZAV / CERT IT)</div>
+        <div class="timeline-desc">
+          1.080 Stunden intensive Weiterbildung in 6 Modulen: Python &amp; Data Science, Machine Learning &amp; Deep Learning, Big Data &amp; Business Intelligence, KI-Anwendungen &amp; Generative KI. Zertifiziert nach deutschen Qualitätsstandards.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">01/2024 — 12/2024</div>
+        <div class="timeline-title">Data Analyst</div>
+        <div class="timeline-org">Magna Exteriors (Germany) GmbH · Hannover (Kundenprojekte für Volkswagen AG)</div>
+        <div class="timeline-desc">
+          Full-Stack-Datenerfassungssystem (+25% Berichtsgenauigkeit), Echtzeit-KPI-Dashboards für VW-Produktionslinie (-40% Analysezeit) und Automatisierung der Logistik-Wochenplanung mit Power BI, Power Apps und Dataverse.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">04/2013 — 08/2015</div>
+        <div class="timeline-title">Wissenschaftlicher Mitarbeiter</div>
+        <div class="timeline-org">Al Jawhara Forschungszentrum · Jordanien</div>
+        <div class="timeline-desc">
+          Interdisziplinäre Datenanalyse in Soziologie, Medizin, Wirtschaft und Bildungsentwicklung. Statistische Modellierung und Berichterstellung mit SPSS und R.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">09/2006 — 03/2013</div>
+        <div class="timeline-title">Dozent für Statistik &amp; Datenanalyse</div>
+        <div class="timeline-org">Universität Damaskus · Syrien</div>
+        <div class="timeline-desc">
+          Vermittlung von Statistik, analytischem Denken und methodischer Kompetenz an Studierende. Betreuung von Forschungsprojekten mit SPSS, R, JASP und Python.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     PUBLICATIONS
+======================================== -->
+<section id="publications">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">05 ——</div>
+      <h2 class="section-title display" data-i18n="pub.title">Wissenschaftliche Publikationen</h2>
+      <div class="section-meta" data-i18n="pub.meta">Peer-Reviewed</div>
+    </div>
+
+    <div class="pub-grid">
+      <article class="pub-card">
+        <div class="pub-year">2023</div>
+        <h3 class="pub-title">The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study</h3>
+        <p class="pub-source">International Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5</p>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-year">2019</div>
+        <h3 class="pub-title">Multi-Logistic Regression Binary Response Technique to Determine the most Important Affecting Factors of Diakonie's Role in integrating Syrian Refugees in Germany</h3>
+        <p class="pub-source">Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin</p>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-year">2018</div>
+        <h3 class="pub-title">The reality of Alienation among the Arab Students in University — A comparative Study between Syrian and Iraqi Refugee Students in Jordan</h3>
+        <p class="pub-source">Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     CONTACT
+======================================== -->
+<section id="contact">
+  <div class="container-narrow">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <span class="eyebrow" style="justify-content: center;" data-i18n="contact.eyebrow">Kontakt aufnehmen</span>
+    </div>
+
+    <h2 class="contact-headline">
+      <span data-i18n="contact.headline">Lassen Sie uns über <span class="italic">Ihre nächsten</span> Datenherausforderungen sprechen.</span>
+    </h2>
+
+    <div class="contact-cta">
+      <a href="mailto:anas83alrajeh@gmail.com" class="btn btn-primary">
+        <i class="ph ph-envelope-simple"></i>
+        <span data-i18n="contact.btn">E-Mail senden</span>
+      </a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <i class="ph ph-envelope"></i>
+        <div>
+          <div class="label" data-i18n="contact.email.label">E-Mail</div>
+          <a href="mailto:anas83alrajeh@gmail.com" class="value" id="contactEmail">anas83alrajeh@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="ph ph-phone"></i>
+        <div>
+          <div class="label" data-i18n="contact.phone.label">Telefon</div>
+          <a href="tel:+4917623906590" class="value" id="contactPhone">+49 176 23906590</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="ph ph-map-pin"></i>
+        <div>
+          <div class="label" data-i18n="contact.location.label">Standort</div>
+          <div class="value" id="contactLocation">30880 Laatzen, Deutschland</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="ph ph-clock"></i>
+        <div>
+          <div class="label" data-i18n="contact.avail.label">Verfügbarkeit</div>
+          <div class="value" data-i18n="contact.avail.value">Sofort · Vollzeit</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="socials">
+      <a href="https://linkedin.com/in/anas83" target="_blank" class="social-btn" aria-label="LinkedIn">
+        <i class="ph-fill ph-linkedin-logo"></i>
+      </a>
+      <a href="https://github.com/anas83alrajeh" target="_blank" class="social-btn" aria-label="GitHub">
+        <i class="ph-fill ph-github-logo"></i>
+      </a>
+      <a href="mailto:anas83alrajeh@gmail.com" class="social-btn" aria-label="E-Mail">
+        <i class="ph-fill ph-envelope-simple"></i>
+      </a>
+      <a href="tel:+4917623906590" class="social-btn" aria-label="Telefon">
+        <i class="ph-fill ph-phone"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     FOOTER
+======================================== -->
+<footer>
+  <div class="container">
+    <p>© 2026 Anas Al Rajeh &middot; Data Scientist &middot; Hannover, Deutschland</p>
+  </div>
+</footer>
+
+<!-- ========================================
+     ADMIN TOGGLE
+======================================== -->
+<button class="admin-toggle" onclick="toggleAdmin()" aria-label="Admin Panel öffnen">
+  <i class="ph-fill ph-gear-six"></i>
+</button>
+
+<!-- ========================================
+     ADMIN PANEL
+======================================== -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="admin-header-row">
+      <h1><i class="ph ph-gear-six"></i> Inhalte verwalten</h1>
+      <button class="admin-close" onclick="toggleAdmin()" aria-label="Schließen">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab(0)">
+        <i class="ph ph-user-circle"></i>
+        Profil
+      </button>
+      <button class="admin-tab" onclick="switchTab(1)">
+        <i class="ph ph-briefcase"></i>
+        Projekte
+      </button>
+      <button class="admin-tab" onclick="switchTab(2)">
+        <i class="ph ph-download-simple"></i>
+        Daten
+      </button>
+    </div>
+
+    <!-- TAB 1: PROFILE -->
+    <div class="admin-tab-content active" id="tabContent0">
+      <div class="admin-section">
+        <h2><i class="ph ph-image"></i> Profilbild</h2>
+        <label class="file-upload">
+          <i class="ph ph-upload-simple"></i>
+          <div class="file-upload-text">Bild von Ihrem Computer hochladen</div>
+          <div class="file-upload-hint">JPG, PNG, WEBP &middot; max. 2 MB &middot; Quadratisches Format empfohlen</div>
+          <input type="file" id="profileImageInput" accept="image/*" onchange="handleImageUpload(event)">
+        </label>
+        <div id="imagePreviewContainer"></div>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="ph ph-user-circle"></i> Persönliche Daten</h2>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Vor- &amp; Nachname</label>
+            <input type="text" id="profileName" placeholder="Anas Al Rajeh">
+          </div>
+          <div class="form-field">
+            <label>Berufsbezeichnung</label>
+            <input type="text" id="profileTitle" placeholder="Data Scientist · Hannover">
+          </div>
+        </div>
+        <div class="form-row form-row-full">
+          <div class="form-field">
+            <label>Kurzbeschreibung (Tagline)</label>
+            <textarea id="profileTagline" placeholder="Beschreiben Sie sich in 2-3 Sätzen..."></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>E-Mail</label>
+            <input type="email" id="profileEmail" placeholder="anas83alrajeh@gmail.com">
+          </div>
+          <div class="form-field">
+            <label>Telefon</label>
+            <input type="tel" id="profilePhone" placeholder="+49 176 23906590">
+          </div>
+        </div>
+        <div class="form-row form-row-full">
+          <div class="form-field">
+            <label>Standort</label>
+            <input type="text" id="profileLocation" placeholder="30880 Laatzen, Deutschland">
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" onclick="saveProfile()">
+            <i class="ph ph-floppy-disk"></i>
+            Profil speichern
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PROJECTS -->
+    <div class="admin-tab-content" id="tabContent1">
+      <div class="admin-section">
+        <h2><i class="ph ph-plus-circle"></i> <span id="projectFormTitle">Neues Projekt hinzufügen</span></h2>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Projektname *</label>
+            <input type="text" id="projName" placeholder="Full-Stack Datenerfassungssystem">
+          </div>
+          <div class="form-field">
+            <label>Unternehmen / Auftraggeber</label>
+            <input type="text" id="projCompany" placeholder="Magna Exteriors / Volkswagen AG">
+          </div>
+        </div>
+
+        <div class="form-row form-row-full">
+          <div class="form-field">
+            <label>Beschreibung *</label>
+            <textarea id="projDesc" placeholder="Ausführliche Beschreibung des Projekts, der Herausforderungen und Lösungen..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Zeitraum</label>
+            <input type="text" id="projDate" placeholder="01/2024 — 12/2024">
+          </div>
+          <div class="form-field">
+            <label>Ergebnis / Impact</label>
+            <input type="text" id="projResult" placeholder="+40% schnellere Analysen">
+          </div>
+        </div>
+
+        <div class="form-row form-row-full">
+          <div class="form-field">
+            <label>Technologien (kommagetrennt)</label>
+            <input type="text" id="projTech" placeholder="Power BI, Python, SQL, DAX">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Projekt-Link (optional)</label>
+            <input type="url" id="projUrl" placeholder="https://...">
+          </div>
+          <div class="form-field">
+            <label>GitHub-Repository (optional)</label>
+            <input type="url" id="projGithub" placeholder="https://github.com/...">
+          </div>
+        </div>
+
+        <div class="admin-section" style="margin: 1rem 0 0; padding: 1.5rem; background: var(--ink-deeper);">
+          <h2 style="font-size: 1rem; margin-bottom: 1rem;"><i class="ph ph-file-pdf"></i> PDF-Dokument (optional)</h2>
+          <label class="file-upload">
+            <i class="ph ph-file-pdf"></i>
+            <div class="file-upload-text">PDF-Datei zum Projekt hochladen</div>
+            <div class="file-upload-hint">Präsentation, Bericht oder Dokumentation &middot; max. 3 MB</div>
+            <input type="file" id="projPdfInput" accept="application/pdf" onchange="handlePdfUpload(event)">
+          </label>
+          <div id="pdfPreviewContainer"></div>
+        </div>
+
+        <input type="hidden" id="projEditId">
+
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" onclick="saveProject()">
+            <i class="ph ph-floppy-disk"></i>
+            <span id="saveProjectText">Projekt speichern</span>
+          </button>
+          <button class="btn-admin btn-admin-ghost" onclick="resetProjectForm()">
+            <i class="ph ph-arrow-counter-clockwise"></i>
+            Formular leeren
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="ph ph-list"></i> Vorhandene Projekte</h2>
+        <div class="admin-items-list" id="projectsAdminList"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: DATA MANAGEMENT -->
+    <div class="admin-tab-content" id="tabContent2">
+      <div class="admin-section">
+        <h2><i class="ph ph-download-simple"></i> Datenexport / Sicherung</h2>
+        <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          Sichern Sie Ihre Daten als JSON-Datei auf Ihrem Computer. Diese Datei enthält Ihre kompletten Profildaten, Projekte und PDF-Anhänge.
+        </p>
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" onclick="exportData()">
+            <i class="ph ph-download"></i>
+            Daten exportieren
+          </button>
+          <button class="btn-admin btn-admin-ghost" onclick="document.getElementById('importInput').click()">
+            <i class="ph ph-upload"></i>
+            Daten importieren
+          </button>
+          <input type="file" id="importInput" accept=".json" style="display:none" onchange="importData(event)">
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="ph ph-arrow-counter-clockwise"></i> Zurücksetzen</h2>
+        <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          Stellt die ursprünglichen Beispieldaten wieder her. Ihre aktuellen Änderungen gehen verloren.
+        </p>
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-danger" onclick="resetData()">
+            <i class="ph ph-warning"></i>
+            Auf Werkseinstellungen zurücksetzen
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2><i class="ph ph-info"></i> Informationen</h2>
+        <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.8;">
+          <strong style="color: var(--paper)">Speicherort:</strong> Alle Daten werden lokal in Ihrem Browser (localStorage) gespeichert.<br>
+          <strong style="color: var(--paper)">Datenschutz:</strong> Nichts wird an externe Server gesendet.<br>
+          <strong style="color: var(--paper)">Verwendeter Speicher:</strong> <span id="storageUsed">—</span><br>
+          <strong style="color: var(--paper)">Letzte Änderung:</strong> <span id="lastModified">—</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF Viewer Modal -->
+<div class="pdf-modal" id="pdfModal">
+  <div class="pdf-modal-header">
+    <h3 id="pdfModalTitle">PDF-Vorschau</h3>
+    <button class="admin-close" onclick="closePdfModal()">
+      <i class="ph ph-x"></i>
+    </button>
+  </div>
+  <iframe id="pdfModalFrame" src=""></iframe>
+</div>
+
+<script>
+  // ========================================
+  // STATE MANAGEMENT
+  // ========================================
+  let uploadedImage = null;
+  let uploadedPdf = null;
+  let uploadedPdfName = null;
+
+  const defaultData = {
+    profile: {
+      name: "Anas Al Rajeh",
+      title: "Data Scientist · Hannover",
+      tagline: "Zertifizierter Data Scientist mit über einem Jahr Industrieerfahrung bei Magna Exteriors (Kundenprojekte für Volkswagen AG). Spezialisiert auf Machine Learning, Business Intelligence und Generative KI.",
+      email: "anas83alrajeh@gmail.com",
+      phone: "+49 176 23906590",
+      location: "30880 Laatzen, Deutschland",
+      image: null
+    },
+    projects: [
+      {
+        id: 1,
+        name: "Management der Personaldatenerfassung",
+        company: "Magna Exteriors / Volkswagen AG · Randstad Hannover",
+        desc: "Entwicklung einer vollständigen Plattform zur An- und Abwesenheitserfassung von Mitarbeitern. Integration von SAP-Daten in SharePoint und Power BI zur Automatisierung manueller HR-Prozesse. Backend in Python, PostgreSQL als Datenbank, Frontend als responsive Web-Anwendung.",
+        date: "01/2024 — 12/2024",
+        result: "+25% Berichtsgenauigkeit",
+        tech: "Power BI, SharePoint, SAP, PostgreSQL, Python, Frontend/Backend",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 2,
+        name: "KPIs für Risikomanagement in der Produktion",
+        company: "Magna Exteriors / Volkswagen AG",
+        desc: "Analyse von Produktionsdaten und Erstellung interaktiver KPI-Dashboards für das Management. Implementierung komplexer DAX-Berechnungen zur Echtzeit-Überwachung von Qualitäts- und Risikometriken auf der VW-Produktionslinie.",
+        date: "01/2024 — 12/2024",
+        result: "−40% Analysezeit",
+        tech: "Power BI, DAX, Excel",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 3,
+        name: "Wochenplan Logistik &amp; Vendor Management",
+        company: "Magna Exteriors / Volkswagen AG",
+        desc: "Digitalisierung der operativen Schichtplanung und Vendor-Verwaltung mit der Microsoft Power Platform. Power Apps-Frontend für Disponenten, Dataverse als Datenbasis und Power BI für Auslastungsberichte und Vendor-KPIs.",
+        date: "01/2024 — 12/2024",
+        result: "100% Workflow-Automatisierung",
+        tech: "Power Apps, Power BI, Dataverse",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 4,
+        name: "Intelligente KI-Agenten &amp; Automatisierung",
+        company: "Eigenprojekte / Freelance",
+        desc: "Entwicklung einer modularen Automatisierungsplattform mit n8n, die verschiedene KI-gestützte Assistenten integriert: Kalenderassistent (Telegram → Google Calendar), Intelligenter Buchhalter (Sprach-/Texteingabe → Google Sheets), Bewerbungsassistent mit RAG &amp; Vektordatenbanken für präzise CV-basierte Antworten.",
+        date: "04/2025 — Heute",
+        result: "15 Std./Woche eingespart",
+        tech: "N8N, Telegram API, Google Calendar API, NLP, RAG, Vektordatenbanken, LLMs",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 5,
+        name: "Kundenabwanderungsvorhersage (Telekommunikation)",
+        company: "Eigenprojekte / Freelance",
+        desc: "Aufbau eines Predictive-Analytics-Modells zur Vorhersage von Kundenabwanderung im Telekommunikationsbereich. Feature-Engineering, Hyperparameter-Tuning, SHAP-Erklärungen für Business-Stakeholder und interaktive Streamlit-Deployment-App.",
+        date: "04/2025 — Heute",
+        result: "92% Modellgenauigkeit (AUC-ROC)",
+        tech: "Python, XGBoost, Decision Tree, SHAP, Streamlit",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 6,
+        name: "Web Analytics &amp; KPI-Visualisierung",
+        company: "Maihack Elektrotechnik &amp; TAQA Solar",
+        desc: "Vollständige GA4-Implementierung mit Custom Events, Conversion Tracking und Looker Studio Dashboards. Aufbau von Marketing-Funnels und Performance-Monitoring für mittelständische Kunden.",
+        date: "04/2025 — Heute",
+        result: "+18% Datengenauigkeit",
+        tech: "Google Analytics 4, GTM, Looker Studio",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 7,
+        name: "RHK Online Shop — E-Commerce-Plattform",
+        company: "Eigenprojekte / Freelance",
+        desc: "Entwicklung einer vollständigen E-Commerce-Plattform für den Verkauf von Notebooks. Responsives Frontend mit modernem UI, Backend-Integration für Produktverwaltung, Warenkorb und Bestellabwicklung. Vollständig in Vanilla JavaScript ohne Framework-Abhängigkeiten.",
+        date: "2024 — 2025",
+        result: "Vollständiger E-Commerce-Stack",
+        tech: "JavaScript, HTML5, CSS, Backend/Frontend-Entwicklung",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 8,
+        name: "Pflanzenkrankheiten erkennen mit Deep Learning",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Entwicklung eines CNN-basierten Bildklassifikationsmodells zur automatischen Erkennung von Pflanzenkrankheiten auf Basis des Kaggle PlantVillage-Datensatzes. Modelltraining mit Keras, Evaluierung mit KNIME Analytics Platform.",
+        date: "2025",
+        result: "Hohe Klassifikationsgenauigkeit CNN",
+        tech: "Keras, CNN, KNIME, Kaggle-Datensatz",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 9,
+        name: "Hautkrebs erkennen mit Deep Learning",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Deep-Learning-Modell zur Klassifikation von Hautkrebsbildern (benigne vs. maligne) auf Basis eines Kaggle-Datensatzes. Einsatz eines Convolutional Neural Networks mit Keras und Auswertung über KNIME-Workflows für medizinische Entscheidungsunterstützung.",
+        date: "2025",
+        result: "Medizinische Bildklassifikation",
+        tech: "Keras, CNN, KNIME, Kaggle-Datensatz",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 10,
+        name: "Erkennung von Müdigkeit bei Fahrern in Videos",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Echtzeit-Müdigkeitserkennung bei Fahrern mittels Videoanalyse. Einsatz von MobileNetV2 als Basis-Architektur, optimiert mit Grey Wolf Optimizer (GWO). Deployment über HuggingFace Spaces, Videovorverarbeitung mit OpenCV.",
+        date: "2025",
+        result: "Echtzeit-Sicherheitssystem",
+        tech: "Python, TensorFlow, MobileNetV2, OpenCV, GWO, HuggingFace",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 11,
+        name: "Lebenslauf-Chatbot mit KI",
+        company: "Eigenprojekte / Freelance",
+        desc: "Intelligenter CV-Chatbot auf Basis von RAG-Architektur. Beantwortet Fragen über den Lebenslauf präzise durch Kombination aus FAISS-Vektordatenbank, LangChain-Pipeline und GPT-4o-mini. PDF-Verarbeitung für dynamisches Dokument-Parsing.",
+        date: "2025",
+        result: "Interaktiver KI-Bewerbungsassistent",
+        tech: "Python, HuggingFace, LangChain, FAISS, OpenAI GPT-4o-mini, PDF-Verarbeitung",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 12,
+        name: "KI-gestützte Betrugsanalyse mit Power BI",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "End-to-End Betrugserkennungssystem: ML-Modelle in Python zur Anomalie-Klassifikation, Integration eines LLM zur Erklärbarkeit von Betrugsfällen und interaktive Power BI Dashboards mit DAX-Metriken für das Risikomanagement.",
+        date: "2025",
+        result: "Automatisierte Betrugserkennung",
+        tech: "Python, Power BI, DAX, ML, LLM",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 13,
+        name: "Intelligente Krankenhaus-Terminreservierung",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "KI-gestütztes System zur Optimierung von Krankenhaus-Terminbuchungen. XGBoost und LightGBM zur Vorhersage von Patientenauslastung, Hugging Face Modelle für NLP-basierte Anfragen, Power BI Dashboards für Kapazitätsplanung.",
+        date: "2025",
+        result: "ML-optimierte Terminplanung",
+        tech: "Python, Power BI, DAX, Hugging Face, XGBoost, LightGBM",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 14,
+        name: "Kundenfeedback-Analyse zur UX-Verbesserung",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "NLP-basierte Analyse von Kundenbewertungen und Feedback-Texten zur Identifikation von UX-Schwachstellen. Text Mining mit KNIME, Sentiment-Analyse, Word-Cloud-Visualisierung und automatische Themenclusterung.",
+        date: "2025",
+        result: "Datenbasierte UX-Insights",
+        tech: "KNIME, Text Mining, NLP, Word Cloud",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 15,
+        name: "Wetterdatenanalyse Hannover",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Explorative Datenanalyse historischer Wetterdaten für Hannover über die OpenWeatherMap API. Zeitreihenvisualisierungen, Saisonalitätsanalyse und statistische Auswertungen mit Python. Interaktive Matplotlib/Seaborn-Grafiken.",
+        date: "2025",
+        result: "Vollständige EDA-Pipeline",
+        tech: "Python, Pandas, Matplotlib, Seaborn, OpenWeatherMap API",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 16,
+        name: "Kunden- &amp; Marketing-Performance mit ML",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Ganzheitliche Marketing-Analytics-Plattform: ML-Modelle zur Kundensegmentierung und Kampagnenoptimierung, kombiniert mit interaktiven Power BI Dashboards. DAX-Measures für ROI, CLV und Conversion-Rates.",
+        date: "2025",
+        result: "Datengestützte Marketingstrategie",
+        tech: "Power BI, DAX, Python, Machine Learning, Marketing Analytics",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 17,
+        name: "Einzelhandels-BI: Dashboards &amp; Prädiktive Analysen",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Business Intelligence Lösung für den Einzelhandel: Verkaufsdashboards in Tableau, Bestandsanalysen, prädiktive Umsatzprognosen mit der Excel Forecast-Funktion und saisonale Trendanalysen für strategische Einkaufsentscheidungen.",
+        date: "2025",
+        result: "Vollständige Retail-BI-Lösung",
+        tech: "Tableau, Excel, Forecast-Funktion, Dashboarding",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 18,
+        name: "Bestellanalyse mit Tableau",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Interaktive Tableau-Dashboards zur Analyse von Bestellmustern, Lieferzeiten und Kundensegmenten. Visualisierung von KPIs wie Durchschnittlicher Bestellwert, Bestellhäufigkeit und geografischer Umsatzverteilung.",
+        date: "2025",
+        result: "Interaktive Bestellanalyse",
+        tech: "Tableau, Datenvisualisierung",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 19,
+        name: "Verkaufs- und Gewinnanalyse mit Power BI",
+        company: "Eigenprojekte / Freelance",
+        desc: "Umfassende Analyse von Verkaufsdaten und Erstellung interaktiver Power BI Reports für Management-Reporting. DAX-Berechnungen für Deckungsbeitragsanalyse, Margin-Tracking und Verkäufer-Performance-Vergleiche.",
+        date: "2025",
+        result: "Vollständiges Sales-Reporting",
+        tech: "Power BI, DAX, Excel",
+        url: "",
+        github: "https://github.com/anas83alrajeh",
+        pdf: null,
+        pdfName: null
+      }
+    ]
+  };
+
+  // ========================================
+  // LOAD DATA
+  // ========================================
+  function getData() {
+    const stored = localStorage.getItem("portfolioData_v2");
+    return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultData));
+  }
+
+  function saveData(data) {
+    try {
+      localStorage.setItem("portfolioData_v2", JSON.stringify(data));
+      localStorage.setItem("portfolioDataLastModified", new Date().toISOString());
+      return true;
+    } catch (e) {
+      if (e.name === "QuotaExceededError") {
+        showToast("Speicher voll! PDF-Anhänge entfernen", "warning");
+      }
+      return false;
+    }
+  }
+
+  function renderAll() {
+    const data = getData();
+
+    // Profile / Hero
+    document.querySelector(".hero h1").innerHTML = renderHeroName(data.profile.name);
+    document.querySelector(".hero-tagline").innerHTML = data.profile.tagline;
+    if (data.profile.image) {
+      document.getElementById("heroPortrait").src = data.profile.image;
+    }
+
+    // Contact
+    const emailEl = document.getElementById("contactEmail");
+    if (emailEl) {
+      emailEl.textContent = data.profile.email;
+      emailEl.href = "mailto:" + data.profile.email;
+    }
+    const phoneEl = document.getElementById("contactPhone");
+    if (phoneEl) {
+      phoneEl.textContent = data.profile.phone;
+      phoneEl.href = "tel:" + data.profile.phone.replace(/\s/g, "");
+    }
+    const locEl = document.getElementById("contactLocation");
+    if (locEl) locEl.textContent = data.profile.location;
+
+    // Projects
+    renderProjects(data.projects);
+
+    // Admin form
+    populateAdminProfileForm(data.profile);
+    renderProjectsAdminList(data.projects);
+    updateStorageInfo();
+    applyTranslations();
+  }
+
+  function renderHeroName(name) {
+    return `Daten in <em class="italic gold">Erkenntnisse</em> verwandeln.`;
+  }
+
+  function renderProjects(projects) {
+    const list = document.getElementById("projectsList");
+    document.getElementById("projectsCount").textContent =
+      String(projects.length).padStart(2, "0") + " " + t('proj.count');
+
+    list.innerHTML = projects.map((p, i) => `
+      <article class="project-row">
+        <div class="project-index">${String(i + 1).padStart(2, "0")}</div>
+        <div class="project-content">
+          <div class="project-main">
+            <span class="project-company">${escapeHtml(p.company)}</span>
+            <h3>${p.name}</h3>
+            <p class="project-desc">${escapeHtml(p.desc)}</p>
+            <div class="project-tech-list">
+              ${p.tech.split(",").map(t2 => `<span class="tech-tag">${escapeHtml(t2.trim())}</span>`).join("")}
+            </div>
+          </div>
+          <div class="project-aside">
+            <div class="project-meta-row">
+              <span class="meta-label">${t('proj.period')}</span>
+              <span class="meta-value-small">${escapeHtml(p.date)}</span>
+            </div>
+            <div class="project-meta-row">
+              <span class="meta-label">${t('proj.impact')}</span>
+              <span class="meta-value">${escapeHtml(p.result)}</span>
+            </div>
+            <div class="project-links">
+              ${p.pdf ? `<button class="project-link-btn" onclick="viewPdf('${p.id}')"><i class="ph ph-file-pdf"></i> ${t('proj.pdf')}</button>` : ""}
+              ${p.url ? `<a href="${p.url}" target="_blank" class="project-link-btn"><i class="ph ph-arrow-square-out"></i> ${t('proj.live')}</a>` : ""}
+              ${p.github ? `<a href="${p.github}" target="_blank" class="project-link-btn"><i class="ph ph-github-logo"></i> GitHub</a>` : ""}
+            </div>
+          </div>
+        </div>
+        <div class="project-arrow"><i class="ph ph-arrow-up-right"></i></div>
+      </article>
+    `).join("");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    })[c]);
+  }
+
+  // ========================================
+  // ADMIN PANEL
+  // ========================================
+  function toggleAdmin() {
+    document.getElementById("adminOverlay").classList.toggle("active");
+    document.body.style.overflow = document.getElementById("adminOverlay").classList.contains("active") ? "hidden" : "";
+  }
+
+  function switchTab(idx) {
+    document.querySelectorAll(".admin-tab").forEach((t, i) => t.classList.toggle("active", i === idx));
+    document.querySelectorAll(".admin-tab-content").forEach((t, i) => t.classList.toggle("active", i === idx));
+  }
+
+  function populateAdminProfileForm(profile) {
+    document.getElementById("profileName").value = profile.name;
+    document.getElementById("profileTitle").value = profile.title;
+    document.getElementById("profileTagline").value = profile.tagline;
+    document.getElementById("profileEmail").value = profile.email;
+    document.getElementById("profilePhone").value = profile.phone;
+    document.getElementById("profileLocation").value = profile.location;
+
+    if (profile.image) {
+      document.getElementById("imagePreviewContainer").innerHTML = `
+        <div class="file-preview">
+          <img src="${profile.image}" alt="Profilbild">
+          <div class="file-preview-info">
+            <div class="file-preview-name">Aktuelles Profilbild</div>
+            <div class="file-preview-size">Hochgeladen &middot; Wird auf der Seite angezeigt</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // ========================================
+  // FILE UPLOAD
+  // ========================================
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Datei zu groß. Maximal 2 MB erlaubt.", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadedImage = e.target.result;
+      document.getElementById("imagePreviewContainer").innerHTML = `
+        <div class="file-preview">
+          <img src="${uploadedImage}" alt="Vorschau">
+          <div class="file-preview-info">
+            <div class="file-preview-name">${escapeHtml(file.name)}</div>
+            <div class="file-preview-size">${(file.size / 1024).toFixed(1)} KB &middot; Bereit zum Speichern</div>
+          </div>
+        </div>
+      `;
+      showToast("Bild geladen. Auf 'Profil speichern' klicken.", "info");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handlePdfUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 3 * 1024 * 1024) {
+      showToast("PDF zu groß. Maximal 3 MB erlaubt.", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadedPdf = e.target.result;
+      uploadedPdfName = file.name;
+      document.getElementById("pdfPreviewContainer").innerHTML = `
+        <div class="file-preview">
+          <div class="pdf-preview-icon"><i class="ph-fill ph-file-pdf"></i></div>
+          <div class="file-preview-info">
+            <div class="file-preview-name">${escapeHtml(file.name)}</div>
+            <div class="file-preview-size">${(file.size / 1024).toFixed(1)} KB &middot; Bereit zum Speichern</div>
+          </div>
+        </div>
+      `;
+      showToast("PDF geladen. Speichern um Änderungen zu übernehmen.", "info");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ========================================
+  // SAVE / UPDATE
+  // ========================================
+  function saveProfile() {
+    const data = getData();
+    data.profile.name = document.getElementById("profileName").value || data.profile.name;
+    data.profile.title = document.getElementById("profileTitle").value || data.profile.title;
+    data.profile.tagline = document.getElementById("profileTagline").value || data.profile.tagline;
+    data.profile.email = document.getElementById("profileEmail").value || data.profile.email;
+    data.profile.phone = document.getElementById("profilePhone").value || data.profile.phone;
+    data.profile.location = document.getElementById("profileLocation").value || data.profile.location;
+    if (uploadedImage) {
+      data.profile.image = uploadedImage;
+      uploadedImage = null;
+    }
+
+    if (saveData(data)) {
+      renderAll();
+      showToast("Profil erfolgreich gespeichert", "success");
+    }
+  }
+
+  function saveProject() {
+    const data = getData();
+    const editId = document.getElementById("projEditId").value;
+
+    const project = {
+      id: editId ? Number(editId) : Date.now(),
+      name: document.getElementById("projName").value,
+      company: document.getElementById("projCompany").value || "—",
+      desc: document.getElementById("projDesc").value,
+      date: document.getElementById("projDate").value || "—",
+      result: document.getElementById("projResult").value || "—",
+      tech: document.getElementById("projTech").value || "—",
+      url: document.getElementById("projUrl").value || "",
+      github: document.getElementById("projGithub").value || "",
+      pdf: uploadedPdf,
+      pdfName: uploadedPdfName
+    };
+
+    if (!project.name || !project.desc) {
+      showToast("Projektname und Beschreibung sind erforderlich", "error");
+      return;
+    }
+
+    if (editId) {
+      const idx = data.projects.findIndex(p => p.id === Number(editId));
+      if (idx >= 0) {
+        // Keep existing PDF if not changed
+        if (!uploadedPdf && data.projects[idx].pdf) {
+          project.pdf = data.projects[idx].pdf;
+          project.pdfName = data.projects[idx].pdfName;
+        }
+        data.projects[idx] = project;
+      }
+    } else {
+      data.projects.push(project);
+    }
+
+    if (saveData(data)) {
+      uploadedPdf = null;
+      uploadedPdfName = null;
+      resetProjectForm();
+      renderAll();
+      showToast(editId ? "Projekt aktualisiert" : "Projekt hinzugefügt", "success");
+    }
+  }
+
+  function editProject(id) {
+    const data = getData();
+    const p = data.projects.find(x => x.id === id);
+    if (!p) return;
+
+    document.getElementById("projName").value = p.name;
+    document.getElementById("projCompany").value = p.company;
+    document.getElementById("projDesc").value = p.desc;
+    document.getElementById("projDate").value = p.date;
+    document.getElementById("projResult").value = p.result;
+    document.getElementById("projTech").value = p.tech;
+    document.getElementById("projUrl").value = p.url || "";
+    document.getElementById("projGithub").value = p.github || "";
+    document.getElementById("projEditId").value = p.id;
+
+    document.getElementById("projectFormTitle").textContent = "Projekt bearbeiten: " + p.name;
+    document.getElementById("saveProjectText").textContent = "Änderungen speichern";
+
+    if (p.pdf) {
+      document.getElementById("pdfPreviewContainer").innerHTML = `
+        <div class="file-preview">
+          <div class="pdf-preview-icon"><i class="ph-fill ph-file-pdf"></i></div>
+          <div class="file-preview-info">
+            <div class="file-preview-name">${escapeHtml(p.pdfName || "Bestehendes PDF")}</div>
+            <div class="file-preview-size">Aktuell hochgeladen</div>
+          </div>
+        </div>
+      `;
+    } else {
+      document.getElementById("pdfPreviewContainer").innerHTML = "";
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function deleteProject(id) {
+    if (!confirm("Möchten Sie dieses Projekt wirklich löschen?")) return;
+    const data = getData();
+    data.projects = data.projects.filter(p => p.id !== id);
+    saveData(data);
+    renderAll();
+    showToast("Projekt gelöscht", "success");
+  }
+
+  function resetProjectForm() {
+    ["projName", "projCompany", "projDesc", "projDate", "projResult", "projTech", "projUrl", "projGithub", "projEditId"].forEach(id => {
+      document.getElementById(id).value = "";
+    });
+    document.getElementById("pdfPreviewContainer").innerHTML = "";
+    document.getElementById("projectFormTitle").textContent = "Neues Projekt hinzufügen";
+    document.getElementById("saveProjectText").textContent = "Projekt speichern";
+    uploadedPdf = null;
+    uploadedPdfName = null;
+  }
+
+  function renderProjectsAdminList(projects) {
+    const list = document.getElementById("projectsAdminList");
+    if (!projects.length) {
+      list.innerHTML = `<p style="color: var(--muted); text-align: center; padding: 2rem;">Keine Projekte vorhanden</p>`;
+      return;
+    }
+    list.innerHTML = projects.map((p, i) => `
+      <div class="admin-item-row">
+        <div class="admin-item-info">
+          <h4>${String(i + 1).padStart(2, "0")} &middot; ${escapeHtml(p.name)}</h4>
+          <p>${escapeHtml(p.company)} &middot; ${escapeHtml(p.date)}</p>
+          <div class="admin-item-badges">
+            <span class="admin-badge">${escapeHtml(p.result)}</span>
+            ${p.pdf ? `<span class="admin-badge pdf"><i class="ph ph-file-pdf"></i> PDF</span>` : ""}
+            ${p.github ? `<span class="admin-badge">GitHub</span>` : ""}
+          </div>
+        </div>
+        <div class="admin-item-actions">
+          <button class="btn-icon" onclick="editProject(${p.id})" title="Bearbeiten">
+            <i class="ph ph-pencil-simple"></i>
+          </button>
+          <button class="btn-icon danger" onclick="deleteProject(${p.id})" title="Löschen">
+            <i class="ph ph-trash"></i>
+          </button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // ========================================
+  // PDF VIEWER
+  // ========================================
+  function viewPdf(projectId) {
+    const data = getData();
+    const project = data.projects.find(p => p.id == projectId);
+    if (!project || !project.pdf) {
+      showToast("PDF nicht verfügbar", "error");
+      return;
+    }
+    document.getElementById("pdfModalTitle").textContent = project.name + (project.pdfName ? " — " + project.pdfName : "");
+    document.getElementById("pdfModalFrame").src = project.pdf;
+    document.getElementById("pdfModal").classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePdfModal() {
+    document.getElementById("pdfModal").classList.remove("active");
+    document.getElementById("pdfModalFrame").src = "";
+    if (!document.getElementById("adminOverlay").classList.contains("active")) {
+      document.body.style.overflow = "";
+    }
+  }
+
+  // ========================================
+  // DATA MANAGEMENT
+  // ========================================
+  function exportData() {
+    const data = getData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `portfolio-anas-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("Daten exportiert", "success");
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (!data.profile || !data.projects) {
+          showToast("Ungültiges Dateiformat", "error");
+          return;
+        }
+        saveData(data);
+        renderAll();
+        showToast("Daten erfolgreich importiert", "success");
+      } catch {
+        showToast("Fehler beim Importieren", "error");
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function resetData() {
+    if (!confirm("Alle Daten zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden.")) return;
+    localStorage.removeItem("portfolioData_v2");
+    localStorage.removeItem("portfolioDataLastModified");
+    renderAll();
+    showToast("Daten zurückgesetzt", "success");
+  }
+
+  function updateStorageInfo() {
+    const data = localStorage.getItem("portfolioData_v2");
+    const size = data ? new Blob([data]).size : 0;
+    const sizeStr = size > 1024 * 1024
+      ? (size / 1024 / 1024).toFixed(2) + " MB"
+      : (size / 1024).toFixed(1) + " KB";
+    const storageEl = document.getElementById("storageUsed");
+    if (storageEl) storageEl.textContent = sizeStr;
+
+    const lastMod = localStorage.getItem("portfolioDataLastModified");
+    const lastModEl = document.getElementById("lastModified");
+    if (lastModEl) {
+      lastModEl.textContent = lastMod
+        ? new Date(lastMod).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" })
+        : "Noch nicht gespeichert";
+    }
+  }
+
+  // ========================================
+  // TOAST NOTIFICATIONS
+  // ========================================
+  function showToast(message, type = "info") {
+    const existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+
+    const toast = document.createElement("div");
+    toast.className = "toast";
+
+    const icons = {
+      success: "ph-check-circle",
+      error: "ph-x-circle",
+      warning: "ph-warning",
+      info: "ph-info"
+    };
+
+    toast.innerHTML = `<i class="ph-fill ${icons[type] || icons.info}"></i> ${message}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  }
+
+  // ========================================
+  // TRANSLATIONS & LANGUAGE SWITCHER
+  // ========================================
+  let currentLang = 'de';
+
+  const translations = {
+    de: {
+      'nav.about':        'Über mich',
+      'nav.expertise':    'Expertise',
+      'nav.projects':     'Projekte',
+      'nav.experience':   'Werdegang',
+      'nav.publications': 'Publikationen',
+      'nav.contact':      'Kontakt',
+      'hero.eyebrow':  'Data Scientist · Hannover',
+      'hero.title.pre':'Daten in',
+      'hero.title.mid':'Erkenntnisse',
+      'hero.title.suf':'verwandeln.',
+      'hero.tagline':  'Zertifizierter <strong>Data Scientist</strong> mit über einem Jahr Industrieerfahrung bei <strong>Magna Exteriors</strong> (Kundenprojekte für Volkswagen AG). Spezialisiert auf Machine Learning, Business Intelligence und Generative KI.',
+      'hero.stat1':    'Stunden Zertifizierung',
+      'hero.stat2':    'Schnellere Analysen',
+      'hero.stat3':    'Wissenschaftliche Publikationen',
+      'hero.btn1':     'Projekte ansehen',
+      'hero.btn2':     'Gespräch anfragen',
+      'hero.available':'Verfügbar',
+      'about.title':   'Über mich',
+      'about.meta':    'Profil',
+      'expertise.title':'Expertise',
+      'expertise.meta': 'Technologien & Fähigkeiten',
+      'projects.title': 'Ausgewählte Projekte',
+      'proj.period':    'Zeitraum',
+      'proj.impact':    'Impact',
+      'proj.pdf':       'PDF ansehen',
+      'proj.live':      'Live',
+      'proj.count':     'Projekte',
+      'exp.title':      'Werdegang',
+      'exp.meta':       'Beruflicher Verlauf',
+      'pub.title':      'Wissenschaftliche Publikationen',
+      'pub.meta':       'Peer-Reviewed',
+      'contact.eyebrow':'Kontakt aufnehmen',
+      'contact.headline':'Lassen Sie uns über <em class="italic">Ihre nächsten</em> Datenherausforderungen sprechen.',
+      'contact.btn':    'E-Mail senden',
+      'contact.email.label':   'E-Mail',
+      'contact.phone.label':   'Telefon',
+      'contact.location.label':'Standort',
+      'contact.avail.label':   'Verfügbarkeit',
+      'contact.avail.value':   'Sofort · Vollzeit',
+    },
+    en: {
+      'nav.about':        'About',
+      'nav.expertise':    'Expertise',
+      'nav.projects':     'Projects',
+      'nav.experience':   'Experience',
+      'nav.publications': 'Publications',
+      'nav.contact':      'Contact',
+      'hero.eyebrow':  'Data Scientist · Hannover',
+      'hero.title.pre':'Turning data into',
+      'hero.title.mid':'insights',
+      'hero.title.suf':'.',
+      'hero.tagline':  'Certified <strong>Data Scientist</strong> with over a year of industry experience at <strong>Magna Exteriors</strong> (client projects for Volkswagen AG). Specialized in Machine Learning, Business Intelligence, and Generative AI.',
+      'hero.stat1':    'Hours of Certification',
+      'hero.stat2':    'Faster Analyses',
+      'hero.stat3':    'Scientific Publications',
+      'hero.btn1':     'View Projects',
+      'hero.btn2':     'Request a Call',
+      'hero.available':'Available',
+      'about.title':   'About Me',
+      'about.meta':    'Profile',
+      'expertise.title':'Expertise',
+      'expertise.meta': 'Technologies & Skills',
+      'projects.title': 'Selected Projects',
+      'proj.period':    'Period',
+      'proj.impact':    'Impact',
+      'proj.pdf':       'View PDF',
+      'proj.live':      'Live',
+      'proj.count':     'Projects',
+      'exp.title':      'Experience',
+      'exp.meta':       'Career Path',
+      'pub.title':      'Scientific Publications',
+      'pub.meta':       'Peer-Reviewed',
+      'contact.eyebrow':'Get in Touch',
+      'contact.headline':'Let\'s talk about <em class="italic">your next</em> data challenge.',
+      'contact.btn':    'Send E-Mail',
+      'contact.email.label':   'E-Mail',
+      'contact.phone.label':   'Phone',
+      'contact.location.label':'Location',
+      'contact.avail.label':   'Availability',
+      'contact.avail.value':   'Immediately · Full-time',
+    }
+  };
+
+  function t(key) {
+    const lang = translations[currentLang] || translations['de'];
+    return lang[key] || translations['de'][key] || key;
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    // Update html dir for RTL
+    document.documentElement.setAttribute('dir', 'ltr');
+    document.documentElement.setAttribute('lang', lang);
+    // Highlight active button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+    });
+    applyTranslations();
+    // Re-render projects for translated labels
+    const data = getData();
+    renderProjects(data.projects);
+  }
+
+  function applyTranslations() {
+    // Text nodes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.textContent = t(key);
+    });
+    // HTML nodes (allow tags like <strong>, <em>)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      el.innerHTML = t(key);
+    });
+    // Contact headline (has inline HTML)
+    const headline = document.querySelector('.contact-headline [data-i18n]');
+    if (headline) headline.innerHTML = t('contact.headline');
+    // Projects count text
+    const countEl = document.getElementById('projectsCount');
+    if (countEl) {
+      const num = countEl.textContent.match(/\d+/);
+      if (num) countEl.textContent = num[0] + ' ' + t('proj.count');
+    }
+  }
+
+
+  document.addEventListener("DOMContentLoaded", renderAll);
+
+  // Close PDF modal with Esc
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (document.getElementById("pdfModal").classList.contains("active")) closePdfModal();
+      else if (document.getElementById("adminOverlay").classList.contains("active")) toggleAdmin();
+    }
+  });
+</script>
+
+</div><!-- #pf-root -->
+</body>
+</html>
