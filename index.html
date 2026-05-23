@@ -949,6 +949,91 @@ html{
     font-style: italic;
   }
 /* ========================================
+     EDUCATION
+  ======================================== */
+  #pf-root .edu-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+#pf-root .edu-card{
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+#pf-root .edu-card::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-top: 30px solid rgba(201, 169, 97, 0.15);
+    transition: border-top-color 0.3s ease;
+  }
+#pf-root .edu-card:hover{
+    border-color: var(--gold);
+    background: var(--glass-hover);
+    transform: translateY(-4px);
+  }
+#pf-root .edu-card:hover::after{
+    border-top-color: var(--gold);
+  }
+#pf-root .edu-period{
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+#pf-root .edu-degree{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    color: var(--paper);
+  }
+#pf-root .edu-institution{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold-soft);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+#pf-root .edu-grade{
+    font-size: 0.9rem;
+    color: rgba(244, 241, 234, 0.78);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+#pf-root .edu-grade strong{
+    color: var(--paper);
+    font-weight: 600;
+  }
+#pf-root .edu-note{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-style: italic;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--line);
+  }
+/* ========================================
      CONTACT
   ======================================== */
   #pf-root #contact{
@@ -1508,6 +1593,7 @@ html{
     #pf-root .project-arrow { display: none; }
     #pf-root .expertise-grid { grid-template-columns: repeat(2, 1fr); }
     #pf-root .pub-grid { grid-template-columns: repeat(2, 1fr); }
+    #pf-root .edu-grid { grid-template-columns: repeat(2, 1fr); }
   }
 @media (max-width: 720px){
     #pf-root section { padding: 5rem 0; }
@@ -1528,6 +1614,7 @@ html{
     #pf-root .admin-panel { padding: 2rem 1rem; }
     #pf-root .expertise-grid { grid-template-columns: 1fr; }
     #pf-root .pub-grid { grid-template-columns: 1fr; }
+    #pf-root .edu-grid { grid-template-columns: 1fr; }
   }
 /* ========================================
      LANGUAGE SWITCHER
@@ -1644,6 +1731,7 @@ html{
       <li><a href="#expertise" data-i18n="nav.expertise">Expertise</a></li>
       <li><a href="#projects" data-i18n="nav.projects">Projekte</a></li>
       <li><a href="#experience" data-i18n="nav.experience">Werdegang</a></li>
+      <li><a href="#education" data-i18n="nav.education">Ausbildung</a></li>
       <li><a href="#publications" data-i18n="nav.publications">Publikationen</a></li>
     </ul>
     <a href="#contact" class="nav-cta">
@@ -1769,7 +1857,7 @@ html{
           Heute kombiniere ich klassische statistische Methoden mit modernster <strong>Generativer KI</strong> — XGBoost trifft GPT-4o, Power BI trifft RAG-Architekturen. Mein Ziel: Lösungen schaffen, die nicht nur technisch elegant, sondern wirtschaftlich messbar sind.
         </p>
         <p data-i18n-html="about.p4">
-          Ich bin <strong>akademisch geprägt</strong> (BSc Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).
+          Ich bin <strong>akademisch geprägt</strong> (Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).
         </p>
       </div>
     </div>
@@ -1945,12 +2033,49 @@ html{
 </section>
 
 <!-- ========================================
+     EDUCATION
+======================================== -->
+<section id="education">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">05 ——</div>
+      <h2 class="section-title display" data-i18n="edu.title">Akademische Ausbildung</h2>
+      <div class="section-meta" data-i18n="edu.meta">Hochschulabschlüsse</div>
+    </div>
+
+    <div class="edu-grid">
+      <article class="edu-card">
+        <div class="edu-period" data-i18n="edu1.period">09/2020 — 09/2023</div>
+        <h3 class="edu-degree" data-i18n="edu1.degree"> Informatik</h3>
+        <p class="edu-institution" data-i18n="edu1.org">Stiftung Universität Hildesheim · Deutschland</p>
+        <p class="edu-grade" data-i18n-html="edu1.grade"><strong>Abschlussnote:</strong> 2,3</p>
+      </article>
+
+      <article class="edu-card">
+        <div class="edu-period" data-i18n="edu2.period">09/2010 — 06/2012</div>
+        <h3 class="edu-degree" data-i18n="edu2.degree">Master in Messung und Bewertung</h3>
+        <p class="edu-institution" data-i18n="edu2.org">Universität Jadara · Jordanien</p>
+        <p class="edu-grade" data-i18n-html="edu2.grade"><strong>Note:</strong> 83,1 % (Sehr gut)</p>
+        <p class="edu-note" data-i18n="edu2.note">Durch KMK-Zentralstelle für ausländisches Bildungswesen als deutscher Hochschulabschluss auf Master-Ebene anerkannt.</p>
+      </article>
+
+      <article class="edu-card">
+        <div class="edu-period" data-i18n="edu3.period">09/2002 — 09/2006</div>
+        <h3 class="edu-degree" data-i18n="edu3.degree">Bachelor in Mathematischer Statistik</h3>
+        <p class="edu-institution" data-i18n="edu3.org">Universität Damaskus · Syrien</p>
+        <p class="edu-grade" data-i18n-html="edu3.grade"><strong>Note:</strong> 63,58 %</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
      PUBLICATIONS
 ======================================== -->
 <section id="publications">
   <div class="container">
     <div class="section-head">
-      <div class="section-num">05 ——</div>
+      <div class="section-num">06 ——</div>
       <h2 class="section-title display" data-i18n="pub.title">Wissenschaftliche Publikationen</h2>
       <div class="section-meta" data-i18n="pub.meta">Peer-Reviewed</div>
     </div>
@@ -3196,6 +3321,7 @@ html{
       'nav.expertise':    'Expertise',
       'nav.projects':     'Projekte',
       'nav.experience':   'Werdegang',
+      'nav.education':    'Ausbildung',
       'nav.publications': 'Publikationen',
       'nav.contact':      'Kontakt',
       'hero.eyebrow':  'Data Scientist · Hannover',
@@ -3220,7 +3346,7 @@ html{
       'about.p1':      'Mein Weg in die Datenwissenschaft begann <strong>2006 als Dozent für Statistik</strong> an der Universität Damaskus. Über die folgenden 17 Jahre habe ich komplexe Datensätze interpretiert — von wissenschaftlichen Studien in Jordanien bis hin zur Industrieautomatisierung in Deutschland.',
       'about.p2':      'Bei <strong>Magna Exteriors (Hannover)</strong> habe ich für <strong>Volkswagen AG</strong> Full-Stack-Datenerfassungssysteme, Echtzeit-KPI-Dashboards und Logistik-Automatisierungen entwickelt. Das Ergebnis: <strong>40&nbsp;% schnellere Analysen</strong> und <strong>25&nbsp;% höhere Berichtsgenauigkeit</strong>.',
       'about.p3':      'Heute kombiniere ich klassische statistische Methoden mit modernster <strong>Generativer KI</strong> — XGBoost trifft GPT-4o, Power BI trifft RAG-Architekturen. Mein Ziel: Lösungen schaffen, die nicht nur technisch elegant, sondern wirtschaftlich messbar sind.',
-      'about.p4':      'Ich bin <strong>akademisch geprägt</strong> (BSc Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).',
+      'about.p4':      'Ich bin <strong>akademisch geprägt</strong> (Informatik Hildesheim, M. Messung &amp; Bewertung), <strong>praktisch erprobt</strong> (Industriekunden VW &amp; Freelance) und <strong>sprachlich vielseitig</strong> (Deutsch C1, Englisch B2, Arabisch Muttersprache).',
       'expertise.title':'Expertise',
       'expertise.meta': 'Technologien & Fähigkeiten',
       'exp.card1.title':'Python & Data Science',
@@ -3263,6 +3389,21 @@ html{
       'tl5.title':      'Dozent für Statistik & Datenanalyse',
       'tl5.org':        'Universität Damaskus · Syrien',
       'tl5.desc':       'Vermittlung von Statistik, analytischem Denken und methodischer Kompetenz an Studierende. Betreuung von Forschungsprojekten mit SPSS, R, JASP und Python.',
+      'edu.title':      'Akademische Ausbildung',
+      'edu.meta':       'Hochschulabschlüsse',
+      'edu1.period':    '09/2020 — 09/2023',
+      'edu1.degree':    'Informatik',
+      'edu1.org':       'Stiftung Universität Hildesheim · Deutschland',
+      'edu1.grade':     '<strong>Abschlussnote:</strong> 2,3',
+      'edu2.period':    '09/2010 — 06/2012',
+      'edu2.degree':    'Master in Messung und Bewertung',
+      'edu2.org':       'Universität Jadara · Jordanien',
+      'edu2.grade':     '<strong>Note:</strong> 83,1 % (Sehr gut)',
+      'edu2.note':      'Durch KMK-Zentralstelle für ausländisches Bildungswesen als deutscher Hochschulabschluss auf Master-Ebene anerkannt.',
+      'edu3.period':    '09/2002 — 09/2006',
+      'edu3.degree':    'Bachelor in Mathematischer Statistik',
+      'edu3.org':       'Universität Damaskus · Syrien',
+      'edu3.grade':     '<strong>Note:</strong> 63,58 %',
       'pub.title':      'Wissenschaftliche Publikationen',
       'pub.meta':       'Peer-Reviewed',
       'pub1.title':     'The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study',
@@ -3285,6 +3426,7 @@ html{
       'nav.expertise':    'Expertise',
       'nav.projects':     'Projects',
       'nav.experience':   'Experience',
+      'nav.education':    'Education',
       'nav.publications': 'Publications',
       'nav.contact':      'Contact',
       'hero.eyebrow':  'Data Scientist · Hannover',
@@ -3352,6 +3494,21 @@ html{
       'tl5.title':      'Lecturer in Statistics & Data Analysis',
       'tl5.org':        'University of Damascus · Syria',
       'tl5.desc':       'Teaching statistics, analytical thinking, and methodological competence to students. Supervision of research projects using SPSS, R, JASP, and Python.',
+      'edu.title':      'Academic Education',
+      'edu.meta':       'University Degrees',
+      'edu1.period':    '09/2020 — 09/2023',
+      'edu1.degree':    'Bachelor of Science — Computer Science',
+      'edu1.org':       'University of Hildesheim · Germany',
+      'edu1.grade':     '<strong>Final Grade:</strong> 2.3 (German scale)',
+      'edu2.period':    '09/2010 — 06/2012',
+      'edu2.degree':    'Master in Measurement and Evaluation',
+      'edu2.org':       'Jadara University · Jordan',
+      'edu2.grade':     '<strong>Grade:</strong> 83.1 % (Very Good)',
+      'edu2.note':      'Officially recognised by the KMK Central Office for Foreign Education (ZAB) as equivalent to a German Master\'s degree.',
+      'edu3.period':    '09/2002 — 09/2006',
+      'edu3.degree':    'Bachelor in Mathematical Statistics',
+      'edu3.org':       'University of Damascus · Syria',
+      'edu3.grade':     '<strong>Grade:</strong> 63.58 %',
       'pub.title':      'Scientific Publications',
       'pub.meta':       'Peer-Reviewed',
       'pub1.title':     'The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study',
@@ -3374,6 +3531,7 @@ html{
       'nav.expertise':    'خبرات',
       'nav.projects':     'مشاريع',
       'nav.experience':   'المسيرة',
+      'nav.education':    'الدراسة',
       'nav.publications': 'منشورات',
       'nav.contact':      'تواصل',
       'hero.eyebrow':  'عالم بيانات · هانوفر',
@@ -3441,6 +3599,21 @@ html{
       'tl5.title':      'محاضر في الإحصاء وتحليل البيانات',
       'tl5.org':        'جامعة دمشق · سوريا',
       'tl5.desc':       'تدريس الإحصاء والتفكير التحليلي والكفاءة المنهجية للطلاب. الإشراف على مشاريع البحث باستخدام SPSS وR وJASP وPython.',
+      'edu.title':      'الدراسة الأكاديمية',
+      'edu.meta':       'الشهادات الجامعية',
+      'edu1.period':    '09/2020 — 09/2023',
+      'edu1.degree':    'بكالوريوس علوم — علوم الحاسوب',
+      'edu1.org':       'جامعة هيلدسهايم · ألمانيا',
+      'edu1.grade':     '<strong>التقدير النهائي:</strong> 2,3 (وفق النظام الألماني)',
+      'edu2.period':    '09/2010 — 06/2012',
+      'edu2.degree':    'ماجستير في القياس والتقييم',
+      'edu2.org':       'جامعة جدارا · الأردن',
+      'edu2.grade':     '<strong>المعدل:</strong> 83,1 % (جيد جداً)',
+      'edu2.note':      'معترف به رسمياً من قِبل مكتب KMK المركزي لشؤون التعليم الأجنبي (ZAB) بوصفه شهادة جامعية ألمانية على مستوى الماجستير.',
+      'edu3.period':    '09/2002 — 09/2006',
+      'edu3.degree':    'بكالوريوس في الإحصاء الرياضي',
+      'edu3.org':       'جامعة دمشق · سوريا',
+      'edu3.grade':     '<strong>المعدل:</strong> 63,58 %',
       'pub.title':      'المنشورات العلمية',
       'pub.meta':       'محكَّمة علمياً',
       'pub1.title':     'تطبيق تقنيات التعلم الآلي في التحقيق وتحليل ظاهرة التنمر المدرسي: دراسة تطبيقية باستخدام الانحدار اللوجستي الثنائي',
