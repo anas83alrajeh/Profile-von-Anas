@@ -1538,6 +1538,42 @@ html{
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+/* GitHub Sync UI */
+  #pf-root .gh-field{ margin-bottom: 1rem; }
+  #pf-root .gh-field label{
+    display:block; font-size:0.82rem; font-weight:600; letter-spacing:0.04em;
+    text-transform:uppercase; color: var(--muted); margin-bottom:0.5rem;
+  }
+  #pf-root .gh-field input{
+    width:100%; padding:0.85rem 1rem; background: rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.12); border-radius:10px; color: var(--paper);
+    font-family:"JetBrains Mono", monospace; font-size:0.9rem;
+  }
+  #pf-root .gh-field input:focus{ outline:none; border-color: var(--gold); }
+  #pf-root .gh-token-row{ display:flex; gap:0.5rem; }
+  #pf-root .gh-token-row input{ flex:1; }
+  #pf-root .gh-status{
+    margin-top:1rem; padding:0.75rem 1rem; border-radius:10px; font-size:0.88rem;
+    background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+    color: var(--muted); line-height:1.5; word-break:break-word;
+  }
+  #pf-root .gh-status.ok{ border-color: rgba(80,200,120,0.5); color:#7ee0a0; background: rgba(80,200,120,0.08); }
+  #pf-root .gh-status.err{ border-color: rgba(230,90,90,0.5); color:#f0a0a0; background: rgba(230,90,90,0.08); }
+  #pf-root .gh-status.busy{ border-color: rgba(201,169,97,0.5); color: var(--gold); background: rgba(201,169,97,0.08); }
+  #pf-root .gh-toggle{
+    display:flex; align-items:center; gap:0.6rem; margin-top:1rem;
+    font-size:0.9rem; color: var(--paper); cursor:pointer;
+  }
+  #pf-root .gh-toggle input{ width:18px; height:18px; accent-color: var(--gold); cursor:pointer; }
+  #pf-root .btn-admin-ghost.sort-active{ border-color: var(--gold); color: var(--gold); background: rgba(201,169,97,0.1); }
+  #pf-root .cv-download-btn{
+    display:inline-flex; align-items:center; gap:0.5rem; margin-top:1.5rem;
+    padding:0.85rem 1.6rem; background:transparent; border:1px solid var(--gold);
+    color: var(--gold); border-radius:50px; font-size:0.95rem; font-weight:600;
+    cursor:pointer; transition:all 0.25s; font-family:inherit;
+  }
+  #pf-root .cv-download-btn:hover{ background: var(--gold); color: var(--ink); }
+
 /* PDF Modal */
   #pf-root .pdf-modal{
     position: fixed;
@@ -1788,6 +1824,10 @@ html{
             <i class="ph ph-envelope-simple"></i>
             <span data-i18n="hero.btn2">Gespräch anfragen</span>
           </a>
+          <button type="button" class="btn btn-ghost" onclick="printCV()">
+            <i class="ph ph-file-pdf"></i>
+            <span data-i18n="hero.btn3">Lebenslauf (PDF)</span>
+          </button>
         </div>
       </div>
 
@@ -2280,6 +2320,10 @@ html{
         <i class="ph ph-download-simple"></i>
         Daten
       </button>
+      <button class="admin-tab" onclick="switchTab(3)">
+        <i class="ph ph-cloud-arrow-up"></i>
+        GitHub &amp; Sync
+      </button>
     </div>
 
     <!-- TAB 1: PROFILE -->
@@ -2465,6 +2509,117 @@ html{
         </p>
       </div>
     </div>
+
+    <!-- TAB 4: GITHUB & SYNC -->
+    <div class="admin-tab-content" id="tabContent3">
+
+      <!-- 1. Authentifizierung / Verifizierung -->
+      <div class="admin-section">
+        <h2><i class="ph ph-shield-check"></i> GitHub-Konto verifizieren</h2>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
+          Geben Sie Ihren persönlichen GitHub-Token (Personal Access Token mit <strong>gist</strong>-Berechtigung) ein.
+          Der Token wird <strong>nur lokal in Ihrem Browser</strong> gespeichert und niemals in die Datei eingebettet.
+          Nur der verifizierte Kontoinhaber kann veröffentlichen.
+        </p>
+        <div class="gh-field">
+          <label>Personal Access Token</label>
+          <div class="gh-token-row">
+            <input type="password" id="ghToken" placeholder="ghp_xxx… oder github_pat_xxx…" autocomplete="off">
+            <button class="btn-admin btn-admin-ghost" type="button" onclick="toggleTokenVisibility()" title="Anzeigen/Verbergen"><i class="ph ph-eye" id="ghTokenEye"></i></button>
+          </div>
+        </div>
+        <div class="admin-actions" style="margin-top:1rem;">
+          <button class="btn-admin btn-admin-primary" type="button" onclick="verifyGithub()">
+            <i class="ph ph-shield-check"></i> Token verifizieren
+          </button>
+          <button class="btn-admin btn-admin-ghost" type="button" onclick="logoutGithub()">
+            <i class="ph ph-sign-out"></i> Token entfernen
+          </button>
+        </div>
+        <div id="ghAuthStatus" class="gh-status">Nicht verbunden.</div>
+        <p style="color: var(--muted); font-size: 0.82rem; margin-top: 0.8rem; line-height: 1.6;">
+          Token erstellen: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained / Classic →
+          Berechtigung <strong>gist</strong> aktivieren.
+        </p>
+      </div>
+
+      <!-- 2. Gist-Konfiguration -->
+      <div class="admin-section">
+        <h2><i class="ph ph-database"></i> Cloud-Speicher (Gist)</h2>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
+          Ihre Profildaten und Projekte werden als JSON in einem öffentlichen GitHub-Gist gespeichert.
+          So sehen <strong>alle Besucher automatisch Ihre veröffentlichten Änderungen</strong>.
+        </p>
+        <div class="gh-field">
+          <label>Gist-ID</label>
+          <input type="text" id="ghGistId" placeholder="z. B. a1b2c3d4e5f6…">
+        </div>
+        <div class="admin-actions" style="margin-top:1rem; flex-wrap:wrap;">
+          <button class="btn-admin btn-admin-ghost" type="button" onclick="saveGistId()">
+            <i class="ph ph-floppy-disk"></i> Gist-ID speichern
+          </button>
+          <button class="btn-admin btn-admin-ghost" type="button" onclick="createGist()">
+            <i class="ph ph-plus-circle"></i> Neuen Gist erstellen
+          </button>
+        </div>
+        <div id="ghGistHint" class="gh-status" style="display:none;"></div>
+      </div>
+
+      <!-- 3. Veröffentlichen -->
+      <div class="admin-section">
+        <h2><i class="ph ph-cloud-arrow-up"></i> Auf GitHub veröffentlichen</h2>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
+          Speichert den <strong>kompletten aktuellen Stand</strong> (Profil + alle Projekte + Sortierung) im Gist.
+          Klicken Sie nach jeder Änderung (Projekt hinzufügen / löschen / Sortierung) auf diesen Knopf.
+        </p>
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" type="button" onclick="publishToGithub()">
+            <i class="ph ph-cloud-arrow-up"></i> Jetzt auf GitHub speichern
+          </button>
+        </div>
+        <label class="gh-toggle">
+          <input type="checkbox" id="ghAutoPublish" onchange="toggleAutoPublish()">
+          <span>Automatisch nach jeder Änderung veröffentlichen</span>
+        </label>
+        <div id="ghPublishStatus" class="gh-status">Noch nicht veröffentlicht.</div>
+      </div>
+
+      <!-- 4. Projekte sortieren -->
+      <div class="admin-section">
+        <h2><i class="ph ph-sort-ascending"></i> Projekte nach Zeitraum sortieren</h2>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
+          Sortiert die Projektliste nach Datum. Die Sortierung wird gespeichert und mitveröffentlicht,
+          sodass Besucher die gleiche Reihenfolge sehen.
+        </p>
+        <div class="admin-actions" style="flex-wrap:wrap;">
+          <button class="btn-admin btn-admin-ghost" type="button" id="sortDescBtn" onclick="setSortOrder('desc')">
+            <i class="ph ph-sort-descending"></i> Neueste zuerst
+          </button>
+          <button class="btn-admin btn-admin-ghost" type="button" id="sortAscBtn" onclick="setSortOrder('asc')">
+            <i class="ph ph-sort-ascending"></i> Älteste zuerst
+          </button>
+          <button class="btn-admin btn-admin-ghost" type="button" id="sortManualBtn" onclick="setSortOrder('manual')">
+            <i class="ph ph-list-numbers"></i> Manuelle Reihenfolge
+          </button>
+        </div>
+        <div id="sortStatus" class="gh-status">Aktuelle Sortierung: —</div>
+      </div>
+
+      <!-- 5. Lebenslauf als PDF -->
+      <div class="admin-section">
+        <h2><i class="ph ph-file-pdf"></i> Lebenslauf als PDF</h2>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
+          Erstellt eine professionell formatierte Lebenslauf-Seite. Im Druckdialog
+          „Als PDF speichern" wählen.
+        </p>
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" type="button" onclick="printCV()">
+            <i class="ph ph-printer"></i> Lebenslauf drucken / als PDF speichern
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -2488,6 +2643,9 @@ html{
   let uploadedPdfName = null;
 
   const defaultData = {
+    settings: {
+      sortOrder: "manual"   // "manual" | "asc" | "desc"
+    },
     profile: {
       name: "Anas Al Rajeh",
       title: "Data Scientist · Hannover",
@@ -2753,13 +2911,25 @@ html{
   // ========================================
   function getData() {
     const stored = localStorage.getItem("portfolioData_v2");
-    return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultData));
+    const data = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultData));
+    if (!data.settings) data.settings = { sortOrder: "manual" };
+    if (!data.settings.sortOrder) data.settings.sortOrder = "manual";
+    return data;
   }
 
-  function saveData(data) {
+  function saveData(data, opts) {
     try {
       localStorage.setItem("portfolioData_v2", JSON.stringify(data));
       localStorage.setItem("portfolioDataLastModified", new Date().toISOString());
+      // mark as having local changes that are not yet on GitHub
+      if (!opts || !opts.fromCloud) {
+        localStorage.setItem("portfolioDirty", "1");
+        updatePublishStatus();
+        // optional auto-publish
+        if (localStorage.getItem("ghAutoPublish") === "1" && localStorage.getItem("ghToken")) {
+          publishToGithub(true);
+        }
+      }
       return true;
     } catch (e) {
       if (e.name === "QuotaExceededError") {
@@ -2808,7 +2978,33 @@ html{
     return `Daten in <em class="italic gold">Erkenntnisse</em> verwandeln.`;
   }
 
+  // Parse the start of a project's date string into a sortable number (year*12+month)
+  function parseProjectDate(dateStr) {
+    if (!dateStr) return null;
+    const s = String(dateStr);
+    let m = s.match(/(\d{1,2})\/(\d{4})/);        // MM/YYYY
+    if (m) return parseInt(m[2], 10) * 12 + parseInt(m[1], 10);
+    m = s.match(/(\d{4})/);                         // YYYY
+    if (m) return parseInt(m[1], 10) * 12 + 1;
+    return null;
+  }
+
+  function sortProjects(projects, order) {
+    if (order !== "asc" && order !== "desc") return projects; // manual: keep stored order
+    const copy = projects.slice();
+    copy.sort((a, b) => {
+      const da = parseProjectDate(a.date), db = parseProjectDate(b.date);
+      if (da == null && db == null) return 0;
+      if (da == null) return 1;   // undated go last
+      if (db == null) return -1;
+      return order === "asc" ? da - db : db - da;
+    });
+    return copy;
+  }
+
   function renderProjects(projects) {
+    const order = getData().settings.sortOrder;
+    projects = sortProjects(projects, order);
     const list = document.getElementById("projectsList");
     document.getElementById("projectsCount").textContent =
       String(projects.length).padStart(2, "0") + " " + t('proj.count');
@@ -2971,6 +3167,7 @@ html{
   function switchTab(idx) {
     document.querySelectorAll(".admin-tab").forEach((t, i) => t.classList.toggle("active", i === idx));
     document.querySelectorAll(".admin-tab-content").forEach((t, i) => t.classList.toggle("active", i === idx));
+    if (idx === 3) initGithubUI();
   }
 
   function populateAdminProfileForm(profile) {
@@ -3289,6 +3486,324 @@ html{
   }
 
   // ========================================
+  // GITHUB SYNC  (Gist cloud storage)
+  // ========================================
+  // One-time setup: create a Gist via the button below, then paste its ID
+  // into PUBLISHED_GIST_ID so every visitor loads your published data.
+  const PUBLISHED_GIST_ID = "";              // <-- paste your Gist-ID here (one time)
+  const GIST_FILENAME     = "portfolio-anas.json";
+  const EXPECTED_OWNER    = "anas83alrajeh";  // only this account may publish
+  const GH_API            = "https://api.github.com";
+
+  function ghToken()  { return localStorage.getItem("ghToken") || ""; }
+  function getGistId(){ return PUBLISHED_GIST_ID || localStorage.getItem("ghGistId") || ""; }
+
+  function ghHeaders(withAuth) {
+    const h = { "Accept": "application/vnd.github+json" };
+    if (withAuth && ghToken()) h["Authorization"] = "Bearer " + ghToken();
+    return h;
+  }
+
+  function setStatus(id, msg, cls) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.className = "gh-status" + (cls ? " " + cls : "");
+    el.style.display = "block";
+  }
+
+  function toggleTokenVisibility() {
+    const inp = document.getElementById("ghToken");
+    const eye = document.getElementById("ghTokenEye");
+    if (inp.type === "password") { inp.type = "text"; eye.className = "ph ph-eye-slash"; }
+    else { inp.type = "password"; eye.className = "ph ph-eye"; }
+  }
+
+  async function verifyGithub() {
+    const token = document.getElementById("ghToken").value.trim() || ghToken();
+    if (!token) { setStatus("ghAuthStatus", "Bitte zuerst einen Token eingeben.", "err"); return; }
+    setStatus("ghAuthStatus", "Verifiziere Token bei GitHub…", "busy");
+    try {
+      const res = await fetch(GH_API + "/user", { headers: { ...ghHeaders(false), "Authorization": "Bearer " + token } });
+      if (!res.ok) {
+        setStatus("ghAuthStatus", "Token ungültig oder abgelaufen (HTTP " + res.status + ").", "err");
+        return;
+      }
+      const user = await res.json();
+      // verify the token belongs to the expected account
+      if (EXPECTED_OWNER && user.login && user.login.toLowerCase() !== EXPECTED_OWNER.toLowerCase()) {
+        setStatus("ghAuthStatus",
+          "Dieser Token gehört zu '" + user.login + "', nicht zum erwarteten Konto '" + EXPECTED_OWNER + "'. Veröffentlichen blockiert.",
+          "err");
+        localStorage.removeItem("ghToken");
+        return;
+      }
+      localStorage.setItem("ghToken", token);
+      setStatus("ghAuthStatus", "✓ Verifiziert als '" + user.login + "'. Sie können jetzt veröffentlichen.", "ok");
+      showToast("GitHub-Konto verifiziert: " + user.login, "success");
+    } catch (e) {
+      setStatus("ghAuthStatus", "Netzwerkfehler bei der Verifizierung: " + e.message, "err");
+    }
+  }
+
+  function logoutGithub() {
+    localStorage.removeItem("ghToken");
+    document.getElementById("ghToken").value = "";
+    setStatus("ghAuthStatus", "Token entfernt. Nicht verbunden.", "");
+    showToast("Token entfernt", "info");
+  }
+
+  function saveGistId() {
+    const id = document.getElementById("ghGistId").value.trim();
+    if (!id) { setStatus("ghGistHint", "Bitte eine Gist-ID eingeben.", "err"); return; }
+    localStorage.setItem("ghGistId", id);
+    setStatus("ghGistHint", "Gist-ID gespeichert: " + id, "ok");
+    showToast("Gist-ID gespeichert", "success");
+  }
+
+  async function createGist() {
+    if (!ghToken()) { setStatus("ghGistHint", "Bitte zuerst den Token verifizieren.", "err"); return; }
+    setStatus("ghGistHint", "Erstelle neuen Gist…", "busy");
+    try {
+      const data = getData();
+      const body = {
+        description: "Anas Al Rajeh — Portfolio Daten",
+        public: true,
+        files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
+      };
+      const res = await fetch(GH_API + "/gists", { method: "POST", headers: ghHeaders(true), body: JSON.stringify(body) });
+      if (!res.ok) { setStatus("ghGistHint", "Konnte Gist nicht erstellen (HTTP " + res.status + ").", "err"); return; }
+      const gist = await res.json();
+      localStorage.setItem("ghGistId", gist.id);
+      localStorage.removeItem("portfolioDirty");
+      document.getElementById("ghGistId").value = gist.id;
+      updatePublishStatus();
+      setStatus("ghGistHint",
+        "✓ Gist erstellt! ID: " + gist.id +
+        "  —  WICHTIG: Tragen Sie diese ID einmalig in den Code (PUBLISHED_GIST_ID) ein, damit ALLE Besucher die Daten sehen.",
+        "ok");
+      showToast("Gist erstellt", "success");
+    } catch (e) {
+      setStatus("ghGistHint", "Netzwerkfehler: " + e.message, "err");
+    }
+  }
+
+  async function publishToGithub(silent) {
+    const gid = getGistId();
+    if (!ghToken()) {
+      if (!silent) setStatus("ghPublishStatus", "Bitte zuerst den Token verifizieren (Konto-Inhaber).", "err");
+      return;
+    }
+    if (!gid) {
+      if (!silent) setStatus("ghPublishStatus", "Keine Gist-ID. Bitte einen Gist erstellen oder ID eintragen.", "err");
+      return;
+    }
+    if (!silent) setStatus("ghPublishStatus", "Veröffentliche auf GitHub…", "busy");
+    try {
+      const data = getData();
+      const body = { files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } } };
+      const res = await fetch(GH_API + "/gists/" + gid, { method: "PATCH", headers: ghHeaders(true), body: JSON.stringify(body) });
+      if (!res.ok) {
+        if (res.status === 404) { setStatus("ghPublishStatus", "Gist nicht gefunden (404). Prüfen Sie die Gist-ID / Token-Rechte.", "err"); }
+        else if (res.status === 401 || res.status === 403) { setStatus("ghPublishStatus", "Keine Berechtigung (HTTP " + res.status + "). Token mit gist-Scope nötig.", "err"); }
+        else { setStatus("ghPublishStatus", "Fehler beim Veröffentlichen (HTTP " + res.status + ").", "err"); }
+        return;
+      }
+      localStorage.removeItem("portfolioDirty");
+      localStorage.setItem("portfolioPublishedAt", new Date().toISOString());
+      updatePublishStatus();
+      showToast("Auf GitHub veröffentlicht ✓", "success");
+    } catch (e) {
+      if (!silent) setStatus("ghPublishStatus", "Netzwerkfehler: " + e.message, "err");
+    }
+  }
+
+  // Load published data from the public Gist so visitors see the latest version
+  async function loadPublishedData() {
+    const gid = getGistId();
+    if (!gid) return;
+    // don't overwrite local unsaved admin edits
+    if (localStorage.getItem("portfolioDirty") === "1") return;
+    try {
+      const res = await fetch(GH_API + "/gists/" + gid, { headers: ghHeaders(true) });
+      if (!res.ok) return;
+      const gist = await res.json();
+      const file = gist.files && gist.files[GIST_FILENAME];
+      if (!file) return;
+      let content = file.content;
+      if (file.truncated && file.raw_url) {
+        content = await (await fetch(file.raw_url)).text();
+      }
+      const data = JSON.parse(content);
+      if (data && data.profile && Array.isArray(data.projects)) {
+        saveData(data, { fromCloud: true });  // store locally, do not mark dirty
+      }
+    } catch (e) { /* offline / first run — silently keep local data */ }
+  }
+
+  function toggleAutoPublish() {
+    const on = document.getElementById("ghAutoPublish").checked;
+    localStorage.setItem("ghAutoPublish", on ? "1" : "0");
+    showToast(on ? "Auto-Veröffentlichung an" : "Auto-Veröffentlichung aus", "info");
+  }
+
+  function updatePublishStatus() {
+    const dirty = localStorage.getItem("portfolioDirty") === "1";
+    const at = localStorage.getItem("portfolioPublishedAt");
+    const el = document.getElementById("ghPublishStatus");
+    if (!el) return;
+    if (dirty) {
+      setStatus("ghPublishStatus", "● Nicht veröffentlichte Änderungen vorhanden. Bitte 'Jetzt auf GitHub speichern' klicken.", "busy");
+    } else if (at) {
+      setStatus("ghPublishStatus", "✓ Aktuell. Zuletzt veröffentlicht: " +
+        new Date(at).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" }), "ok");
+    } else {
+      setStatus("ghPublishStatus", "Noch nicht veröffentlicht.", "");
+    }
+  }
+
+  // Restore GitHub UI state when admin opens the panel
+  function initGithubUI() {
+    if (ghToken()) {
+      document.getElementById("ghToken").value = ghToken();
+      setStatus("ghAuthStatus", "Token gespeichert. Bitte verifizieren, um den Kontoinhaber zu bestätigen.", "");
+    }
+    const gid = localStorage.getItem("ghGistId") || PUBLISHED_GIST_ID;
+    if (gid) document.getElementById("ghGistId").value = gid;
+    document.getElementById("ghAutoPublish").checked = localStorage.getItem("ghAutoPublish") === "1";
+    updatePublishStatus();
+    updateSortStatus();
+  }
+
+  // ========================================
+  // PROJECT SORTING
+  // ========================================
+  function setSortOrder(order) {
+    const data = getData();
+    data.settings.sortOrder = order;
+    if (saveData(data)) {
+      renderAll();
+      updateSortStatus();
+      const labels = { asc: "Älteste zuerst", desc: "Neueste zuerst", manual: "Manuelle Reihenfolge" };
+      showToast("Sortierung: " + labels[order], "success");
+    }
+  }
+
+  function updateSortStatus() {
+    const order = getData().settings.sortOrder;
+    const labels = { asc: "Älteste zuerst (aufsteigend)", desc: "Neueste zuerst (absteigend)", manual: "Manuelle Reihenfolge" };
+    const el = document.getElementById("sortStatus");
+    if (el) setStatus("sortStatus", "Aktuelle Sortierung: " + (labels[order] || "—"), "ok");
+    [["sortAscBtn", "asc"], ["sortDescBtn", "desc"], ["sortManualBtn", "manual"]].forEach(([id, o]) => {
+      const b = document.getElementById(id);
+      if (b) b.classList.toggle("sort-active", order === o);
+    });
+  }
+
+  // ========================================
+  // CV / RESUME  →  PRINT AS PDF
+  // ========================================
+  function printCV() {
+    const data = getData();
+    const p = data.profile;
+    const projects = sortProjects(data.projects, data.settings.sortOrder);
+    const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const stripTags = s => String(s == null ? "" : s).replace(/<[^>]+>/g, "");
+
+    const exp = [1, 2, 3, 4, 5].map(i => ({
+      date: stripTags(t("tl" + i + ".date")), title: stripTags(t("tl" + i + ".title")),
+      org: stripTags(t("tl" + i + ".org")), desc: stripTags(t("tl" + i + ".desc"))
+    }));
+    const edu = [1, 2, 3].map(i => ({
+      period: stripTags(t("edu" + i + ".period")), degree: stripTags(t("edu" + i + ".degree")),
+      org: stripTags(t("edu" + i + ".org")), grade: stripTags(t("edu" + i + ".grade"))
+    }));
+    const pubs = [1, 2, 3].map(i => ({ title: stripTags(t("pub" + i + ".title")), src: stripTags(t("pub" + i + ".source")) }));
+    const skills = [1, 2, 3, 4, 5, 6].map(i => stripTags(t("exp.card" + i + ".title")));
+    const isRTL = currentLang === "ar";
+
+    const proj = projects.slice(0, 12).map(pr => {
+      const tr = getProjectTranslation(pr.id);
+      const name = tr ? tr.name : pr.name;
+      const desc = tr ? tr.desc : pr.desc;
+      const result = tr ? tr.result : pr.result;
+      return `<div class="cv-item">
+        <div class="cv-item-head"><span class="cv-item-title">${esc(stripTags(name))}</span><span class="cv-item-date">${esc(pr.date)}</span></div>
+        <div class="cv-item-org">${esc(pr.company)}</div>
+        <div class="cv-item-desc">${esc(stripTags(desc))}</div>
+        <div class="cv-tags">${pr.tech.split(",").map(x => `<span>${esc(x.trim())}</span>`).join("")}</div>
+        ${result ? `<div class="cv-impact">▸ ${esc(stripTags(result))}</div>` : ""}
+      </div>`;
+    }).join("");
+
+    const L = {
+      summary:  isRTL ? "نبذة" : (currentLang === "en" ? "Profile" : "Profil"),
+      exp:      isRTL ? "الخبرة المهنية" : (currentLang === "en" ? "Experience" : "Berufserfahrung"),
+      edu:      isRTL ? "التعليم" : (currentLang === "en" ? "Education" : "Ausbildung"),
+      proj:     isRTL ? "مشاريع مختارة" : (currentLang === "en" ? "Selected Projects" : "Ausgewählte Projekte"),
+      pub:      isRTL ? "المنشورات" : (currentLang === "en" ? "Publications" : "Publikationen"),
+      skills:   isRTL ? "المهارات" : (currentLang === "en" ? "Skills" : "Kompetenzen"),
+      contact:  isRTL ? "التواصل" : (currentLang === "en" ? "Contact" : "Kontakt")
+    };
+
+    const win = window.open("", "_blank");
+    const html = `<!DOCTYPE html><html lang="${currentLang}" dir="${isRTL ? "rtl" : "ltr"}"><head><meta charset="UTF-8">
+<title>Lebenslauf — ${esc(p.name)}</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: ${isRTL ? '"Segoe UI","Noto Sans Arabic",Tahoma' : '"Segoe UI",Arial,Helvetica'}, sans-serif; color:#1a1f2e; line-height:1.5; font-size:10.5pt; }
+  .cv-header { border-bottom:3px solid #c9a961; padding-bottom:14px; margin-bottom:18px; display:flex; gap:18px; align-items:center; }
+  .cv-photo { width:84px; height:84px; border-radius:50%; object-fit:cover; border:2px solid #c9a961; flex-shrink:0; }
+  .cv-name { font-size:24pt; font-weight:800; letter-spacing:-0.5px; color:#0a0e1a; }
+  .cv-title { font-size:12pt; color:#c9a961; font-weight:600; margin-top:2px; }
+  .cv-contact { margin-top:8px; font-size:9pt; color:#444; display:flex; flex-wrap:wrap; gap:4px 16px; }
+  .cv-section { margin-bottom:16px; }
+  .cv-section h2 { font-size:12pt; color:#0a0e1a; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #ddd; padding-bottom:4px; margin-bottom:10px; }
+  .cv-item { margin-bottom:11px; page-break-inside:avoid; }
+  .cv-item-head { display:flex; justify-content:space-between; gap:10px; }
+  .cv-item-title { font-weight:700; font-size:10.5pt; color:#0a0e1a; }
+  .cv-item-date { font-size:8.5pt; color:#888; white-space:nowrap; }
+  .cv-item-org { font-size:9pt; color:#c9a961; font-weight:600; margin:1px 0 3px; }
+  .cv-item-desc { font-size:9.3pt; color:#333; text-align:justify; }
+  .cv-tags { margin-top:4px; display:flex; flex-wrap:wrap; gap:4px; }
+  .cv-tags span { font-size:7.6pt; background:#f0ede3; color:#5a5343; padding:1.5px 7px; border-radius:8px; }
+  .cv-impact { font-size:8.6pt; color:#1a7a4a; font-weight:600; margin-top:3px; }
+  .cv-summary { font-size:9.6pt; text-align:justify; color:#333; }
+  .cv-skills { display:flex; flex-wrap:wrap; gap:6px; }
+  .cv-skills span { font-size:9pt; background:#0a0e1a; color:#f4f1ea; padding:4px 12px; border-radius:20px; }
+  .pub-item { font-size:9pt; margin-bottom:7px; }
+  .pub-item b { color:#0a0e1a; } .pub-item i { color:#777; font-size:8.4pt; }
+  @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } .noprint{ display:none; } }
+  .noprint { position:fixed; top:10px; ${isRTL ? "left" : "right"}:10px; background:#c9a961; color:#0a0e1a; border:none; padding:10px 18px; border-radius:8px; font-size:11pt; font-weight:700; cursor:pointer; }
+</style></head><body>
+  <button class="noprint" onclick="window.print()">🖨 ${isRTL ? "حفظ كـ PDF" : "Als PDF speichern"}</button>
+  <div class="cv-header">
+    ${p.image ? `<img class="cv-photo" src="${p.image}">` : ""}
+    <div>
+      <div class="cv-name">${esc(p.name)}</div>
+      <div class="cv-title">${esc(p.title)}</div>
+      <div class="cv-contact">
+        <span>✉ ${esc(p.email)}</span><span>☎ ${esc(p.phone)}</span><span>⚲ ${esc(p.location)}</span>
+      </div>
+    </div>
+  </div>
+  <div class="cv-section"><h2>${L.summary}</h2><div class="cv-summary">${esc(stripTags(p.tagline))}</div></div>
+  <div class="cv-section"><h2>${L.skills}</h2><div class="cv-skills">${skills.map(s => `<span>${esc(s)}</span>`).join("")}</div></div>
+  <div class="cv-section"><h2>${L.exp}</h2>${exp.map(e => `<div class="cv-item">
+      <div class="cv-item-head"><span class="cv-item-title">${esc(e.title)}</span><span class="cv-item-date">${esc(e.date)}</span></div>
+      <div class="cv-item-org">${esc(e.org)}</div><div class="cv-item-desc">${esc(e.desc)}</div></div>`).join("")}</div>
+  <div class="cv-section"><h2>${L.proj}</h2>${proj}</div>
+  <div class="cv-section"><h2>${L.edu}</h2>${edu.map(e => `<div class="cv-item">
+      <div class="cv-item-head"><span class="cv-item-title">${esc(e.degree)}</span><span class="cv-item-date">${esc(e.period)}</span></div>
+      <div class="cv-item-org">${esc(e.org)}</div><div class="cv-item-desc">${esc(e.grade)}</div></div>`).join("")}</div>
+  <div class="cv-section"><h2>${L.pub}</h2>${pubs.map(pb => `<div class="pub-item"><b>${esc(pb.title)}</b><br><i>${esc(pb.src)}</i></div>`).join("")}</div>
+</body></html>`;
+    win.document.write(html);
+    win.document.close();
+  }
+
+  // ========================================
   // TOAST NOTIFICATIONS
   // ========================================
   function showToast(message, type = "info") {
@@ -3334,6 +3849,7 @@ html{
       'hero.stat3':    'Wissenschaftliche Publikationen',
       'hero.btn1':     'Projekte ansehen',
       'hero.btn2':     'Gespräch anfragen',
+      'hero.btn3':     'Lebenslauf (PDF)',
       'hero.available':'Verfügbar',
       'about.title':   'Über mich',
       'about.meta':    'Profil',
@@ -3439,6 +3955,7 @@ html{
       'hero.stat3':    'Scientific Publications',
       'hero.btn1':     'View Projects',
       'hero.btn2':     'Request a Call',
+      'hero.btn3':     'Résumé (PDF)',
       'hero.available':'Available',
       'about.title':   'About Me',
       'about.meta':    'Profile',
@@ -3544,6 +4061,7 @@ html{
       'hero.stat3':    'منشورات علمية',
       'hero.btn1':     'عرض المشاريع',
       'hero.btn2':     'طلب محادثة',
+      'hero.btn3':     'السيرة الذاتية (PDF)',
       'hero.available':'متاح',
       'about.title':   'عني',
       'about.meta':    'الملف الشخصي',
@@ -3689,7 +4207,11 @@ html{
   }
 
 
-  document.addEventListener("DOMContentLoaded", renderAll);
+  async function initPortfolio() {
+    await loadPublishedData();   // fetch latest published data from Gist (visitors)
+    renderAll();
+  }
+  document.addEventListener("DOMContentLoaded", initPortfolio);
 
   // Close PDF modal with Esc
   document.addEventListener("keydown", (e) => {
