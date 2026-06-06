@@ -820,6 +820,42 @@ html{
     color: var(--gold);
     background: rgba(201, 169, 97, 0.05);
   }
+/* ====== Project Categories ====== */
+  #pf-root .project-category{ margin-bottom: 1rem; }
+  #pf-root .project-category-head{
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 2.5rem 0 0.5rem;
+    margin-top: 1rem;
+  }
+  #pf-root .project-category-title{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  #pf-root .project-category-head::after{
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line-strong), transparent);
+  }
+  #pf-root .project-category-count{
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--muted);
+    letter-spacing: -0.02em;
+  }
+  [dir="rtl"] #pf-root .project-category-head::after{
+    background: linear-gradient(270deg, var(--line-strong), transparent);
+  }
+  #pf-root .project-category .project-row:first-of-type{
+    border-top: 1px solid var(--line);
+  }
 #pf-root .project-arrow{
     color: var(--muted);
     font-size: 1.5rem;
@@ -1538,42 +1574,6 @@ html{
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-/* GitHub Sync UI */
-  #pf-root .gh-field{ margin-bottom: 1rem; }
-  #pf-root .gh-field label{
-    display:block; font-size:0.82rem; font-weight:600; letter-spacing:0.04em;
-    text-transform:uppercase; color: var(--muted); margin-bottom:0.5rem;
-  }
-  #pf-root .gh-field input{
-    width:100%; padding:0.85rem 1rem; background: rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.12); border-radius:10px; color: var(--paper);
-    font-family:"JetBrains Mono", monospace; font-size:0.9rem;
-  }
-  #pf-root .gh-field input:focus{ outline:none; border-color: var(--gold); }
-  #pf-root .gh-token-row{ display:flex; gap:0.5rem; }
-  #pf-root .gh-token-row input{ flex:1; }
-  #pf-root .gh-status{
-    margin-top:1rem; padding:0.75rem 1rem; border-radius:10px; font-size:0.88rem;
-    background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
-    color: var(--muted); line-height:1.5; word-break:break-word;
-  }
-  #pf-root .gh-status.ok{ border-color: rgba(80,200,120,0.5); color:#7ee0a0; background: rgba(80,200,120,0.08); }
-  #pf-root .gh-status.err{ border-color: rgba(230,90,90,0.5); color:#f0a0a0; background: rgba(230,90,90,0.08); }
-  #pf-root .gh-status.busy{ border-color: rgba(201,169,97,0.5); color: var(--gold); background: rgba(201,169,97,0.08); }
-  #pf-root .gh-toggle{
-    display:flex; align-items:center; gap:0.6rem; margin-top:1rem;
-    font-size:0.9rem; color: var(--paper); cursor:pointer;
-  }
-  #pf-root .gh-toggle input{ width:18px; height:18px; accent-color: var(--gold); cursor:pointer; }
-  #pf-root .btn-admin-ghost.sort-active{ border-color: var(--gold); color: var(--gold); background: rgba(201,169,97,0.1); }
-  #pf-root .cv-download-btn{
-    display:inline-flex; align-items:center; gap:0.5rem; margin-top:1.5rem;
-    padding:0.85rem 1.6rem; background:transparent; border:1px solid var(--gold);
-    color: var(--gold); border-radius:50px; font-size:0.95rem; font-weight:600;
-    cursor:pointer; transition:all 0.25s; font-family:inherit;
-  }
-  #pf-root .cv-download-btn:hover{ background: var(--gold); color: var(--ink); }
-
 /* PDF Modal */
   #pf-root .pdf-modal{
     position: fixed;
@@ -1824,10 +1824,6 @@ html{
             <i class="ph ph-envelope-simple"></i>
             <span data-i18n="hero.btn2">Gespräch anfragen</span>
           </a>
-          <button type="button" class="btn btn-ghost" onclick="printCV()">
-            <i class="ph ph-file-pdf"></i>
-            <span data-i18n="hero.btn3">Lebenslauf (PDF)</span>
-          </button>
         </div>
       </div>
 
@@ -2003,7 +1999,7 @@ html{
     <div class="section-head">
       <div class="section-num">03 ——</div>
       <h2 class="section-title display" data-i18n="projects.title">Ausgewählte Projekte</h2>
-      <div class="section-meta" id="projectsCount">06 Projekte</div>
+      <div class="section-meta" id="projectsCount">19 Projekte</div>
     </div>
 
     <div class="projects-list" id="projectsList">
@@ -2288,6 +2284,69 @@ html{
   });
 </script>
 
+<!-- TOKEN MODAL (GitHub) -->
+<div id="tokenModal" style="
+  display:none; position:fixed; inset:0; z-index:20001;
+  background:rgba(5,8,17,0.92); backdrop-filter:blur(12px);
+  align-items:center; justify-content:center;
+">
+  <div style="
+    background:#141828; border:1px solid rgba(201,169,97,0.35);
+    border-radius:12px; padding:2.5rem 2rem; width:100%; max-width:440px;
+    margin:1rem; box-shadow:0 32px 80px rgba(0,0,0,0.6); font-family:'Manrope',sans-serif;
+  ">
+    <div style="text-align:center; margin-bottom:1.25rem;">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(201,169,97,0.1);
+        border:1px solid rgba(201,169,97,0.35);display:inline-flex;align-items:center;
+        justify-content:center;font-size:1.5rem;color:#c9a961;margin-bottom:1rem;">
+        <i class="ph ph-github-logo"></i>
+      </div>
+      <h2 style="color:#f4f1ea;font-size:1.25rem;font-weight:600;margin:0 0 0.4rem;">GitHub-Token</h2>
+      <p style="color:rgba(244,241,234,0.55);font-size:0.85rem;margin:0;line-height:1.5;">
+        Fügen Sie Ihren Personal Access Token (Scope: <strong>gist</strong>) ein.<br>
+        Wird nur für diese Sitzung gespeichert.
+      </p>
+    </div>
+    <input id="tokenInput" type="password" placeholder="github_pat_..." style="
+      width:100%;padding:0.85rem 1rem;border-radius:6px;background:#0a0e1a;
+      border:1px solid rgba(201,169,97,0.25);color:#f4f1ea;font-size:0.95rem;
+      font-family:inherit;outline:none;margin-bottom:0.85rem;box-sizing:border-box;"
+      onfocus="this.style.borderColor='#c9a961'" onblur="this.style.borderColor='rgba(201,169,97,0.25)'">
+    <div style="display:flex;gap:0.75rem;">
+      <button onclick="closeTokenModal()" style="flex:1;padding:0.8rem;border-radius:6px;
+        background:transparent;border:1px solid rgba(244,241,234,0.15);
+        color:rgba(244,241,234,0.6);font-size:0.9rem;cursor:pointer;font-family:inherit;">
+        Abbrechen
+      </button>
+      <button onclick="submitToken()" style="flex:1;padding:0.8rem;border-radius:6px;
+        background:#c9a961;border:none;color:#0a0e1a;font-size:0.9rem;font-weight:700;
+        cursor:pointer;font-family:inherit;">
+        Veröffentlichen
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // إظهار/إخفاء نافذة التوكن عبر class active
+  (function(){
+    const obs = new MutationObserver(() => {
+      const m = document.getElementById("tokenModal");
+      if (m) m.style.display = m.classList.contains("active") ? "flex" : "none";
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const m = document.getElementById("tokenModal");
+      if (m) obs.observe(m, { attributes:true, attributeFilter:["class"] });
+    });
+    document.addEventListener("keydown", (e) => {
+      const m = document.getElementById("tokenModal");
+      if (!m || !m.classList.contains("active")) return;
+      if (e.key === "Enter") submitToken();
+      if (e.key === "Escape") closeTokenModal();
+    });
+  })();
+</script>
+
 <!-- ========================================
      ADMIN TOGGLE
 ======================================== -->
@@ -2319,10 +2378,6 @@ html{
       <button class="admin-tab" onclick="switchTab(2)">
         <i class="ph ph-download-simple"></i>
         Daten
-      </button>
-      <button class="admin-tab" onclick="switchTab(3)">
-        <i class="ph ph-cloud-arrow-up"></i>
-        GitHub &amp; Sync
       </button>
     </div>
 
@@ -2468,6 +2523,26 @@ html{
 
     <!-- TAB 3: DATA MANAGEMENT -->
     <div class="admin-tab-content" id="tabContent2">
+      <div class="admin-section" style="border-color: var(--gold);">
+        <h2><i class="ph ph-cloud-arrow-up"></i> Auf GitHub veröffentlichen</h2>
+        <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          Speichert die aktuellen Inhalte (Profil &amp; Projekte) zentral auf GitHub. Danach sehen <strong style="color:var(--paper)">alle Besucher</strong> aus jedem Browser die neuesten Daten. Beim Klick wird einmalig ein GitHub-Token abgefragt (nur für diese Sitzung gespeichert, niemals in der Seite).
+        </p>
+        <div class="admin-actions">
+          <button class="btn-admin btn-admin-primary" onclick="publishToGist()">
+            <i class="ph ph-rocket-launch"></i>
+            Aktualisieren &amp; Veröffentlichen
+          </button>
+          <button class="btn-admin btn-admin-ghost" onclick="forgetToken()">
+            <i class="ph ph-key"></i>
+            Token vergessen
+          </button>
+        </div>
+        <p style="color: var(--muted); font-size: 0.82rem; margin-top: 1rem;">
+          Zuletzt veröffentlicht: <span id="publishStamp">—</span>
+        </p>
+      </div>
+
       <div class="admin-section">
         <h2><i class="ph ph-download-simple"></i> Datenexport / Sicherung</h2>
         <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
@@ -2509,117 +2584,6 @@ html{
         </p>
       </div>
     </div>
-
-    <!-- TAB 4: GITHUB & SYNC -->
-    <div class="admin-tab-content" id="tabContent3">
-
-      <!-- 1. Authentifizierung / Verifizierung -->
-      <div class="admin-section">
-        <h2><i class="ph ph-shield-check"></i> GitHub-Konto verifizieren</h2>
-        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Geben Sie Ihren persönlichen GitHub-Token (Personal Access Token mit <strong>gist</strong>-Berechtigung) ein.
-          Der Token wird <strong>nur lokal in Ihrem Browser</strong> gespeichert und niemals in die Datei eingebettet.
-          Nur der verifizierte Kontoinhaber kann veröffentlichen.
-        </p>
-        <div class="gh-field">
-          <label>Personal Access Token</label>
-          <div class="gh-token-row">
-            <input type="password" id="ghToken" placeholder="ghp_xxx… oder github_pat_xxx…" autocomplete="off">
-            <button class="btn-admin btn-admin-ghost" type="button" onclick="toggleTokenVisibility()" title="Anzeigen/Verbergen"><i class="ph ph-eye" id="ghTokenEye"></i></button>
-          </div>
-        </div>
-        <div class="admin-actions" style="margin-top:1rem;">
-          <button class="btn-admin btn-admin-primary" type="button" onclick="verifyGithub()">
-            <i class="ph ph-shield-check"></i> Token verifizieren
-          </button>
-          <button class="btn-admin btn-admin-ghost" type="button" onclick="logoutGithub()">
-            <i class="ph ph-sign-out"></i> Token entfernen
-          </button>
-        </div>
-        <div id="ghAuthStatus" class="gh-status">Nicht verbunden.</div>
-        <p style="color: var(--muted); font-size: 0.82rem; margin-top: 0.8rem; line-height: 1.6;">
-          Token erstellen: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained / Classic →
-          Berechtigung <strong>gist</strong> aktivieren.
-        </p>
-      </div>
-
-      <!-- 2. Gist-Konfiguration -->
-      <div class="admin-section">
-        <h2><i class="ph ph-database"></i> Cloud-Speicher (Gist)</h2>
-        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Ihre Profildaten und Projekte werden als JSON in einem öffentlichen GitHub-Gist gespeichert.
-          So sehen <strong>alle Besucher automatisch Ihre veröffentlichten Änderungen</strong>.
-        </p>
-        <div class="gh-field">
-          <label>Gist-ID</label>
-          <input type="text" id="ghGistId" placeholder="z. B. a1b2c3d4e5f6…">
-        </div>
-        <div class="admin-actions" style="margin-top:1rem; flex-wrap:wrap;">
-          <button class="btn-admin btn-admin-ghost" type="button" onclick="saveGistId()">
-            <i class="ph ph-floppy-disk"></i> Gist-ID speichern
-          </button>
-          <button class="btn-admin btn-admin-ghost" type="button" onclick="createGist()">
-            <i class="ph ph-plus-circle"></i> Neuen Gist erstellen
-          </button>
-        </div>
-        <div id="ghGistHint" class="gh-status" style="display:none;"></div>
-      </div>
-
-      <!-- 3. Veröffentlichen -->
-      <div class="admin-section">
-        <h2><i class="ph ph-cloud-arrow-up"></i> Auf GitHub veröffentlichen</h2>
-        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Speichert den <strong>kompletten aktuellen Stand</strong> (Profil + alle Projekte + Sortierung) im Gist.
-          Klicken Sie nach jeder Änderung (Projekt hinzufügen / löschen / Sortierung) auf diesen Knopf.
-        </p>
-        <div class="admin-actions">
-          <button class="btn-admin btn-admin-primary" type="button" onclick="publishToGithub()">
-            <i class="ph ph-cloud-arrow-up"></i> Jetzt auf GitHub speichern
-          </button>
-        </div>
-        <label class="gh-toggle">
-          <input type="checkbox" id="ghAutoPublish" onchange="toggleAutoPublish()">
-          <span>Automatisch nach jeder Änderung veröffentlichen</span>
-        </label>
-        <div id="ghPublishStatus" class="gh-status">Noch nicht veröffentlicht.</div>
-      </div>
-
-      <!-- 4. Projekte sortieren -->
-      <div class="admin-section">
-        <h2><i class="ph ph-sort-ascending"></i> Projekte nach Zeitraum sortieren</h2>
-        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Sortiert die Projektliste nach Datum. Die Sortierung wird gespeichert und mitveröffentlicht,
-          sodass Besucher die gleiche Reihenfolge sehen.
-        </p>
-        <div class="admin-actions" style="flex-wrap:wrap;">
-          <button class="btn-admin btn-admin-ghost" type="button" id="sortDescBtn" onclick="setSortOrder('desc')">
-            <i class="ph ph-sort-descending"></i> Neueste zuerst
-          </button>
-          <button class="btn-admin btn-admin-ghost" type="button" id="sortAscBtn" onclick="setSortOrder('asc')">
-            <i class="ph ph-sort-ascending"></i> Älteste zuerst
-          </button>
-          <button class="btn-admin btn-admin-ghost" type="button" id="sortManualBtn" onclick="setSortOrder('manual')">
-            <i class="ph ph-list-numbers"></i> Manuelle Reihenfolge
-          </button>
-        </div>
-        <div id="sortStatus" class="gh-status">Aktuelle Sortierung: —</div>
-      </div>
-
-      <!-- 5. Lebenslauf als PDF -->
-      <div class="admin-section">
-        <h2><i class="ph ph-file-pdf"></i> Lebenslauf als PDF</h2>
-        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Erstellt eine professionell formatierte Lebenslauf-Seite. Im Druckdialog
-          „Als PDF speichern" wählen.
-        </p>
-        <div class="admin-actions">
-          <button class="btn-admin btn-admin-primary" type="button" onclick="printCV()">
-            <i class="ph ph-printer"></i> Lebenslauf drucken / als PDF speichern
-          </button>
-        </div>
-      </div>
-
-    </div>
   </div>
 </div>
 
@@ -2643,9 +2607,6 @@ html{
   let uploadedPdfName = null;
 
   const defaultData = {
-    settings: {
-      sortOrder: "manual"   // "manual" | "asc" | "desc"
-    },
     profile: {
       name: "Anas Al Rajeh",
       title: "Data Scientist · Hannover",
@@ -2656,99 +2617,110 @@ html{
       image: null
     },
     projects: [
+      // ============ فئة 1: الذكاء الاصطناعي والأتمتة ============
       {
         id: 1,
-        name: "Management der Personaldatenerfassung",
-        company: "Magna Exteriors / Volkswagen AG · Randstad Hannover",
-        desc: "Entwicklung einer vollständigen Plattform zur An- und Abwesenheitserfassung von Mitarbeitern. Integration von SAP-Daten in SharePoint und Power BI zur Automatisierung manueller HR-Prozesse. Backend in Python, PostgreSQL als Datenbank, Frontend als responsive Web-Anwendung.",
-        date: "01/2024 — 12/2024",
-        result: "+25% Berichtsgenauigkeit",
-        tech: "Power BI, SharePoint, SAP, PostgreSQL, Python, Frontend/Backend",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ai",
+        name: "Integrierte Plattform zur Erkennung von Finanzbetrug",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Integrierte Plattform zur Erkennung von Betrug und Anomalien in Rechnungs- und Lieferantendaten, gebaut mit Python und Streamlit. Läuft zu 100% lokal zum Schutz der Privatsphäre. Dreisprachige Oberfläche (Arabisch, Englisch, Deutsch) mit dynamischer RTL/LTR-Unterstützung. Enthält fortgeschrittene Detektoren: Preisabweichung, Benford-Gesetz, verdächtige Transaktionen (Isolation Forest aus scikit-learn) und Scheinfirmen-Tracking. Nutzt pandas und NumPy ohne externe API-Anbindung.",
+        date: "2026",
+        result: "100% lokale Betrugserkennung",
+        tech: "Python, Streamlit, scikit-learn, Isolation Forest, Benford, pandas, NumPy",
+        url: "https://fraud-detection-platform2026-kypebgyesu56ttvjsnxbrc.streamlit.app/",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 2,
-        name: "KPIs für Risikomanagement in der Produktion",
-        company: "Magna Exteriors / Volkswagen AG",
-        desc: "Analyse von Produktionsdaten und Erstellung interaktiver KPI-Dashboards für das Management. Implementierung komplexer DAX-Berechnungen zur Echtzeit-Überwachung von Qualitäts- und Risikometriken auf der VW-Produktionslinie.",
-        date: "01/2024 — 12/2024",
-        result: "−40% Analysezeit",
-        tech: "Power BI, DAX, Excel",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ai",
+        name: "Intelligente Archivierungsplattform 2026",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Fortgeschrittene Archivierungsplattform auf KI-Basis, die intelligente Dokumentenextraktion mit Finanz- und Prozessanalyse kombiniert. Extrahiert und analysiert Daten und liefert intelligente Einblicke: Ausgabenmuster, beste Lieferanten, Budgetabweichungen. Spart 20–40% der Kosten und verbessert Managemententscheidungen auf Basis präziser Daten.",
+        date: "2026",
+        result: "20–40% Kosteneinsparung",
+        tech: "Tesseract OCR, Vision Language Models, Python FastAPI, Scikit-learn, PostgreSQL, React, Plotly, Chart.js, Excel Export, PDF",
+        url: "https://anas83alrajeh.github.io/archiver26/",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 3,
-        name: "Wochenplan Logistik &amp; Vendor Management",
-        company: "Magna Exteriors / Volkswagen AG",
-        desc: "Digitalisierung der operativen Schichtplanung und Vendor-Verwaltung mit der Microsoft Power Platform. Power Apps-Frontend für Disponenten, Dataverse als Datenbasis und Power BI für Auslastungsberichte und Vendor-KPIs.",
-        date: "01/2024 — 12/2024",
-        result: "100% Workflow-Automatisierung",
-        tech: "Power Apps, Power BI, Dataverse",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ai",
+        name: "KI-gestützte Betrugsanalyse mit Power BI",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "End-to-End Betrugserkennungssystem: ML-Modelle in Python zur Anomalie-Klassifikation, Integration eines LLM zur Erklärbarkeit von Betrugsfällen und interaktive Power BI Dashboards mit DAX-Metriken für das Risikomanagement.",
+        date: "2025",
+        result: "Automatisierte Betrugserkennung",
+        tech: "Python, Power BI, DAX, ML, LLM",
+        url: "https://huggingface.co/spaces/anas83alrajeh/fraud_detection_project",
+        github: "",
         pdf: null,
         pdfName: null
       },
+
+      // ============ فئة 2: التحليلات التنبؤية والتعلم الآلي ============
       {
         id: 4,
-        name: "Intelligente KI-Agenten &amp; Automatisierung",
-        company: "Eigenprojekte / Freelance",
-        desc: "Entwicklung einer modularen Automatisierungsplattform mit n8n, die verschiedene KI-gestützte Assistenten integriert: Kalenderassistent (Telegram → Google Calendar), Intelligenter Buchhalter (Sprach-/Texteingabe → Google Sheets), Bewerbungsassistent mit RAG &amp; Vektordatenbanken für präzise CV-basierte Antworten.",
-        date: "04/2025 — Heute",
-        result: "15 Std./Woche eingespart",
-        tech: "N8N, Telegram API, Google Calendar API, NLP, RAG, Vektordatenbanken, LLMs",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ml",
+        name: "Intelligente Krankenhaus-Terminreservierung",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "KI-gestütztes System zur Optimierung von Krankenhaus-Terminbuchungen. XGBoost und LightGBM zur Vorhersage von Patientenauslastung, Hugging Face Modelle für NLP-basierte Anfragen, Power BI Dashboards für Kapazitätsplanung.",
+        date: "2026",
+        result: "ML-optimierte Terminplanung",
+        tech: "Python, Power BI, DAX, Hugging Face, XGBoost, LightGBM",
+        url: "https://huggingface.co/spaces/anas83alrajeh/KrankenhausWartezeitAI?logs=container",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 5,
-        name: "Kundenabwanderungsvorhersage (Telekommunikation)",
-        company: "Eigenprojekte / Freelance",
-        desc: "Aufbau eines Predictive-Analytics-Modells zur Vorhersage von Kundenabwanderung im Telekommunikationsbereich. Feature-Engineering, Hyperparameter-Tuning, SHAP-Erklärungen für Business-Stakeholder und interaktive Streamlit-Deployment-App.",
-        date: "04/2025 — Heute",
-        result: "92% Modellgenauigkeit (AUC-ROC)",
-        tech: "Python, XGBoost, Decision Tree, SHAP, Streamlit",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ml",
+        name: "Mitglieder-Controlling-Dashboard (Fiktive Daten)",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Konzeption, Aufbereitung und Analyse von Neumitgliedern eines ADAC-Regionalclubs (fiktive Daten) – inklusive KPI-Cockpit (Retention, Churn, Umsatz pro Mitglied), interaktiver Diagramme (Zeitreihe, Tarifstruktur, Regionalverteilung) und automatischer CSV-Import-Funktion.",
+        date: "2026",
+        result: "KPI-Cockpit & Churn-Analyse",
+        tech: "HTML/CSS/JavaScript (SVG), Python, Pandas, Power BI, DAX, CSV/ETL",
+        url: "https://app.powerbi.com/links/NLdDud_RFj?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare&bookmarkGuid=58ffaeeb-a0b0-45ea-9726-eee5d958d0e0",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 6,
-        name: "Web Analytics &amp; KPI-Visualisierung",
-        company: "Maihack Elektrotechnik &amp; TAQA Solar",
-        desc: "Vollständige GA4-Implementierung mit Custom Events, Conversion Tracking und Looker Studio Dashboards. Aufbau von Marketing-Funnels und Performance-Monitoring für mittelständische Kunden.",
-        date: "04/2025 — Heute",
-        result: "+18% Datengenauigkeit",
-        tech: "Google Analytics 4, GTM, Looker Studio",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ml",
+        name: "Kundenabwanderungsvorhersage (Telekommunikation)",
+        company: "Eigenprojekte / Freelance",
+        desc: "Aufbau eines Predictive-Analytics-Modells zur Vorhersage von Kundenabwanderung im Telekommunikationsbereich. Feature-Engineering, Hyperparameter-Tuning, SHAP-Erklärungen für Business-Stakeholder und interaktive Streamlit-Deployment-App.",
+        date: "2025",
+        result: "Interaktive Churn-Vorhersage",
+        tech: "Python, XGBoost, Decision Tree, SHAP, Streamlit",
+        url: "https://kundenabwanderungapp-lls95fwjr6uyyb3wvjssqw.streamlit.app/",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 7,
-        name: "RHK Online Shop — E-Commerce-Plattform",
-        company: "Eigenprojekte / Freelance",
-        desc: "Entwicklung einer vollständigen E-Commerce-Plattform für den Verkauf von Notebooks. Responsives Frontend mit modernem UI, Backend-Integration für Produktverwaltung, Warenkorb und Bestellabwicklung. Vollständig in Vanilla JavaScript ohne Framework-Abhängigkeiten.",
-        date: "2024 — 2025",
-        result: "Vollständiger E-Commerce-Stack",
-        tech: "JavaScript, HTML5, CSS, Backend/Frontend-Entwicklung",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        category: "ml",
+        name: "Erkennung von Müdigkeit bei Fahrern in Videos",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Echtzeit-Müdigkeitserkennung bei Fahrern mittels Videoanalyse. Einsatz von MobileNetV2 als Basis-Architektur, optimiert mit Grey Wolf Optimizer (GWO). Deployment über HuggingFace Spaces, Videovorverarbeitung mit OpenCV.",
+        date: "2025",
+        result: "Echtzeit-Sicherheitssystem",
+        tech: "Python, TensorFlow, MobileNetV2, OpenCV, GWO, HuggingFace",
+        url: "https://huggingface.co/spaces/anas83alrajeh/FahrermuedigkeitserkennungApp",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
         id: 8,
+        category: "ml",
         name: "Pflanzenkrankheiten erkennen mit Deep Learning",
         company: "Eigenprojekte / Data Science Portfolio",
         desc: "Entwicklung eines CNN-basierten Bildklassifikationsmodells zur automatischen Erkennung von Pflanzenkrankheiten auf Basis des Kaggle PlantVillage-Datensatzes. Modelltraining mit Keras, Evaluierung mit KNIME Analytics Platform.",
@@ -2756,12 +2728,13 @@ html{
         result: "Hohe Klassifikationsgenauigkeit CNN",
         tech: "Keras, CNN, KNIME, Kaggle-Datensatz",
         url: "",
-        github: "https://github.com/anas83alrajeh",
+        github: "https://github.com/anas83alrajeh/CNN-und-die-Klassifikation-von-Pflanzenkrankheiten-/blob/main/workflow.svg",
         pdf: null,
         pdfName: null
       },
       {
         id: 9,
+        category: "ml",
         name: "Hautkrebs erkennen mit Deep Learning",
         company: "Eigenprojekte / Data Science Portfolio",
         desc: "Deep-Learning-Modell zur Klassifikation von Hautkrebsbildern (benigne vs. maligne) auf Basis eines Kaggle-Datensatzes. Einsatz eines Convolutional Neural Networks mit Keras und Auswertung über KNIME-Workflows für medizinische Entscheidungsunterstützung.",
@@ -2769,116 +2742,57 @@ html{
         result: "Medizinische Bildklassifikation",
         tech: "Keras, CNN, KNIME, Kaggle-Datensatz",
         url: "",
-        github: "https://github.com/anas83alrajeh",
+        github: "https://github.com/anas83alrajeh/CNN-und-die-Klassifikation-von-Hautkrebs/blob/main/workflow%20(1).svg",
         pdf: null,
         pdfName: null
       },
+
+      // ============ فئة 3: ذكاء الأعمال والتصور (BI) ============
       {
         id: 10,
-        name: "Erkennung von Müdigkeit bei Fahrern in Videos",
-        company: "Eigenprojekte / Data Science Portfolio",
-        desc: "Echtzeit-Müdigkeitserkennung bei Fahrern mittels Videoanalyse. Einsatz von MobileNetV2 als Basis-Architektur, optimiert mit Grey Wolf Optimizer (GWO). Deployment über HuggingFace Spaces, Videovorverarbeitung mit OpenCV.",
-        date: "2025",
-        result: "Echtzeit-Sicherheitssystem",
-        tech: "Python, TensorFlow, MobileNetV2, OpenCV, GWO, HuggingFace",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 11,
-        name: "Lebenslauf-Chatbot mit KI",
-        company: "Eigenprojekte / Freelance",
-        desc: "Intelligenter CV-Chatbot auf Basis von RAG-Architektur. Beantwortet Fragen über den Lebenslauf präzise durch Kombination aus FAISS-Vektordatenbank, LangChain-Pipeline und GPT-4o-mini. PDF-Verarbeitung für dynamisches Dokument-Parsing.",
-        date: "2025",
-        result: "Interaktiver KI-Bewerbungsassistent",
-        tech: "Python, HuggingFace, LangChain, FAISS, OpenAI GPT-4o-mini, PDF-Verarbeitung",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 12,
-        name: "KI-gestützte Betrugsanalyse mit Power BI",
-        company: "Eigenprojekte / Data Science Portfolio",
-        desc: "End-to-End Betrugserkennungssystem: ML-Modelle in Python zur Anomalie-Klassifikation, Integration eines LLM zur Erklärbarkeit von Betrugsfällen und interaktive Power BI Dashboards mit DAX-Metriken für das Risikomanagement.",
-        date: "2025",
-        result: "Automatisierte Betrugserkennung",
-        tech: "Python, Power BI, DAX, ML, LLM",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 13,
-        name: "Intelligente Krankenhaus-Terminreservierung",
-        company: "Eigenprojekte / Data Science Portfolio",
-        desc: "KI-gestütztes System zur Optimierung von Krankenhaus-Terminbuchungen. XGBoost und LightGBM zur Vorhersage von Patientenauslastung, Hugging Face Modelle für NLP-basierte Anfragen, Power BI Dashboards für Kapazitätsplanung.",
-        date: "2025",
-        result: "ML-optimierte Terminplanung",
-        tech: "Python, Power BI, DAX, Hugging Face, XGBoost, LightGBM",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 14,
-        name: "Kundenfeedback-Analyse zur UX-Verbesserung",
-        company: "Eigenprojekte / Data Science Portfolio",
-        desc: "NLP-basierte Analyse von Kundenbewertungen und Feedback-Texten zur Identifikation von UX-Schwachstellen. Text Mining mit KNIME, Sentiment-Analyse, Word-Cloud-Visualisierung und automatische Themenclusterung.",
-        date: "2025",
-        result: "Datenbasierte UX-Insights",
-        tech: "KNIME, Text Mining, NLP, Word Cloud",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 15,
-        name: "Wetterdatenanalyse Hannover",
-        company: "Eigenprojekte / Data Science Portfolio",
-        desc: "Explorative Datenanalyse historischer Wetterdaten für Hannover über die OpenWeatherMap API. Zeitreihenvisualisierungen, Saisonalitätsanalyse und statistische Auswertungen mit Python. Interaktive Matplotlib/Seaborn-Grafiken.",
-        date: "2025",
-        result: "Vollständige EDA-Pipeline",
-        tech: "Python, Pandas, Matplotlib, Seaborn, OpenWeatherMap API",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
-        pdf: null,
-        pdfName: null
-      },
-      {
-        id: 16,
+        category: "bi",
         name: "Kunden- &amp; Marketing-Performance mit ML",
         company: "Eigenprojekte / Data Science Portfolio",
         desc: "Ganzheitliche Marketing-Analytics-Plattform: ML-Modelle zur Kundensegmentierung und Kampagnenoptimierung, kombiniert mit interaktiven Power BI Dashboards. DAX-Measures für ROI, CLV und Conversion-Rates.",
         date: "2025",
         result: "Datengestützte Marketingstrategie",
         tech: "Power BI, DAX, Python, Machine Learning, Marketing Analytics",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        url: "https://app.powerbi.com/links/leNSL81-cD?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare&bookmarkGuid=7ebd506f-27d9-4e1e-be37-d177a247a30c",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
-        id: 17,
-        name: "Einzelhandels-BI: Dashboards &amp; Prädiktive Analysen",
+        id: 11,
+        category: "bi",
+        name: "Verkaufs- und Gewinnanalyse mit Power BI",
+        company: "Eigenprojekte / Freelance",
+        desc: "Umfassende Analyse von Verkaufsdaten und Erstellung interaktiver Power BI Reports für Management-Reporting. DAX-Berechnungen für Deckungsbeitragsanalyse, Margin-Tracking und Verkäufer-Performance-Vergleiche.",
+        date: "2025",
+        result: "Vollständiges Sales-Reporting",
+        tech: "Power BI, DAX, Excel",
+        url: "https://app.powerbi.com/links/PzVcap8vvS?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare&bookmarkGuid=cf5a327d-a9d9-4c64-9fdd-4bcf450007ae",
+        github: "",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 12,
+        category: "bi",
+        name: "Dashboards &amp; Prädiktive Analysen mit Tableau",
         company: "Eigenprojekte / Data Science Portfolio",
         desc: "Business Intelligence Lösung für den Einzelhandel: Verkaufsdashboards in Tableau, Bestandsanalysen, prädiktive Umsatzprognosen mit der Excel Forecast-Funktion und saisonale Trendanalysen für strategische Einkaufsentscheidungen.",
         date: "2025",
         result: "Vollständige Retail-BI-Lösung",
         tech: "Tableau, Excel, Forecast-Funktion, Dashboarding",
-        url: "",
-        github: "https://github.com/anas83alrajeh",
+        url: "https://public.tableau.com/views/Mappe1_17574308171860/DashboardVerkaufsleistungnachBundeslnder?:language=de-DE&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
+        github: "",
         pdf: null,
         pdfName: null
       },
       {
-        id: 18,
+        id: 13,
+        category: "bi",
         name: "Bestellanalyse mit Tableau",
         company: "Eigenprojekte / Data Science Portfolio",
         desc: "Interaktive Tableau-Dashboards zur Analyse von Bestellmustern, Lieferzeiten und Kundensegmenten. Visualisierung von KPIs wie Durchschnittlicher Bestellwert, Bestellhäufigkeit und geografischer Umsatzverteilung.",
@@ -2891,15 +2805,90 @@ html{
         pdfName: null
       },
       {
-        id: 19,
-        name: "Verkaufs- und Gewinnanalyse mit Power BI",
-        company: "Eigenprojekte / Freelance",
-        desc: "Umfassende Analyse von Verkaufsdaten und Erstellung interaktiver Power BI Reports für Management-Reporting. DAX-Berechnungen für Deckungsbeitragsanalyse, Margin-Tracking und Verkäufer-Performance-Vergleiche.",
+        id: 14,
+        category: "bi",
+        name: "Wetterdatenanalyse Hannover",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "Explorative Datenanalyse historischer Wetterdaten für Hannover über die OpenWeatherMap API. Zeitreihenvisualisierungen, Saisonalitätsanalyse und statistische Auswertungen mit Python. Interaktive Matplotlib/Seaborn-Grafiken.",
         date: "2025",
-        result: "Vollständiges Sales-Reporting",
-        tech: "Power BI, DAX, Excel",
+        result: "Vollständige EDA-Pipeline",
+        tech: "Python, Pandas, Matplotlib, Seaborn, OpenWeatherMap API",
         url: "",
-        github: "https://github.com/anas83alrajeh",
+        github: "https://github.com/anas83alrajeh/meteorologischer-Daten-Hannover/blob/master/Pythonscript.py",
+        pdf: null,
+        pdfName: null
+      },
+
+      // ============ فئة 4: مشاريع صناعية (Magna / Volkswagen / Industrie 4.0) ============
+      {
+        id: 19,
+        category: "industry",
+        name: "KI-gestützte Vorausschauende Instandhaltung (Industrie 4.0)",
+        company: "Eigenprojekte / Data Science Portfolio",
+        desc: "KI-gestütztes Predictive-Maintenance-System für Industrie 4.0: Vorhersage von Maschinenausfällen auf Basis von Sensordaten, kombiniert mit interaktiven Power BI Dashboards zur Überwachung von Anlagenzustand und Wartungsplanung. Reduziert ungeplante Stillstände und optimiert Instandhaltungszyklen.",
+        date: "2026",
+        result: "Reduzierte ungeplante Stillstände",
+        tech: "Python, Machine Learning, Power BI, DAX, Predictive Maintenance, IoT-Sensordaten",
+        url: "https://app.powerbi.com/groups/me/dashboards/f66b4eb2-dd24-4d7e-88a3-2989e879d9ec?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare",
+        github: "https://github.com/anas83alrajeh/KI-gest-tzte-Vorausschauende-Instandhaltung-Industrie-4.0-/tree/main",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 15,
+        category: "industry",
+        name: "Management der Personaldatenerfassung",
+        company: "Magna Exteriors / Volkswagen AG · Randstad Hannover",
+        desc: "Entwicklung einer vollständigen Plattform zur An- und Abwesenheitserfassung von Mitarbeitern. Integration von SAP-Daten in SharePoint und Power BI zur Automatisierung manueller HR-Prozesse. Backend in Python, PostgreSQL als Datenbank, Frontend als responsive Web-Anwendung.",
+        date: "2024",
+        result: "+25% Berichtsgenauigkeit",
+        tech: "Power BI, SharePoint, SAP, PostgreSQL, Python, Frontend/Backend",
+        url: "",
+        github: "https://github.com/anas83alrajeh/Projekt1_-Management-der-Personaldatenerfassung/blob/main/projekt1.pdf",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 16,
+        category: "industry",
+        name: "KPIs für Risikomanagement in der Produktion",
+        company: "Magna Exteriors / Volkswagen AG",
+        desc: "Analyse von Produktionsdaten und Erstellung interaktiver KPI-Dashboards für das Management. Implementierung komplexer DAX-Berechnungen zur Echtzeit-Überwachung von Qualitäts- und Risikometriken auf der VW-Produktionslinie.",
+        date: "2024",
+        result: "−40% Analysezeit",
+        tech: "Power BI, DAX, Excel",
+        url: "https://app.powerbi.com/links/EU-MiHk_Ak?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare&bookmarkGuid=e0a9c461-6614-443a-bb0e-bbd6782a2dba",
+        github: "",
+        pdf: null,
+        pdfName: null
+      },
+      {
+        id: 17,
+        category: "industry",
+        name: "Wochenplan Logistik &amp; Vendor Management",
+        company: "Magna Exteriors / Volkswagen AG",
+        desc: "Digitalisierung der operativen Schichtplanung und Vendor-Verwaltung mit der Microsoft Power Platform. Power Apps-Frontend für Disponenten, Dataverse als Datenbasis und Power BI für Auslastungsberichte und Vendor-KPIs.",
+        date: "2024",
+        result: "100% Workflow-Automatisierung",
+        tech: "Power Apps, Power BI, Dataverse",
+        url: "https://app.powerbi.com/links/Q0XT4sDcBh?ctid=8fcf4cd9-2fe4-4571-8431-b17c3f29efb3&pbi_source=linkShare",
+        github: "https://github.com/anas83alrajeh/Digitalisierungsprojekt-3-Wochenplanungssystems-/blob/main/Projekt3.pdf",
+        pdf: null,
+        pdfName: null
+      },
+
+      // ============ فئة 5: تطوير الويب ============
+      {
+        id: 18,
+        category: "web",
+        name: "RHK Online Shop — E-Commerce-Plattform",
+        company: "Eigenprojekte / Freelance",
+        desc: "Entwicklung einer vollständigen E-Commerce-Plattform für den Verkauf von Notebooks. Responsives Frontend mit modernem UI, Backend-Integration für Produktverwaltung, Warenkorb und Bestellabwicklung. Vollständig in Vanilla JavaScript ohne Framework-Abhängigkeiten.",
+        date: "2023",
+        result: "Vollständiger E-Commerce-Stack",
+        tech: "JavaScript, HTML5, CSS, Backend/Frontend-Entwicklung",
+        url: "",
+        github: "https://github.com/anas83alrajeh/RHK-Online-Shop-E-Commerce-Plattform/blob/main/Projekt4-2023.pdf",
         pdf: null,
         pdfName: null
       }
@@ -2911,25 +2900,13 @@ html{
   // ========================================
   function getData() {
     const stored = localStorage.getItem("portfolioData_v2");
-    const data = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultData));
-    if (!data.settings) data.settings = { sortOrder: "manual" };
-    if (!data.settings.sortOrder) data.settings.sortOrder = "manual";
-    return data;
+    return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultData));
   }
 
-  function saveData(data, opts) {
+  function saveData(data) {
     try {
       localStorage.setItem("portfolioData_v2", JSON.stringify(data));
       localStorage.setItem("portfolioDataLastModified", new Date().toISOString());
-      // mark as having local changes that are not yet on GitHub
-      if (!opts || !opts.fromCloud) {
-        localStorage.setItem("portfolioDirty", "1");
-        updatePublishStatus();
-        // optional auto-publish
-        if (localStorage.getItem("ghAutoPublish") === "1" && localStorage.getItem("ghToken")) {
-          publishToGithub(true);
-        }
-      }
       return true;
     } catch (e) {
       if (e.name === "QuotaExceededError") {
@@ -2937,6 +2914,113 @@ html{
       }
       return false;
     }
+  }
+
+  // ========================================
+  // GITHUB GIST SYNC (نشر مركزي للزوّار)
+  // ========================================
+  // ملاحظة أمان: التوكن لا يُخزَّن داخل هذا الملف إطلاقاً.
+  // يُطلب عند النشر فقط ويُحفظ في sessionStorage (يُمحى بإغلاق التبويب).
+  const GIST_ID = "dcba4da237946b6a71cf63ba223fde2f";
+  const GIST_FILENAME = "portfolio-data.json";
+  const GIST_API = "https://api.github.com/gists/" + GIST_ID;
+
+  // قراءة البيانات المنشورة من Gist عند فتح الصفحة (لكل زائر)
+  async function loadFromGist() {
+    try {
+      const res = await fetch(GIST_API + "?t=" + Date.now(), {
+        headers: { "Accept": "application/vnd.github+json" },
+        cache: "no-store"
+      });
+      if (!res.ok) return null;
+      const gist = await res.json();
+      const files = gist.files || {};
+      // نختار الملف المحدّد أو أول ملف JSON متاح
+      let fileObj = files[GIST_FILENAME];
+      if (!fileObj) {
+        const jsonKey = Object.keys(files).find(k => /\.json$/i.test(k));
+        if (jsonKey) fileObj = files[jsonKey];
+      }
+      if (!fileObj) return null;
+      let content = fileObj.content;
+      // إذا كان المحتوى مبتوراً (truncated) نجلبه من raw_url
+      if (fileObj.truncated && fileObj.raw_url) {
+        const r2 = await fetch(fileObj.raw_url + "?t=" + Date.now(), { cache: "no-store" });
+        content = await r2.text();
+      }
+      if (!content || !content.trim()) return null;
+      const data = JSON.parse(content);
+      if (!data.profile || !data.projects) return null;
+      return data;
+    } catch (e) {
+      console.warn("Gist load failed:", e);
+      return null;
+    }
+  }
+
+  // نشر البيانات الحالية إلى Gist (يتطلب توكن)
+  async function publishToGist() {
+    let token = sessionStorage.getItem("gh_token");
+    if (!token) {
+      openTokenModal();
+      return;
+    }
+    const data = getData();
+    showToast("Wird zu GitHub veröffentlicht ...", "info");
+    try {
+      const body = {
+        files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
+      };
+      const res = await fetch(GIST_API, {
+        method: "PATCH",
+        headers: {
+          "Accept": "application/vnd.github+json",
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      if (res.status === 401 || res.status === 403) {
+        sessionStorage.removeItem("gh_token");
+        showToast("Token ungültig oder abgelaufen. Bitte erneut eingeben.", "error");
+        openTokenModal();
+        return;
+      }
+      if (!res.ok) {
+        const txt = await res.text();
+        console.error("Gist publish error:", res.status, txt);
+        showToast("Veröffentlichung fehlgeschlagen (" + res.status + ")", "error");
+        return;
+      }
+      showToast("✓ Erfolgreich veröffentlicht — für alle Besucher sichtbar", "success");
+      const stamp = document.getElementById("publishStamp");
+      if (stamp) stamp.textContent = new Date().toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" });
+    } catch (e) {
+      console.error(e);
+      showToast("Netzwerkfehler bei der Veröffentlichung", "error");
+    }
+  }
+
+  // نافذة إدخال التوكن
+  function openTokenModal() {
+    document.getElementById("tokenModal").classList.add("active");
+    setTimeout(() => document.getElementById("tokenInput").focus(), 100);
+  }
+  function closeTokenModal() {
+    document.getElementById("tokenModal").classList.remove("active");
+    document.getElementById("tokenInput").value = "";
+  }
+  function submitToken() {
+    const val = document.getElementById("tokenInput").value.trim();
+    if (!val) { showToast("Bitte Token eingeben", "error"); return; }
+    sessionStorage.setItem("gh_token", val);
+    closeTokenModal();
+    showToast("Token gespeichert (nur für diese Sitzung)", "info");
+    publishToGist();
+  }
+  function forgetToken() {
+    sessionStorage.removeItem("gh_token");
+    showToast("Token aus dieser Sitzung entfernt", "info");
   }
 
   function renderAll() {
@@ -2978,45 +3062,21 @@ html{
     return `Daten in <em class="italic gold">Erkenntnisse</em> verwandeln.`;
   }
 
-  // Parse the start of a project's date string into a sortable number (year*12+month)
-  function parseProjectDate(dateStr) {
-    if (!dateStr) return null;
-    const s = String(dateStr);
-    let m = s.match(/(\d{1,2})\/(\d{4})/);        // MM/YYYY
-    if (m) return parseInt(m[2], 10) * 12 + parseInt(m[1], 10);
-    m = s.match(/(\d{4})/);                         // YYYY
-    if (m) return parseInt(m[1], 10) * 12 + 1;
-    return null;
+  // استخراج سنة قابلة للمقارنة من حقل التاريخ (يأخذ آخر سنة مذكورة)
+  function projectYear(p) {
+    const years = String(p.date).match(/\d{4}/g);
+    if (!years) return 0;
+    return Math.max(...years.map(Number));
   }
 
-  function sortProjects(projects, order) {
-    if (order !== "asc" && order !== "desc") return projects; // manual: keep stored order
-    const copy = projects.slice();
-    copy.sort((a, b) => {
-      const da = parseProjectDate(a.date), db = parseProjectDate(b.date);
-      if (da == null && db == null) return 0;
-      if (da == null) return 1;   // undated go last
-      if (db == null) return -1;
-      return order === "asc" ? da - db : db - da;
-    });
-    return copy;
-  }
-
-  function renderProjects(projects) {
-    const order = getData().settings.sortOrder;
-    projects = sortProjects(projects, order);
-    const list = document.getElementById("projectsList");
-    document.getElementById("projectsCount").textContent =
-      String(projects.length).padStart(2, "0") + " " + t('proj.count');
-
-    list.innerHTML = projects.map((p, i) => {
-      const tr = getProjectTranslation(p.id);
-      const name = tr ? tr.name : p.name;
-      const desc = tr ? tr.desc : p.desc;
-      const result = tr ? tr.result : p.result;
-      return `
+  function renderProjectCard(p, displayIndex) {
+    const tr = getProjectTranslation(p.id);
+    const name = tr ? tr.name : p.name;
+    const desc = tr ? tr.desc : p.desc;
+    const result = tr ? tr.result : p.result;
+    return `
       <article class="project-row">
-        <div class="project-index">${String(i + 1).padStart(2, "0")}</div>
+        <div class="project-index">${String(displayIndex).padStart(2, "0")}</div>
         <div class="project-content">
           <div class="project-main">
             <span class="project-company">${escapeHtml(p.company)}</span>
@@ -3044,7 +3104,42 @@ html{
         </div>
         <div class="project-arrow"><i class="ph ph-arrow-up-right"></i></div>
       </article>
-    `}).join("");
+    `;
+  }
+
+  function renderProjects(projects) {
+    const list = document.getElementById("projectsList");
+    document.getElementById("projectsCount").textContent =
+      String(projects.length).padStart(2, "0") + " " + t('proj.count');
+
+    // تجميع المشاريع حسب الفئة
+    const groups = {};
+    projects.forEach(p => {
+      const cat = p.category || 'other';
+      (groups[cat] = groups[cat] || []).push(p);
+    });
+
+    // ترتيب الفئات: حسب categoryOrder ثم أي فئات أخرى
+    const orderedCats = categoryOrder.filter(c => groups[c]);
+    Object.keys(groups).forEach(c => { if (!orderedCats.includes(c)) orderedCats.push(c); });
+
+    let counter = 0;
+    let html = "";
+    orderedCats.forEach(cat => {
+      // ترتيب زمني داخل الفئة: الأحدث أولاً
+      const items = groups[cat].slice().sort((a, b) => projectYear(b) - projectYear(a));
+      html += `
+        <div class="project-category">
+          <div class="project-category-head">
+            <span class="project-category-title">${catLabel(cat)}</span>
+            <span class="project-category-count">${String(items.length).padStart(2, "0")}</span>
+          </div>
+          ${items.map(p => { counter++; return renderProjectCard(p, counter); }).join("")}
+        </div>
+      `;
+    });
+
+    list.innerHTML = html;
   }
 
   function getProjectTranslation(id) {
@@ -3052,48 +3147,81 @@ html{
     return (projectsI18n[currentLang] || {})[id] || null;
   }
 
-  const projectsI18n = {
+  // ترجمة أسماء الفئات
+  const categoryLabels = {
+    de: {
+      ai:       'KI &amp; Automatisierung',
+      ml:       'Predictive Analytics &amp; Machine Learning',
+      bi:       'Business Intelligence &amp; Visualisierung',
+      industry: 'Industrieprojekte · Magna / Volkswagen',
+      web:      'Web-Entwicklung'
+    },
     en: {
-      1:  { name: "Staff Data Acquisition Management", desc: "Development of a complete platform for employee attendance and absence tracking. Integration of SAP data into SharePoint and Power BI to automate manual HR processes. Python backend, PostgreSQL database, responsive web frontend.", result: "+25% Reporting Accuracy" },
-      2:  { name: "KPIs for Production Risk Management", desc: "Analysis of production data and creation of interactive KPI dashboards for management. Implementation of complex DAX calculations for real-time monitoring of quality and risk metrics on the VW production line.", result: "−40% Analysis Time" },
-      3:  { name: "Logistics & Vendor Management Weekly Plan", desc: "Digitalization of operational shift planning and vendor management with Microsoft Power Platform. Power Apps frontend for dispatchers, Dataverse as data source, and Power BI for capacity and vendor KPI reports.", result: "100% Workflow Automation" },
-      4:  { name: "Intelligent AI Agents & Automation", desc: "Development of a modular automation platform with n8n integrating various AI-powered assistants: calendar assistant (Telegram → Google Calendar), intelligent accountant (voice/text input → Google Sheets), application assistant with RAG & vector databases for precise CV-based answers.", result: "15 hrs/week saved" },
-      5:  { name: "Customer Churn Prediction (Telecom)", desc: "Building a predictive analytics model to forecast customer churn in the telecom sector. Feature engineering, hyperparameter tuning, SHAP explanations for business stakeholders, and an interactive Streamlit deployment app.", result: "92% Model Accuracy (AUC-ROC)" },
-      6:  { name: "Web Analytics & KPI Visualization", desc: "Complete GA4 implementation with custom events, conversion tracking, and Looker Studio dashboards. Building marketing funnels and performance monitoring for SMB clients.", result: "+18% Data Accuracy" },
-      7:  { name: "RHK Online Shop — E-Commerce Platform", desc: "Development of a complete e-commerce platform for selling notebooks. Responsive frontend with modern UI, backend integration for product management, shopping cart, and order processing. Built entirely in Vanilla JavaScript without framework dependencies.", result: "Complete E-Commerce Stack" },
-      8:  { name: "Plant Disease Detection with Deep Learning", desc: "Development of a CNN-based image classification model for automatic detection of plant diseases using the Kaggle PlantVillage dataset. Model training with Keras, evaluation with KNIME Analytics Platform.", result: "High CNN Classification Accuracy" },
-      9:  { name: "Skin Cancer Detection with Deep Learning", desc: "Deep learning model for classifying skin cancer images (benign vs. malignant) based on a Kaggle dataset. A convolutional neural network with Keras and evaluation via KNIME workflows for medical decision support.", result: "Medical Image Classification" },
-      10: { name: "Driver Fatigue Detection in Videos", desc: "Real-time driver fatigue detection via video analysis. Using MobileNetV2 as base architecture, optimized with Grey Wolf Optimizer (GWO). Deployed on HuggingFace Spaces, video preprocessing with OpenCV.", result: "Real-Time Safety System" },
-      11: { name: "AI-Powered CV Chatbot", desc: "Intelligent CV chatbot based on RAG architecture. Accurately answers questions about the resume by combining a FAISS vector database, LangChain pipeline, and GPT-4o-mini. PDF processing for dynamic document parsing.", result: "Interactive AI Application Assistant" },
-      12: { name: "AI-Powered Fraud Analysis with Power BI", desc: "End-to-end fraud detection system: ML models in Python for anomaly classification, LLM integration for explainability of fraud cases, and interactive Power BI dashboards with DAX metrics for risk management.", result: "Automated Fraud Detection" },
-      13: { name: "Intelligent Hospital Appointment Booking", desc: "AI-powered system to optimize hospital appointment scheduling. XGBoost and LightGBM for patient load prediction, Hugging Face models for NLP-based requests, Power BI dashboards for capacity planning.", result: "ML-Optimized Scheduling" },
-      14: { name: "Customer Feedback Analysis for UX Improvement", desc: "NLP-based analysis of customer reviews and feedback texts to identify UX weaknesses. Text mining with KNIME, sentiment analysis, word cloud visualization, and automatic topic clustering.", result: "Data-Driven UX Insights" },
-      15: { name: "Hanover Weather Data Analysis", desc: "Exploratory data analysis of historical weather data for Hanover via the OpenWeatherMap API. Time-series visualizations, seasonality analysis, and statistical evaluations with Python. Interactive Matplotlib/Seaborn charts.", result: "Complete EDA Pipeline" },
-      16: { name: "Customer & Marketing Performance with ML", desc: "Holistic marketing analytics platform: ML models for customer segmentation and campaign optimization combined with interactive Power BI dashboards. DAX measures for ROI, CLV, and conversion rates.", result: "Data-Driven Marketing Strategy" },
-      17: { name: "Retail BI: Dashboards & Predictive Analytics", desc: "Business intelligence solution for retail: sales dashboards in Tableau, inventory analysis, predictive revenue forecasts with Excel Forecast function, and seasonal trend analysis for strategic purchasing decisions.", result: "Complete Retail BI Solution" },
-      18: { name: "Order Analysis with Tableau", desc: "Interactive Tableau dashboards for analyzing order patterns, delivery times, and customer segments. Visualization of KPIs such as average order value, order frequency, and geographic revenue distribution.", result: "Interactive Order Analysis" },
-      19: { name: "Sales & Profit Analysis with Power BI", desc: "Comprehensive analysis of sales data and creation of interactive Power BI reports for management reporting. DAX calculations for contribution margin analysis, margin tracking, and sales rep performance comparisons.", result: "Complete Sales Reporting" }
+      ai:       'AI &amp; Automation',
+      ml:       'Predictive Analytics &amp; Machine Learning',
+      bi:       'Business Intelligence &amp; Visualization',
+      industry: 'Industry Projects · Magna / Volkswagen',
+      web:      'Web Development'
     },
     ar: {
-      1:  { name: "إدارة جمع بيانات الموظفين", desc: "تطوير منصة متكاملة لتتبع حضور وغياب الموظفين. دمج بيانات SAP في SharePoint وPower BI لأتمتة عمليات الموارد البشرية اليدوية. واجهة خلفية بـPython وقاعدة بيانات PostgreSQL وواجهة أمامية متجاوبة.", result: "+25% دقة التقارير" },
-      2:  { name: "مؤشرات الأداء لإدارة مخاطر الإنتاج", desc: "تحليل بيانات الإنتاج وإنشاء لوحات مؤشرات أداء تفاعلية للإدارة. تطبيق حسابات DAX معقدة لمراقبة آنية لمقاييس الجودة والمخاطر على خط إنتاج VW.", result: "−40% وقت التحليل" },
-      3:  { name: "الخطة الأسبوعية للوجستيات وإدارة الموردين", desc: "رقمنة تخطيط المناوبات التشغيلية وإدارة الموردين بمنصة Microsoft Power Platform. واجهة Power Apps للمشغلين وDataverse كقاعدة بيانات وPower BI لتقارير الطاقة الاستيعابية ومؤشرات الموردين.", result: "100% أتمتة سير العمل" },
-      4:  { name: "وكلاء ذكاء اصطناعي ذكية وأتمتة", desc: "تطوير منصة أتمتة معيارية بـn8n تدمج مساعدين متعددين مدعومين بالذكاء الاصطناعي: مساعد تقويم (Telegram → Google Calendar)، محاسب ذكي (إدخال صوتي/نصي → Google Sheets)، مساعد توظيف بـRAG وقواعد بيانات متجهية لإجابات دقيقة.", result: "15 ساعة/أسبوع موفَّرة" },
-      5:  { name: "التنبؤ بمغادرة العملاء (الاتصالات)", desc: "بناء نموذج تحليلات تنبؤية للتنبؤ بمغادرة العملاء في قطاع الاتصالات. هندسة الميزات وضبط المعامل الفائقة وتفسيرات SHAP لأصحاب المصلحة وتطبيق Streamlit تفاعلي.", result: "92% دقة النموذج (AUC-ROC)" },
-      6:  { name: "تحليلات الويب وتصور مؤشرات الأداء", desc: "تطبيق GA4 كامل مع أحداث مخصصة وتتبع التحويل ولوحات Looker Studio. بناء مسارات تسويقية ورصد الأداء لعملاء الشركات الصغيرة والمتوسطة.", result: "+18% دقة البيانات" },
-      7:  { name: "متجر RHK الإلكتروني — منصة تجارة إلكترونية", desc: "تطوير منصة تجارة إلكترونية متكاملة لبيع أجهزة الكمبيوتر المحمول. واجهة أمامية متجاوبة بتصميم حديث وتكامل خلفي لإدارة المنتجات وسلة التسوق ومعالجة الطلبات. مبنية كلياً بـVanilla JavaScript.", result: "مكدس تجارة إلكترونية متكامل" },
+      ai:       'الذكاء الاصطناعي والأتمتة',
+      ml:       'التحليلات التنبؤية والتعلم الآلي',
+      bi:       'ذكاء الأعمال والتصور',
+      industry: 'مشاريع صناعية · Magna / Volkswagen',
+      web:      'تطوير الويب'
+    }
+  };
+
+  // ترتيب عرض الفئات (الأحدث/الأبرز أولاً)
+  const categoryOrder = ['ai', 'ml', 'bi', 'industry', 'web'];
+
+  function catLabel(cat) {
+    const lang = categoryLabels[currentLang] || categoryLabels['de'];
+    return lang[cat] || categoryLabels['de'][cat] || cat;
+  }
+
+  const projectsI18n = {
+    en: {
+      1:  { name: "Financial Fraud Detection Platform", desc: "Integrated platform to detect fraud and anomalies in invoice and vendor data, built with Python and Streamlit. Runs 100% locally to protect privacy. Trilingual interface (Arabic, English, German) with dynamic RTL/LTR support. Includes advanced detectors: price variance, Benford's Law, suspicious transfers (Isolation Forest from scikit-learn), and shell-company tracking. Uses pandas and NumPy with no external API connection.", result: "100% Local Fraud Detection" },
+      2:  { name: "Advanced Intelligent Archiving Platform", desc: "Advanced AI-based archiving platform combining intelligent document extraction with financial and process analysis. Extracts and analyzes data and delivers smart insights: spending patterns, top vendors, budget deviations. Saves 20–40% of costs and improves management decisions based on precise data.", result: "20–40% Cost Savings" },
+      3:  { name: "AI-Powered Fraud Analysis with Power BI", desc: "End-to-end fraud detection system: ML models in Python for anomaly classification, LLM integration for explainability of fraud cases, and interactive Power BI dashboards with DAX metrics for risk management.", result: "Automated Fraud Detection" },
+      4:  { name: "Intelligent Hospital Appointment Booking", desc: "AI-powered system to optimize hospital appointment scheduling. XGBoost and LightGBM for patient load prediction, Hugging Face models for NLP-based requests, Power BI dashboards for capacity planning.", result: "ML-Optimized Scheduling" },
+      5:  { name: "Member Controlling Dashboard (ADAC Regional Club)", desc: "Conception, preparation, and analysis of new members of an ADAC regional club (fictitious data) — including a KPI cockpit (retention, churn, revenue per member), interactive charts (time series, tariff structure, regional distribution), and an automatic CSV import function.", result: "KPI Cockpit & Churn Analysis" },
+      6:  { name: "Customer Churn Prediction (Telecom)", desc: "Building a predictive analytics model to forecast customer churn in the telecom sector. Feature engineering, hyperparameter tuning, SHAP explanations for business stakeholders, and an interactive Streamlit deployment app.", result: "Interactive Churn Prediction" },
+      7:  { name: "Driver Fatigue Detection in Videos", desc: "Real-time driver fatigue detection via video analysis. Using MobileNetV2 as base architecture, optimized with Grey Wolf Optimizer (GWO). Deployed on HuggingFace Spaces, video preprocessing with OpenCV.", result: "Real-Time Safety System" },
+      8:  { name: "Plant Disease Detection with Deep Learning", desc: "Development of a CNN-based image classification model for automatic detection of plant diseases using the Kaggle PlantVillage dataset. Model training with Keras, evaluation with KNIME Analytics Platform.", result: "High CNN Classification Accuracy" },
+      9:  { name: "Skin Cancer Detection with Deep Learning", desc: "Deep learning model for classifying skin cancer images (benign vs. malignant) based on a Kaggle dataset. A convolutional neural network with Keras and evaluation via KNIME workflows for medical decision support.", result: "Medical Image Classification" },
+      10: { name: "Customer & Marketing Performance with ML", desc: "Holistic marketing analytics platform: ML models for customer segmentation and campaign optimization combined with interactive Power BI dashboards. DAX measures for ROI, CLV, and conversion rates.", result: "Data-Driven Marketing Strategy" },
+      11: { name: "Sales & Profit Analysis with Power BI", desc: "Comprehensive analysis of sales data and creation of interactive Power BI reports for management reporting. DAX calculations for contribution margin analysis, margin tracking, and sales rep performance comparisons.", result: "Complete Sales Reporting" },
+      12: { name: "Retail BI: Dashboards & Predictive Analytics", desc: "Business intelligence solution for retail: sales dashboards in Tableau, inventory analysis, predictive revenue forecasts with Excel Forecast function, and seasonal trend analysis for strategic purchasing decisions.", result: "Complete Retail BI Solution" },
+      13: { name: "Order Analysis with Tableau", desc: "Interactive Tableau dashboards for analyzing order patterns, delivery times, and customer segments. Visualization of KPIs such as average order value, order frequency, and geographic revenue distribution.", result: "Interactive Order Analysis" },
+      14: { name: "Hanover Weather Data Analysis", desc: "Exploratory data analysis of historical weather data for Hanover via the OpenWeatherMap API. Time-series visualizations, seasonality analysis, and statistical evaluations with Python. Interactive Matplotlib/Seaborn charts.", result: "Complete EDA Pipeline" },
+      15: { name: "Staff Data Acquisition Management", desc: "Development of a complete platform for employee attendance and absence tracking. Integration of SAP data into SharePoint and Power BI to automate manual HR processes. Python backend, PostgreSQL database, responsive web frontend.", result: "+25% Reporting Accuracy" },
+      16: { name: "KPIs for Production Risk Management", desc: "Analysis of production data and creation of interactive KPI dashboards for management. Implementation of complex DAX calculations for real-time monitoring of quality and risk metrics on the VW production line.", result: "−40% Analysis Time" },
+      17: { name: "Logistics & Vendor Management Weekly Plan", desc: "Digitalization of operational shift planning and vendor management with Microsoft Power Platform. Power Apps frontend for dispatchers, Dataverse as data source, and Power BI for capacity and vendor KPI reports.", result: "100% Workflow Automation" },
+      18: { name: "RHK Online Shop — E-Commerce Platform", desc: "Development of a complete e-commerce platform for selling notebooks. Responsive frontend with modern UI, backend integration for product management, shopping cart, and order processing. Built entirely in Vanilla JavaScript without framework dependencies.", result: "Complete E-Commerce Stack" },
+      19: { name: "AI-Powered Predictive Maintenance (Industry 4.0)", desc: "AI-powered predictive maintenance system for Industry 4.0: forecasting machine failures based on sensor data, combined with interactive Power BI dashboards to monitor equipment health and maintenance planning. Reduces unplanned downtime and optimizes maintenance cycles.", result: "Reduced Unplanned Downtime" }
+    },
+    ar: {
+      1:  { name: "منصة الكشف عن الاحتيال المالي", desc: "منصة متكاملة لكشف الاحتيال والقيم الشاذة في بيانات الفواتير والموردين، مبنية بـPython وإطار عمل Streamlit، وتعمل 100% محلياً لحماية الخصوصية. واجهة ثلاثية اللغة (عربي، إنجليزي، ألماني) تدعم RTL/LTR ديناميكياً. تشمل كواشف متقدمة: تباين الأسعار وقانون بنفورد والتحويلات المشبوهة (Isolation Forest من scikit-learn) وتعقّب الشركات الوهمية. تعتمد على pandas وNumPy دون أي اتصال بـAPIs خارجية.", result: "كشف احتيال محلي 100%" },
+      2:  { name: "منصة أرشفة ذكية متقدمة", desc: "منصة أرشفة متقدمة تعتمد على الذكاء الصنعي، تجمع بين استخراج الوثائق الذكي وتحليل البيانات المالية والعمليات. تستخرج البيانات وتحللها وتوفر رؤى ذكية: أنماط الإنفاق والموردين الأفضل والانحرافات عن الميزانية. توفر 20–40% من التكاليف وتحسّن القرارات الإدارية بناءً على بيانات دقيقة.", result: "توفير 20–40% من التكاليف" },
+      3:  { name: "تحليل الاحتيال بالذكاء الاصطناعي مع Power BI", desc: "نظام متكامل للكشف عن الاحتيال: نماذج ML في Python لتصنيف الشذوذ، دمج نموذج لغوي كبير لشرح حالات الاحتيال، ولوحات Power BI تفاعلية بمقاييس DAX لإدارة المخاطر.", result: "كشف آلي عن الاحتيال" },
+      4:  { name: "حجز مواعيد المستشفيات الذكي", desc: "نظام مدعوم بالذكاء الاصطناعي لتحسين جدولة مواعيد المستشفيات. XGBoost وLightGBM للتنبؤ بحجم المرضى ونماذج Hugging Face للطلبات القائمة على NLP ولوحات Power BI لتخطيط الطاقة الاستيعابية.", result: "جدولة محسَّنة بالتعلم الآلي" },
+      5:  { name: "لوحة تحكم بالأعضاء (نادي ADAC الإقليمي)", desc: "تصميم وإعداد وتحليل بيانات الأعضاء الجدد لنادي ADAC إقليمي (بيانات افتراضية) — يشمل لوحة مؤشرات أداء (الاحتفاظ، المغادرة، الإيراد لكل عضو)، ورسوماً تفاعلية (سلسلة زمنية، بنية التعرفة، التوزيع الإقليمي)، ودالة استيراد CSV تلقائية.", result: "لوحة مؤشرات وتحليل مغادرة" },
+      6:  { name: "التنبؤ بمغادرة العملاء (الاتصالات)", desc: "بناء نموذج تحليلات تنبؤية للتنبؤ بمغادرة العملاء في قطاع الاتصالات. هندسة الميزات وضبط المعاملات الفائقة وتفسيرات SHAP لأصحاب المصلحة وتطبيق Streamlit تفاعلي.", result: "تنبؤ تفاعلي بالمغادرة" },
+      7:  { name: "اكتشاف تعب السائق في الفيديو", desc: "اكتشاف تعب السائق آنياً عبر تحليل الفيديو. استخدام MobileNetV2 كبنية أساسية محسَّنة بـGrey Wolf Optimizer. نشر على HuggingFace Spaces ومعالجة الفيديو بـOpenCV.", result: "نظام سلامة آني" },
       8:  { name: "اكتشاف أمراض النباتات بالتعلم العميق", desc: "تطوير نموذج تصنيف صور CNN للكشف التلقائي عن أمراض النباتات باستخدام مجموعة بيانات Kaggle PlantVillage. تدريب النموذج بـKeras وتقييمه بمنصة KNIME.", result: "دقة تصنيف CNN عالية" },
       9:  { name: "الكشف عن سرطان الجلد بالتعلم العميق", desc: "نموذج تعلم عميق لتصنيف صور سرطان الجلد (حميدة أو خبيثة) بناءً على مجموعة Kaggle. شبكة عصبية تلافيفية بـKeras وتقييم عبر سير عمل KNIME لدعم القرارات الطبية.", result: "تصنيف الصور الطبية" },
-      10: { name: "اكتشاف تعب السائق في الفيديو", desc: "اكتشاف تعب السائق آنياً عبر تحليل الفيديو. استخدام MobileNetV2 كبنية أساسية محسَّنة بـGrey Wolf Optimizer. نشر على HuggingFace Spaces ومعالجة الفيديو بـOpenCV.", result: "نظام سلامة آني" },
-      11: { name: "روبوت محادثة للسيرة الذاتية بالذكاء الاصطناعي", desc: "روبوت محادثة ذكي للسيرة الذاتية قائم على بنية RAG. يجيب بدقة على أسئلة السيرة الذاتية بدمج FAISS وLangChain وGPT-4o-mini. معالجة PDF للتحليل الديناميكي للوثائق.", result: "مساعد توظيف ذكاء اصطناعي تفاعلي" },
-      12: { name: "تحليل الاحتيال بالذكاء الاصطناعي مع Power BI", desc: "نظام متكامل للكشف عن الاحتيال: نماذج ML في Python لتصنيف الشذوذ، دمج نموذج لغوي كبير لشرح حالات الاحتيال، ولوحات Power BI تفاعلية بمقاييس DAX لإدارة المخاطر.", result: "كشف آلي عن الاحتيال" },
-      13: { name: "حجز مواعيد المستشفيات الذكي", desc: "نظام مدعوم بالذكاء الاصطناعي لتحسين جدولة مواعيد المستشفيات. XGBoost وLightGBM للتنبؤ بحجم المرضى ونماذج Hugging Face للطلبات القائمة على NLP ولوحات Power BI لتخطيط الطاقة الاستيعابية.", result: "جدولة محسَّنة بالتعلم الآلي" },
-      14: { name: "تحليل ملاحظات العملاء لتحسين تجربة المستخدم", desc: "تحليل قائم على NLP لمراجعات العملاء ونصوص الملاحظات لتحديد نقاط الضعف في تجربة المستخدم. استخراج النصوص بـKNIME وتحليل المشاعر وتصور السحابة الكلمية والتجميع التلقائي للمواضيع.", result: "رؤى تجربة مستخدم مبنية على البيانات" },
-      15: { name: "تحليل بيانات الطقس في هانوفر", desc: "تحليل استكشافي للبيانات التاريخية للطقس في هانوفر عبر OpenWeatherMap API. تصورات السلاسل الزمنية وتحليل الموسمية والتقييمات الإحصائية بـPython. رسوم بيانية تفاعلية بـMatplotlib/Seaborn.", result: "خط أنابيب EDA كامل" },
-      16: { name: "أداء العملاء والتسويق مع التعلم الآلي", desc: "منصة تحليلات تسويقية شاملة: نماذج ML لتجزئة العملاء وتحسين الحملات مع لوحات Power BI تفاعلية. قياسات DAX لعائد الاستثمار وقيمة العميل مدى الحياة ومعدلات التحويل.", result: "استراتيجية تسويق مبنية على البيانات" },
-      17: { name: "ذكاء أعمال التجزئة: لوحات معلومات وتحليلات تنبؤية", desc: "حل ذكاء أعمال لقطاع التجزئة: لوحات مبيعات في Tableau وتحليلات المخزون وتوقعات إيرادات تنبؤية بدالة Excel Forecast وتحليل الاتجاهات الموسمية لقرارات الشراء الاستراتيجية.", result: "حل BI كامل للتجزئة" },
-      18: { name: "تحليل الطلبات بـTableau", desc: "لوحات Tableau تفاعلية لتحليل أنماط الطلبات وأوقات التسليم وشرائح العملاء. تصور مؤشرات الأداء كمتوسط قيمة الطلب وتكرار الطلبات والتوزيع الجغرافي للإيرادات.", result: "تحليل طلبات تفاعلي" },
-      19: { name: "تحليل المبيعات والأرباح مع Power BI", desc: "تحليل شامل لبيانات المبيعات وإنشاء تقارير Power BI تفاعلية لتقارير الإدارة. حسابات DAX لتحليل هامش المساهمة وتتبع الهامش ومقارنات أداء مندوبي المبيعات.", result: "تقارير مبيعات متكاملة" }
+      10: { name: "أداء العملاء والتسويق مع التعلم الآلي", desc: "منصة تحليلات تسويقية شاملة: نماذج ML لتجزئة العملاء وتحسين الحملات مع لوحات Power BI تفاعلية. قياسات DAX لعائد الاستثمار وقيمة العميل مدى الحياة ومعدلات التحويل.", result: "استراتيجية تسويق مبنية على البيانات" },
+      11: { name: "تحليل المبيعات والأرباح مع Power BI", desc: "تحليل شامل لبيانات المبيعات وإنشاء تقارير Power BI تفاعلية لتقارير الإدارة. حسابات DAX لتحليل هامش المساهمة وتتبع الهامش ومقارنات أداء مندوبي المبيعات.", result: "تقارير مبيعات متكاملة" },
+      12: { name: "ذكاء أعمال التجزئة: لوحات وتحليلات تنبؤية", desc: "حل ذكاء أعمال لقطاع التجزئة: لوحات مبيعات في Tableau وتحليلات المخزون وتوقعات إيرادات تنبؤية بدالة Excel Forecast وتحليل الاتجاهات الموسمية لقرارات الشراء الاستراتيجية.", result: "حل BI كامل للتجزئة" },
+      13: { name: "تحليل الطلبات بـTableau", desc: "لوحات Tableau تفاعلية لتحليل أنماط الطلبات وأوقات التسليم وشرائح العملاء. تصور مؤشرات الأداء كمتوسط قيمة الطلب وتكرار الطلبات والتوزيع الجغرافي للإيرادات.", result: "تحليل طلبات تفاعلي" },
+      14: { name: "تحليل بيانات الطقس في هانوفر", desc: "تحليل استكشافي للبيانات التاريخية للطقس في هانوفر عبر OpenWeatherMap API. تصورات السلاسل الزمنية وتحليل الموسمية والتقييمات الإحصائية بـPython. رسوم بيانية تفاعلية بـMatplotlib/Seaborn.", result: "خط أنابيب EDA كامل" },
+      15: { name: "إدارة جمع بيانات الموظفين", desc: "تطوير منصة متكاملة لتتبع حضور وغياب الموظفين. دمج بيانات SAP في SharePoint وPower BI لأتمتة عمليات الموارد البشرية اليدوية. واجهة خلفية بـPython وقاعدة بيانات PostgreSQL وواجهة أمامية متجاوبة.", result: "+25% دقة التقارير" },
+      16: { name: "مؤشرات الأداء لإدارة مخاطر الإنتاج", desc: "تحليل بيانات الإنتاج وإنشاء لوحات مؤشرات أداء تفاعلية للإدارة. تطبيق حسابات DAX معقدة لمراقبة آنية لمقاييس الجودة والمخاطر على خط إنتاج VW.", result: "−40% وقت التحليل" },
+      17: { name: "الخطة الأسبوعية للوجستيات وإدارة الموردين", desc: "رقمنة تخطيط المناوبات التشغيلية وإدارة الموردين بمنصة Microsoft Power Platform. واجهة Power Apps للمشغلين وDataverse كقاعدة بيانات وPower BI لتقارير الطاقة الاستيعابية ومؤشرات الموردين.", result: "100% أتمتة سير العمل" },
+      18: { name: "متجر RHK الإلكتروني — منصة تجارة إلكترونية", desc: "تطوير منصة تجارة إلكترونية متكاملة لبيع أجهزة الكمبيوتر المحمول. واجهة أمامية متجاوبة بتصميم حديث وتكامل خلفي لإدارة المنتجات وسلة التسوق ومعالجة الطلبات. مبنية كلياً بـVanilla JavaScript.", result: "مكدس تجارة إلكترونية متكامل" },
+      19: { name: "الصيانة التنبؤية بالذكاء الاصطناعي (الصناعة 4.0)", desc: "نظام صيانة تنبؤية مدعوم بالذكاء الاصطناعي للصناعة 4.0: التنبؤ بأعطال الآلات بناءً على بيانات المستشعرات، مع لوحات Power BI تفاعلية لمراقبة حالة المعدات وتخطيط الصيانة. يقلّل التوقفات غير المخطط لها ويحسّن دورات الصيانة.", result: "تقليل التوقفات غير المخططة" }
     }
   };
 
@@ -3167,7 +3295,6 @@ html{
   function switchTab(idx) {
     document.querySelectorAll(".admin-tab").forEach((t, i) => t.classList.toggle("active", i === idx));
     document.querySelectorAll(".admin-tab-content").forEach((t, i) => t.classList.toggle("active", i === idx));
-    if (idx === 3) initGithubUI();
   }
 
   function populateAdminProfileForm(profile) {
@@ -3486,324 +3613,6 @@ html{
   }
 
   // ========================================
-  // GITHUB SYNC  (Gist cloud storage)
-  // ========================================
-  // One-time setup: create a Gist via the button below, then paste its ID
-  // into PUBLISHED_GIST_ID so every visitor loads your published data.
-  const PUBLISHED_GIST_ID = "";              // <-- paste your Gist-ID here (one time)
-  const GIST_FILENAME     = "portfolio-anas.json";
-  const EXPECTED_OWNER    = "anas83alrajeh";  // only this account may publish
-  const GH_API            = "https://api.github.com";
-
-  function ghToken()  { return localStorage.getItem("ghToken") || ""; }
-  function getGistId(){ return PUBLISHED_GIST_ID || localStorage.getItem("ghGistId") || ""; }
-
-  function ghHeaders(withAuth) {
-    const h = { "Accept": "application/vnd.github+json" };
-    if (withAuth && ghToken()) h["Authorization"] = "Bearer " + ghToken();
-    return h;
-  }
-
-  function setStatus(id, msg, cls) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = msg;
-    el.className = "gh-status" + (cls ? " " + cls : "");
-    el.style.display = "block";
-  }
-
-  function toggleTokenVisibility() {
-    const inp = document.getElementById("ghToken");
-    const eye = document.getElementById("ghTokenEye");
-    if (inp.type === "password") { inp.type = "text"; eye.className = "ph ph-eye-slash"; }
-    else { inp.type = "password"; eye.className = "ph ph-eye"; }
-  }
-
-  async function verifyGithub() {
-    const token = document.getElementById("ghToken").value.trim() || ghToken();
-    if (!token) { setStatus("ghAuthStatus", "Bitte zuerst einen Token eingeben.", "err"); return; }
-    setStatus("ghAuthStatus", "Verifiziere Token bei GitHub…", "busy");
-    try {
-      const res = await fetch(GH_API + "/user", { headers: { ...ghHeaders(false), "Authorization": "Bearer " + token } });
-      if (!res.ok) {
-        setStatus("ghAuthStatus", "Token ungültig oder abgelaufen (HTTP " + res.status + ").", "err");
-        return;
-      }
-      const user = await res.json();
-      // verify the token belongs to the expected account
-      if (EXPECTED_OWNER && user.login && user.login.toLowerCase() !== EXPECTED_OWNER.toLowerCase()) {
-        setStatus("ghAuthStatus",
-          "Dieser Token gehört zu '" + user.login + "', nicht zum erwarteten Konto '" + EXPECTED_OWNER + "'. Veröffentlichen blockiert.",
-          "err");
-        localStorage.removeItem("ghToken");
-        return;
-      }
-      localStorage.setItem("ghToken", token);
-      setStatus("ghAuthStatus", "✓ Verifiziert als '" + user.login + "'. Sie können jetzt veröffentlichen.", "ok");
-      showToast("GitHub-Konto verifiziert: " + user.login, "success");
-    } catch (e) {
-      setStatus("ghAuthStatus", "Netzwerkfehler bei der Verifizierung: " + e.message, "err");
-    }
-  }
-
-  function logoutGithub() {
-    localStorage.removeItem("ghToken");
-    document.getElementById("ghToken").value = "";
-    setStatus("ghAuthStatus", "Token entfernt. Nicht verbunden.", "");
-    showToast("Token entfernt", "info");
-  }
-
-  function saveGistId() {
-    const id = document.getElementById("ghGistId").value.trim();
-    if (!id) { setStatus("ghGistHint", "Bitte eine Gist-ID eingeben.", "err"); return; }
-    localStorage.setItem("ghGistId", id);
-    setStatus("ghGistHint", "Gist-ID gespeichert: " + id, "ok");
-    showToast("Gist-ID gespeichert", "success");
-  }
-
-  async function createGist() {
-    if (!ghToken()) { setStatus("ghGistHint", "Bitte zuerst den Token verifizieren.", "err"); return; }
-    setStatus("ghGistHint", "Erstelle neuen Gist…", "busy");
-    try {
-      const data = getData();
-      const body = {
-        description: "Anas Al Rajeh — Portfolio Daten",
-        public: true,
-        files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
-      };
-      const res = await fetch(GH_API + "/gists", { method: "POST", headers: ghHeaders(true), body: JSON.stringify(body) });
-      if (!res.ok) { setStatus("ghGistHint", "Konnte Gist nicht erstellen (HTTP " + res.status + ").", "err"); return; }
-      const gist = await res.json();
-      localStorage.setItem("ghGistId", gist.id);
-      localStorage.removeItem("portfolioDirty");
-      document.getElementById("ghGistId").value = gist.id;
-      updatePublishStatus();
-      setStatus("ghGistHint",
-        "✓ Gist erstellt! ID: " + gist.id +
-        "  —  WICHTIG: Tragen Sie diese ID einmalig in den Code (PUBLISHED_GIST_ID) ein, damit ALLE Besucher die Daten sehen.",
-        "ok");
-      showToast("Gist erstellt", "success");
-    } catch (e) {
-      setStatus("ghGistHint", "Netzwerkfehler: " + e.message, "err");
-    }
-  }
-
-  async function publishToGithub(silent) {
-    const gid = getGistId();
-    if (!ghToken()) {
-      if (!silent) setStatus("ghPublishStatus", "Bitte zuerst den Token verifizieren (Konto-Inhaber).", "err");
-      return;
-    }
-    if (!gid) {
-      if (!silent) setStatus("ghPublishStatus", "Keine Gist-ID. Bitte einen Gist erstellen oder ID eintragen.", "err");
-      return;
-    }
-    if (!silent) setStatus("ghPublishStatus", "Veröffentliche auf GitHub…", "busy");
-    try {
-      const data = getData();
-      const body = { files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } } };
-      const res = await fetch(GH_API + "/gists/" + gid, { method: "PATCH", headers: ghHeaders(true), body: JSON.stringify(body) });
-      if (!res.ok) {
-        if (res.status === 404) { setStatus("ghPublishStatus", "Gist nicht gefunden (404). Prüfen Sie die Gist-ID / Token-Rechte.", "err"); }
-        else if (res.status === 401 || res.status === 403) { setStatus("ghPublishStatus", "Keine Berechtigung (HTTP " + res.status + "). Token mit gist-Scope nötig.", "err"); }
-        else { setStatus("ghPublishStatus", "Fehler beim Veröffentlichen (HTTP " + res.status + ").", "err"); }
-        return;
-      }
-      localStorage.removeItem("portfolioDirty");
-      localStorage.setItem("portfolioPublishedAt", new Date().toISOString());
-      updatePublishStatus();
-      showToast("Auf GitHub veröffentlicht ✓", "success");
-    } catch (e) {
-      if (!silent) setStatus("ghPublishStatus", "Netzwerkfehler: " + e.message, "err");
-    }
-  }
-
-  // Load published data from the public Gist so visitors see the latest version
-  async function loadPublishedData() {
-    const gid = getGistId();
-    if (!gid) return;
-    // don't overwrite local unsaved admin edits
-    if (localStorage.getItem("portfolioDirty") === "1") return;
-    try {
-      const res = await fetch(GH_API + "/gists/" + gid, { headers: ghHeaders(true) });
-      if (!res.ok) return;
-      const gist = await res.json();
-      const file = gist.files && gist.files[GIST_FILENAME];
-      if (!file) return;
-      let content = file.content;
-      if (file.truncated && file.raw_url) {
-        content = await (await fetch(file.raw_url)).text();
-      }
-      const data = JSON.parse(content);
-      if (data && data.profile && Array.isArray(data.projects)) {
-        saveData(data, { fromCloud: true });  // store locally, do not mark dirty
-      }
-    } catch (e) { /* offline / first run — silently keep local data */ }
-  }
-
-  function toggleAutoPublish() {
-    const on = document.getElementById("ghAutoPublish").checked;
-    localStorage.setItem("ghAutoPublish", on ? "1" : "0");
-    showToast(on ? "Auto-Veröffentlichung an" : "Auto-Veröffentlichung aus", "info");
-  }
-
-  function updatePublishStatus() {
-    const dirty = localStorage.getItem("portfolioDirty") === "1";
-    const at = localStorage.getItem("portfolioPublishedAt");
-    const el = document.getElementById("ghPublishStatus");
-    if (!el) return;
-    if (dirty) {
-      setStatus("ghPublishStatus", "● Nicht veröffentlichte Änderungen vorhanden. Bitte 'Jetzt auf GitHub speichern' klicken.", "busy");
-    } else if (at) {
-      setStatus("ghPublishStatus", "✓ Aktuell. Zuletzt veröffentlicht: " +
-        new Date(at).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" }), "ok");
-    } else {
-      setStatus("ghPublishStatus", "Noch nicht veröffentlicht.", "");
-    }
-  }
-
-  // Restore GitHub UI state when admin opens the panel
-  function initGithubUI() {
-    if (ghToken()) {
-      document.getElementById("ghToken").value = ghToken();
-      setStatus("ghAuthStatus", "Token gespeichert. Bitte verifizieren, um den Kontoinhaber zu bestätigen.", "");
-    }
-    const gid = localStorage.getItem("ghGistId") || PUBLISHED_GIST_ID;
-    if (gid) document.getElementById("ghGistId").value = gid;
-    document.getElementById("ghAutoPublish").checked = localStorage.getItem("ghAutoPublish") === "1";
-    updatePublishStatus();
-    updateSortStatus();
-  }
-
-  // ========================================
-  // PROJECT SORTING
-  // ========================================
-  function setSortOrder(order) {
-    const data = getData();
-    data.settings.sortOrder = order;
-    if (saveData(data)) {
-      renderAll();
-      updateSortStatus();
-      const labels = { asc: "Älteste zuerst", desc: "Neueste zuerst", manual: "Manuelle Reihenfolge" };
-      showToast("Sortierung: " + labels[order], "success");
-    }
-  }
-
-  function updateSortStatus() {
-    const order = getData().settings.sortOrder;
-    const labels = { asc: "Älteste zuerst (aufsteigend)", desc: "Neueste zuerst (absteigend)", manual: "Manuelle Reihenfolge" };
-    const el = document.getElementById("sortStatus");
-    if (el) setStatus("sortStatus", "Aktuelle Sortierung: " + (labels[order] || "—"), "ok");
-    [["sortAscBtn", "asc"], ["sortDescBtn", "desc"], ["sortManualBtn", "manual"]].forEach(([id, o]) => {
-      const b = document.getElementById(id);
-      if (b) b.classList.toggle("sort-active", order === o);
-    });
-  }
-
-  // ========================================
-  // CV / RESUME  →  PRINT AS PDF
-  // ========================================
-  function printCV() {
-    const data = getData();
-    const p = data.profile;
-    const projects = sortProjects(data.projects, data.settings.sortOrder);
-    const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    const stripTags = s => String(s == null ? "" : s).replace(/<[^>]+>/g, "");
-
-    const exp = [1, 2, 3, 4, 5].map(i => ({
-      date: stripTags(t("tl" + i + ".date")), title: stripTags(t("tl" + i + ".title")),
-      org: stripTags(t("tl" + i + ".org")), desc: stripTags(t("tl" + i + ".desc"))
-    }));
-    const edu = [1, 2, 3].map(i => ({
-      period: stripTags(t("edu" + i + ".period")), degree: stripTags(t("edu" + i + ".degree")),
-      org: stripTags(t("edu" + i + ".org")), grade: stripTags(t("edu" + i + ".grade"))
-    }));
-    const pubs = [1, 2, 3].map(i => ({ title: stripTags(t("pub" + i + ".title")), src: stripTags(t("pub" + i + ".source")) }));
-    const skills = [1, 2, 3, 4, 5, 6].map(i => stripTags(t("exp.card" + i + ".title")));
-    const isRTL = currentLang === "ar";
-
-    const proj = projects.slice(0, 12).map(pr => {
-      const tr = getProjectTranslation(pr.id);
-      const name = tr ? tr.name : pr.name;
-      const desc = tr ? tr.desc : pr.desc;
-      const result = tr ? tr.result : pr.result;
-      return `<div class="cv-item">
-        <div class="cv-item-head"><span class="cv-item-title">${esc(stripTags(name))}</span><span class="cv-item-date">${esc(pr.date)}</span></div>
-        <div class="cv-item-org">${esc(pr.company)}</div>
-        <div class="cv-item-desc">${esc(stripTags(desc))}</div>
-        <div class="cv-tags">${pr.tech.split(",").map(x => `<span>${esc(x.trim())}</span>`).join("")}</div>
-        ${result ? `<div class="cv-impact">▸ ${esc(stripTags(result))}</div>` : ""}
-      </div>`;
-    }).join("");
-
-    const L = {
-      summary:  isRTL ? "نبذة" : (currentLang === "en" ? "Profile" : "Profil"),
-      exp:      isRTL ? "الخبرة المهنية" : (currentLang === "en" ? "Experience" : "Berufserfahrung"),
-      edu:      isRTL ? "التعليم" : (currentLang === "en" ? "Education" : "Ausbildung"),
-      proj:     isRTL ? "مشاريع مختارة" : (currentLang === "en" ? "Selected Projects" : "Ausgewählte Projekte"),
-      pub:      isRTL ? "المنشورات" : (currentLang === "en" ? "Publications" : "Publikationen"),
-      skills:   isRTL ? "المهارات" : (currentLang === "en" ? "Skills" : "Kompetenzen"),
-      contact:  isRTL ? "التواصل" : (currentLang === "en" ? "Contact" : "Kontakt")
-    };
-
-    const win = window.open("", "_blank");
-    const html = `<!DOCTYPE html><html lang="${currentLang}" dir="${isRTL ? "rtl" : "ltr"}"><head><meta charset="UTF-8">
-<title>Lebenslauf — ${esc(p.name)}</title>
-<style>
-  @page { size: A4; margin: 14mm 15mm; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: ${isRTL ? '"Segoe UI","Noto Sans Arabic",Tahoma' : '"Segoe UI",Arial,Helvetica'}, sans-serif; color:#1a1f2e; line-height:1.5; font-size:10.5pt; }
-  .cv-header { border-bottom:3px solid #c9a961; padding-bottom:14px; margin-bottom:18px; display:flex; gap:18px; align-items:center; }
-  .cv-photo { width:84px; height:84px; border-radius:50%; object-fit:cover; border:2px solid #c9a961; flex-shrink:0; }
-  .cv-name { font-size:24pt; font-weight:800; letter-spacing:-0.5px; color:#0a0e1a; }
-  .cv-title { font-size:12pt; color:#c9a961; font-weight:600; margin-top:2px; }
-  .cv-contact { margin-top:8px; font-size:9pt; color:#444; display:flex; flex-wrap:wrap; gap:4px 16px; }
-  .cv-section { margin-bottom:16px; }
-  .cv-section h2 { font-size:12pt; color:#0a0e1a; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #ddd; padding-bottom:4px; margin-bottom:10px; }
-  .cv-item { margin-bottom:11px; page-break-inside:avoid; }
-  .cv-item-head { display:flex; justify-content:space-between; gap:10px; }
-  .cv-item-title { font-weight:700; font-size:10.5pt; color:#0a0e1a; }
-  .cv-item-date { font-size:8.5pt; color:#888; white-space:nowrap; }
-  .cv-item-org { font-size:9pt; color:#c9a961; font-weight:600; margin:1px 0 3px; }
-  .cv-item-desc { font-size:9.3pt; color:#333; text-align:justify; }
-  .cv-tags { margin-top:4px; display:flex; flex-wrap:wrap; gap:4px; }
-  .cv-tags span { font-size:7.6pt; background:#f0ede3; color:#5a5343; padding:1.5px 7px; border-radius:8px; }
-  .cv-impact { font-size:8.6pt; color:#1a7a4a; font-weight:600; margin-top:3px; }
-  .cv-summary { font-size:9.6pt; text-align:justify; color:#333; }
-  .cv-skills { display:flex; flex-wrap:wrap; gap:6px; }
-  .cv-skills span { font-size:9pt; background:#0a0e1a; color:#f4f1ea; padding:4px 12px; border-radius:20px; }
-  .pub-item { font-size:9pt; margin-bottom:7px; }
-  .pub-item b { color:#0a0e1a; } .pub-item i { color:#777; font-size:8.4pt; }
-  @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } .noprint{ display:none; } }
-  .noprint { position:fixed; top:10px; ${isRTL ? "left" : "right"}:10px; background:#c9a961; color:#0a0e1a; border:none; padding:10px 18px; border-radius:8px; font-size:11pt; font-weight:700; cursor:pointer; }
-</style></head><body>
-  <button class="noprint" onclick="window.print()">🖨 ${isRTL ? "حفظ كـ PDF" : "Als PDF speichern"}</button>
-  <div class="cv-header">
-    ${p.image ? `<img class="cv-photo" src="${p.image}">` : ""}
-    <div>
-      <div class="cv-name">${esc(p.name)}</div>
-      <div class="cv-title">${esc(p.title)}</div>
-      <div class="cv-contact">
-        <span>✉ ${esc(p.email)}</span><span>☎ ${esc(p.phone)}</span><span>⚲ ${esc(p.location)}</span>
-      </div>
-    </div>
-  </div>
-  <div class="cv-section"><h2>${L.summary}</h2><div class="cv-summary">${esc(stripTags(p.tagline))}</div></div>
-  <div class="cv-section"><h2>${L.skills}</h2><div class="cv-skills">${skills.map(s => `<span>${esc(s)}</span>`).join("")}</div></div>
-  <div class="cv-section"><h2>${L.exp}</h2>${exp.map(e => `<div class="cv-item">
-      <div class="cv-item-head"><span class="cv-item-title">${esc(e.title)}</span><span class="cv-item-date">${esc(e.date)}</span></div>
-      <div class="cv-item-org">${esc(e.org)}</div><div class="cv-item-desc">${esc(e.desc)}</div></div>`).join("")}</div>
-  <div class="cv-section"><h2>${L.proj}</h2>${proj}</div>
-  <div class="cv-section"><h2>${L.edu}</h2>${edu.map(e => `<div class="cv-item">
-      <div class="cv-item-head"><span class="cv-item-title">${esc(e.degree)}</span><span class="cv-item-date">${esc(e.period)}</span></div>
-      <div class="cv-item-org">${esc(e.org)}</div><div class="cv-item-desc">${esc(e.grade)}</div></div>`).join("")}</div>
-  <div class="cv-section"><h2>${L.pub}</h2>${pubs.map(pb => `<div class="pub-item"><b>${esc(pb.title)}</b><br><i>${esc(pb.src)}</i></div>`).join("")}</div>
-</body></html>`;
-    win.document.write(html);
-    win.document.close();
-  }
-
-  // ========================================
   // TOAST NOTIFICATIONS
   // ========================================
   function showToast(message, type = "info") {
@@ -3849,7 +3658,6 @@ html{
       'hero.stat3':    'Wissenschaftliche Publikationen',
       'hero.btn1':     'Projekte ansehen',
       'hero.btn2':     'Gespräch anfragen',
-      'hero.btn3':     'Lebenslauf (PDF)',
       'hero.available':'Verfügbar',
       'about.title':   'Über mich',
       'about.meta':    'Profil',
@@ -3955,7 +3763,6 @@ html{
       'hero.stat3':    'Scientific Publications',
       'hero.btn1':     'View Projects',
       'hero.btn2':     'Request a Call',
-      'hero.btn3':     'Résumé (PDF)',
       'hero.available':'Available',
       'about.title':   'About Me',
       'about.meta':    'Profile',
@@ -4061,7 +3868,6 @@ html{
       'hero.stat3':    'منشورات علمية',
       'hero.btn1':     'عرض المشاريع',
       'hero.btn2':     'طلب محادثة',
-      'hero.btn3':     'السيرة الذاتية (PDF)',
       'hero.available':'متاح',
       'about.title':   'عني',
       'about.meta':    'الملف الشخصي',
@@ -4207,11 +4013,17 @@ html{
   }
 
 
-  async function initPortfolio() {
-    await loadPublishedData();   // fetch latest published data from Gist (visitors)
+  async function bootstrap() {
+    try {
+      const remote = await loadFromGist();
+      if (remote) {
+        // ندمج البيانات المنشورة في التخزين المحلي حتى يراها كل زائر
+        localStorage.setItem("portfolioData_v2", JSON.stringify(remote));
+      }
+    } catch (e) { console.warn("bootstrap gist:", e); }
     renderAll();
   }
-  document.addEventListener("DOMContentLoaded", initPortfolio);
+  document.addEventListener("DOMContentLoaded", bootstrap);
 
   // Close PDF modal with Esc
   document.addEventListener("keydown", (e) => {
