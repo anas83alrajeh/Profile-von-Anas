@@ -14,6 +14,9 @@
 <!-- Phosphor Icons (more professional than Font Awesome) -->
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+<!-- jsPDF — Lebenslauf-Export (echter Text, ATS-freundlich) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 
 /* Odoo Bootstrap isolation */
@@ -1824,6 +1827,10 @@ html{
             <i class="ph ph-envelope-simple"></i>
             <span data-i18n="hero.btn2">Gespräch anfragen</span>
           </a>
+          <button type="button" class="btn btn-ghost" onclick="exportCvPdf()">
+            <i class="ph ph-file-pdf"></i>
+            <span data-i18n="hero.btn3">Lebenslauf als PDF</span>
+          </button>
         </div>
       </div>
 
@@ -3658,6 +3665,7 @@ html{
       'hero.stat3':    'Wissenschaftliche Publikationen',
       'hero.btn1':     'Projekte ansehen',
       'hero.btn2':     'Gespräch anfragen',
+      'hero.btn3':     'Lebenslauf als PDF',
       'hero.available':'Verfügbar',
       'about.title':   'Über mich',
       'about.meta':    'Profil',
@@ -3763,6 +3771,7 @@ html{
       'hero.stat3':    'Scientific Publications',
       'hero.btn1':     'View Projects',
       'hero.btn2':     'Request a Call',
+      'hero.btn3':     'Download CV (PDF)',
       'hero.available':'Available',
       'about.title':   'About Me',
       'about.meta':    'Profile',
@@ -3868,6 +3877,7 @@ html{
       'hero.stat3':    'منشورات علمية',
       'hero.btn1':     'عرض المشاريع',
       'hero.btn2':     'طلب محادثة',
+      'hero.btn3':     'تحميل السيرة الذاتية PDF',
       'hero.available':'متاح',
       'about.title':   'عني',
       'about.meta':    'الملف الشخصي',
@@ -4012,6 +4022,437 @@ html{
     }
   }
 
+
+  // ========================================
+  // LEBENSLAUF-DATEN (statisch, dreisprachig)
+  // ========================================
+  // بيانات السيرة الذاتية الثابتة (الخبرات/التعليم/المنشورات) بثلاث لغات
+  const cvStatic = {
+    de: {
+      role: "Data Scientist & Machine Learning Engineer",
+      labels: { profile:"Profil", skills:"Kompetenzen", experience:"Beruflicher Werdegang",
+                education:"Akademische Ausbildung", publications:"Wissenschaftliche Publikationen",
+                projects:"Ausgewählte Projekte", langs:"Sprachen", contact:"Kontakt",
+                period:"Zeitraum", impact:"Ergebnis", tech:"Technologien" },
+      langs: "Arabisch (Muttersprache) · Deutsch (C1 · DSH-2) · Englisch (B2)",
+      experience: [
+        { date:"04/2025 — Heute", title:"Freiberufliche Data Science Projekte", org:"AI & Data Science Portfolio · Hannover",
+          desc:"Entwicklung modularer KI-Agenten mit n8n und GPT-4o, Predictive Analytics mit XGBoost, sowie GA4-Implementierungen für Kundenprojekte. Aufbau eines technischen Portfolios mit Fokus auf produktionsreife AI-Lösungen." },
+        { date:"04/2025 — 10/2025", title:"Data Scientist Vollqualifikation", org:"Educx GmbH · Nürnberg (AZAV / CERT IT)",
+          desc:"1.080 Stunden intensive Weiterbildung in 6 Modulen: Python & Data Science, Machine Learning & Deep Learning, Big Data & Business Intelligence, KI-Anwendungen & Generative KI." },
+        { date:"01/2024 — 12/2024", title:"Data Analyst", org:"Magna Exteriors (Germany) GmbH · Hannover (Volkswagen AG)",
+          desc:"Full-Stack-Datenerfassungssystem (+25% Berichtsgenauigkeit), Echtzeit-KPI-Dashboards für VW-Produktionslinie (−40% Analysezeit) und Automatisierung der Logistik-Wochenplanung mit Power BI, Power Apps und Dataverse." },
+        { date:"04/2013 — 08/2015", title:"Wissenschaftlicher Mitarbeiter", org:"Al Jawhara Forschungszentrum · Jordanien",
+          desc:"Interdisziplinäre Datenanalyse in Soziologie, Medizin, Wirtschaft und Bildungsentwicklung. Statistische Modellierung und Berichterstellung mit SPSS und R." },
+        { date:"09/2006 — 03/2013", title:"Dozent für Statistik & Datenanalyse", org:"Universität Damaskus · Syrien",
+          desc:"Vermittlung von Statistik, analytischem Denken und methodischer Kompetenz. Betreuung von Forschungsprojekten mit SPSS, R, JASP und Python." }
+      ],
+      education: [
+        { date:"09/2020 — 09/2023", degree:"Bachelor in Informatik", org:"Stiftung Universität Hildesheim · Deutschland", grade:"Abschlussnote: 2,3" },
+        { date:"09/2010 — 06/2012", degree:"Master in Messung und Bewertung", org:"Universität Jadara · Jordanien", grade:"Note: 83,1 % (Sehr gut) · KMK/ZAB als Master anerkannt" },
+        { date:"09/2002 — 09/2006", degree:"Bachelor in Mathematischer Statistik", org:"Universität Damaskus · Syrien", grade:"Note: 63,58 %" }
+      ],
+      skills: [
+        { h:"Python & Data Science", t:"Python, Pandas, NumPy, SQL, R" },
+        { h:"Machine / Deep Learning", t:"XGBoost, Scikit-learn, Keras, PyTorch, CNN" },
+        { h:"Business Intelligence", t:"Power BI, DAX, Tableau, Looker Studio, ETL/ELT" },
+        { h:"Generative KI & LLMs", t:"GPT-4o, RAG, n8n, Hugging Face, Ollama" },
+        { h:"Datenbanken", t:"PostgreSQL, MongoDB, Neo4j, Dataverse" },
+        { h:"DevOps & Tools", t:"Docker, Git, Power Apps, SAP" }
+      ],
+      publications: [
+        { y:"2023", t:"The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study", s:"Int. Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5" },
+        { y:"2019", t:"Multi-Logistic Regression Binary Response Technique … Diakonie's Role in integrating Syrian Refugees in Germany", s:"Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin" },
+        { y:"2018", t:"The reality of Alienation among the Arab Students in University — Syrian and Iraqi Refugee Students in Jordan", s:"Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada" }
+      ]
+    },
+    en: {
+      role: "Data Scientist & Machine Learning Engineer",
+      labels: { profile:"Profile", skills:"Skills", experience:"Professional Experience",
+                education:"Education", publications:"Scientific Publications",
+                projects:"Selected Projects", langs:"Languages", contact:"Contact",
+                period:"Period", impact:"Impact", tech:"Technologies" },
+      langs: "Arabic (Native) · German (C1 · DSH-2) · English (B2)",
+      experience: [
+        { date:"04/2025 — Present", title:"Freelance Data Science Projects", org:"AI & Data Science Portfolio · Hanover",
+          desc:"Development of modular AI agents with n8n and GPT-4o, predictive analytics with XGBoost, and GA4 implementations for client projects. Building a portfolio focused on production-ready AI solutions." },
+        { date:"04/2025 — 10/2025", title:"Data Scientist Full Qualification", org:"Educx GmbH · Nuremberg (AZAV / CERT IT)",
+          desc:"1,080 hours of intensive training in 6 modules: Python & Data Science, Machine & Deep Learning, Big Data & Business Intelligence, AI Applications & Generative AI." },
+        { date:"01/2024 — 12/2024", title:"Data Analyst", org:"Magna Exteriors (Germany) GmbH · Hanover (Volkswagen AG)",
+          desc:"Full-stack data acquisition system (+25% reporting accuracy), real-time KPI dashboards for VW production line (−40% analysis time), and logistics planning automation with Power BI, Power Apps and Dataverse." },
+        { date:"04/2013 — 08/2015", title:"Research Associate", org:"Al Jawhara Research Center · Jordan",
+          desc:"Interdisciplinary data analysis in sociology, medicine, economics and education. Statistical modeling and reporting with SPSS and R." },
+        { date:"09/2006 — 03/2013", title:"Lecturer in Statistics & Data Analysis", org:"University of Damascus · Syria",
+          desc:"Teaching statistics, analytical thinking and methodology. Supervision of research projects with SPSS, R, JASP and Python." }
+      ],
+      education: [
+        { date:"09/2020 — 09/2023", degree:"Bachelor in Computer Science", org:"University of Hildesheim · Germany", grade:"Final grade: 2.3 (German scale)" },
+        { date:"09/2010 — 06/2012", degree:"Master in Measurement and Evaluation", org:"Jadara University · Jordan", grade:"Grade: 83.1 % (Very Good) · Recognised by KMK/ZAB as Master's" },
+        { date:"09/2002 — 09/2006", degree:"Bachelor in Mathematical Statistics", org:"University of Damascus · Syria", grade:"Grade: 63.58 %" }
+      ],
+      skills: [
+        { h:"Python & Data Science", t:"Python, Pandas, NumPy, SQL, R" },
+        { h:"Machine / Deep Learning", t:"XGBoost, Scikit-learn, Keras, PyTorch, CNN" },
+        { h:"Business Intelligence", t:"Power BI, DAX, Tableau, Looker Studio, ETL/ELT" },
+        { h:"Generative AI & LLMs", t:"GPT-4o, RAG, n8n, Hugging Face, Ollama" },
+        { h:"Databases", t:"PostgreSQL, MongoDB, Neo4j, Dataverse" },
+        { h:"DevOps & Tools", t:"Docker, Git, Power Apps, SAP" }
+      ],
+      publications: [
+        { y:"2023", t:"The Application of Machine Learning Techniques for Investigating and Analyzing Student Bullying Phenomenon: A Practical Binary Logistic Regression Study", s:"Int. Journal of Advanced Multidisciplinary Research and Studies · Vol. 3, Issue 5" },
+        { y:"2019", t:"Multi-Logistic Regression Binary Response Technique … Diakonie's Role in integrating Syrian Refugees in Germany", s:"Journal of Political Science and Law · Vol. 3, Issue 13 · Democratic Arab Center, Berlin" },
+        { y:"2018", t:"The reality of Alienation among the Arab Students in University — Syrian and Iraqi Refugee Students in Jordan", s:"Canadian Journal for Middle East Studies · Vol. 2, No. 2 · IMESC, Canada" }
+      ]
+    },
+    ar: {
+      role: "عالم بيانات ومهندس تعلم آلي",
+      labels: { profile:"نبذة", skills:"المهارات", experience:"الخبرة المهنية",
+                education:"المؤهلات العلمية", publications:"المنشورات العلمية",
+                projects:"مشاريع مختارة", langs:"اللغات", contact:"التواصل",
+                period:"الفترة", impact:"النتيجة", tech:"التقنيات" },
+      langs: "العربية (لغة أم) · الألمانية (C1 · DSH-2) · الإنجليزية (B2)",
+      experience: [
+        { date:"04/2025 — حتى الآن", title:"مشاريع علم البيانات الحرة", org:"محفظة الذكاء الاصطناعي وعلم البيانات · هانوفر",
+          desc:"تطوير وكلاء ذكاء اصطناعي معيارية باستخدام n8n وGPT-4o، وتحليلات تنبؤية بـXGBoost، وتطبيقات GA4 لمشاريع العملاء. بناء محفظة تقنية تركز على حلول جاهزة للإنتاج." },
+        { date:"04/2025 — 10/2025", title:"تأهيل كامل لعالم البيانات", org:"Educx GmbH · نورنبرغ (AZAV / CERT IT)",
+          desc:"1.080 ساعة تدريب مكثف في 6 وحدات: Python وعلم البيانات، التعلم الآلي والعميق، البيانات الضخمة وذكاء الأعمال، تطبيقات الذكاء الاصطناعي والتوليدي." },
+        { date:"01/2024 — 12/2024", title:"محلل بيانات", org:"Magna Exteriors (Germany) GmbH · هانوفر (Volkswagen AG)",
+          desc:"نظام جمع بيانات متكامل (+25% دقة التقارير)، لوحات مؤشرات أداء آنية لخط إنتاج VW (−40% وقت التحليل)، وأتمتة التخطيط الأسبوعي للوجستيات بـPower BI وPower Apps وDataverse." },
+        { date:"04/2013 — 08/2015", title:"باحث علمي", org:"مركز الجوهرة للبحوث · الأردن",
+          desc:"تحليل بيانات متعدد التخصصات في علم الاجتماع والطب والاقتصاد والتعليم. نمذجة إحصائية وإعداد التقارير بـSPSS وR." },
+        { date:"09/2006 — 03/2013", title:"محاضر في الإحصاء وتحليل البيانات", org:"جامعة دمشق · سوريا",
+          desc:"تدريس الإحصاء والتفكير التحليلي والمنهجية. الإشراف على مشاريع بحثية باستخدام SPSS وR وJASP وPython." }
+      ],
+      education: [
+        { date:"09/2020 — 09/2023", degree:"بكالوريوس في علوم الحاسوب", org:"جامعة هيلدسهايم · ألمانيا", grade:"التقدير: 2,3 (النظام الألماني)" },
+        { date:"09/2010 — 06/2012", degree:"ماجستير في القياس والتقييم", org:"جامعة جدارا · الأردن", grade:"المعدل: 83,1 % (جيد جداً) · معترف به من KMK/ZAB كماجستير" },
+        { date:"09/2002 — 09/2006", degree:"بكالوريوس في الإحصاء الرياضي", org:"جامعة دمشق · سوريا", grade:"المعدل: 63,58 %" }
+      ],
+      skills: [
+        { h:"Python وعلم البيانات", t:"Python, Pandas, NumPy, SQL, R" },
+        { h:"التعلم الآلي والعميق", t:"XGBoost, Scikit-learn, Keras, PyTorch, CNN" },
+        { h:"ذكاء الأعمال", t:"Power BI, DAX, Tableau, Looker Studio, ETL/ELT" },
+        { h:"الذكاء التوليدي ونماذج اللغة", t:"GPT-4o, RAG, n8n, Hugging Face, Ollama" },
+        { h:"قواعد البيانات", t:"PostgreSQL, MongoDB, Neo4j, Dataverse" },
+        { h:"DevOps والأدوات", t:"Docker, Git, Power Apps, SAP" }
+      ],
+      publications: [
+        { y:"2023", t:"تطبيق تقنيات التعلم الآلي في تحليل ظاهرة التنمر المدرسي: دراسة تطبيقية بالانحدار اللوجستي الثنائي", s:"المجلة الدولية للبحوث والدراسات متعددة التخصصات المتقدمة · المجلد 3، العدد 5" },
+        { y:"2019", t:"تقنية الانحدار اللوجستي المتعدد لتحديد أهم العوامل المؤثرة في دور Diakonie في دمج اللاجئين السوريين في ألمانيا", s:"مجلة العلوم السياسية والقانون · المجلد 3، العدد 13 · المركز الديمقراطي العربي، برلين" },
+        { y:"2018", t:"واقع الاغتراب لدى الطلاب العرب في الجامعة — دراسة مقارنة بين الطلاب السوريين والعراقيين في الأردن", s:"المجلة الكندية لدراسات الشرق الأوسط · المجلد 2، العدد 2 · IMESC، كندا" }
+      ]
+    }
+  };
+
+  // ============================================================
+  // LEBENSLAUF PDF — professioneller deutscher Lebenslauf
+  // Direkt mit jsPDF gezeichnet: echter Text (ATS-freundlich),
+  // kein html2canvas, kein Clipping, keine Buchstabenfehler.
+  // ============================================================
+  function exportCvPdf() {
+    const JsPDF = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : null;
+    if (!JsPDF) {
+      showToast("PDF-Bibliothek nicht geladen. Bitte Seite neu laden (Strg+F5).", "error");
+      return;
+    }
+    const data = getData();
+    const cv = cvStatic.de; // Bewerbung bei deutschen Unternehmen → immer Deutsch
+    showToast("Lebenslauf wird erstellt ...", "info");
+
+    // تنظيف النص: كيانات HTML + محارف خارج ترميز WinAnsi
+    const tx = s => String(s == null ? "" : s)
+      .replace(/&amp;/g, "&").replace(/&nbsp;/g, " ")
+      .replace(/<[^>]*>/g, "")
+      .replace(/\u2212/g, "-").replace(/\u00A0/g, " ");
+
+    // الاسم الكامل — إصلاح ذاتي إن كانت البيانات المخزنة مبتورة (مثل "Anas Al")
+    const CANON_NAME = "Anas Al Rajeh";
+    let fullName = tx(data.profile.name || "").trim();
+    if (!fullName ||
+        (CANON_NAME.toLowerCase().indexOf(fullName.toLowerCase()) === 0 &&
+         fullName.length < CANON_NAME.length)) {
+      fullName = CANON_NAME;
+    }
+
+    const C = {
+      ink:[13,18,32], ink2:[22,28,46], gold:[184,148,85], gold2:[205,170,106],
+      txt:[42,49,66], mute:[122,129,148], white:[255,255,255],
+      sideTxt:[223,226,234], sideMute:[160,167,184], line:[226,219,202], paper:[251,249,244]
+    };
+
+    const doc = new JsPDF({ unit: "pt", format: "a4", orientation: "portrait" });
+    const PW = doc.internal.pageSize.getWidth();    // 595.28
+    const PH = doc.internal.pageSize.getHeight();   // 841.89
+    const SW = 185;                                  // عرض الشريط الجانبي (صفحة 1)
+    let mainX = SW + 26, mainW = PW - mainX - 30;
+    const BOTTOM = PH - 44;
+
+    function setF(size, style, color, font){
+      doc.setFont(font || "helvetica", style || "normal");
+      doc.setFontSize(size);
+      doc.setTextColor(color[0], color[1], color[2]);
+    }
+    function lines(text, size, maxW, style, font){
+      doc.setFont(font || "helvetica", style || "normal");
+      doc.setFontSize(size);
+      return doc.splitTextToSize(tx(text), maxW);
+    }
+
+    // ============ الشريط الجانبي (الصفحة الأولى) ============
+    function drawSidebar(){
+      doc.setFillColor(C.ink[0],C.ink[1],C.ink[2]); doc.rect(0,0,SW,PH,"F");
+      const headH = 208;
+      doc.setFillColor(C.ink2[0],C.ink2[1],C.ink2[2]); doc.rect(0,0,SW,headH,"F");
+      doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.rect(0,headH-3,SW,3,"F");
+
+      // الصورة الشخصية بإطار ذهبي
+      const img = data.profile.image || document.getElementById("heroPortrait").src;
+      const fmt = /image\/png/i.test(img) ? "PNG" : "JPEG";
+      const iw=96, ih=120, ix=(SW-iw)/2, iy=20;
+      try {
+        doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]);
+        doc.roundedRect(ix-2.5,iy-2.5,iw+5,ih+5,4,4,"F");
+        doc.addImage(img, fmt, ix, iy, iw, ih, undefined, "FAST");
+      } catch(e){ console.warn("Foto:", e); }
+
+      // الاسم — سطر واحد دائماً مع تصغير تلقائي للخط إن لزم
+      let ny = iy+ih+22;
+      let nameSize = 15;
+      doc.setFont("helvetica","bold"); doc.setFontSize(nameSize);
+      while (nameSize > 9 && doc.getTextWidth(fullName) > SW-20){
+        nameSize -= 0.5; doc.setFontSize(nameSize);
+      }
+      doc.setTextColor(C.white[0],C.white[1],C.white[2]);
+      doc.text(fullName, SW/2, ny, {align:"center"});
+      ny += 17;
+      setF(7.2,"bold",C.gold2);
+      lines(cv.role.toUpperCase(),7.2,SW-22,"bold").forEach(l=>{ doc.text(l, SW/2, ny, {align:"center"}); ny+=10; });
+
+      let sy = headH + 24;
+      const sx = 16, sInner = SW - 32;
+      function sideHead(t){
+        setF(8,"bold",C.gold2);
+        doc.text(t.toUpperCase(), sx, sy);
+        const tw = doc.getTextWidth(t.toUpperCase());
+        doc.setDrawColor(C.gold2[0],C.gold2[1],C.gold2[2]); doc.setLineWidth(0.4);
+        doc.line(sx+tw+7, sy-2.6, sx+sInner, sy-2.6);
+        sy += 14;
+      }
+
+      // التواصل (تنسيق Lebenslauf كلاسيكي: تسمية + قيمة)
+      sideHead("Kontakt");
+      const rows = [
+        ["E-Mail",   data.profile.email],
+        ["Telefon",  data.profile.phone],
+        ["Adresse",  data.profile.location],
+        ["LinkedIn", "linkedin.com/in/anas83"],
+        ["GitHub",   "github.com/anas83alrajeh"]
+      ];
+      rows.forEach(r=>{
+        setF(6.3,"bold",C.gold2); doc.text(r[0].toUpperCase(), sx, sy); sy += 8.5;
+        setF(8,"normal",C.sideTxt);
+        lines(r[1],8,sInner).forEach(l=>{ doc.text(l, sx, sy); sy += 9.5; });
+        sy += 3.5;
+      });
+      sy += 6;
+
+      // مؤشرات سريعة 2×2
+      const stats = [["17+","Jahre Erfahrung"],["1.080","Std. Zertifiz."],
+                     ["03","Publikationen"],[String(data.projects.length).padStart(2,"0"),"Projekte"]];
+      const gW=(sInner-6)/2, gH=38;
+      stats.forEach((st,k)=>{
+        const cx = sx+(k%2)*(gW+6), cy = sy+Math.floor(k/2)*(gH+6);
+        doc.setFillColor(C.ink2[0],C.ink2[1],C.ink2[2]); doc.roundedRect(cx,cy,gW,gH,4,4,"F");
+        doc.setDrawColor(C.gold2[0],C.gold2[1],C.gold2[2]); doc.setLineWidth(0.35);
+        doc.roundedRect(cx,cy,gW,gH,4,4,"S");
+        setF(13.5,"bold",C.gold2); doc.text(st[0], cx+gW/2, cy+17, {align:"center"});
+        setF(5.6,"normal",C.sideMute); doc.text(st[1].toUpperCase(), cx+gW/2, cy+28, {align:"center"});
+      });
+      sy += 2*gH + 6 + 18;
+
+      // المهارات كوسوم
+      sideHead("Kompetenzen");
+      cv.skills.forEach(s=>{
+        setF(8,"bold",C.white);
+        lines(s.h,8,sInner,"bold").forEach(l=>{ doc.text(l, sx, sy); sy += 9.5; });
+        setF(6.6,"normal",C.gold2);
+        let tx0 = sx, rowY = sy + 1;
+        String(s.t).split(",").map(t=>t.trim()).forEach(tag=>{
+          const w = doc.getTextWidth(tag) + 9;
+          if (tx0 + w > sx + sInner){ tx0 = sx; rowY += 13; }
+          doc.setFillColor(28,34,52);
+          doc.roundedRect(tx0, rowY-7, w, 10.5, 5, 5, "F");
+          doc.setTextColor(C.gold2[0],C.gold2[1],C.gold2[2]);
+          doc.text(tag, tx0+4.5, rowY);
+          tx0 += w + 4;
+        });
+        sy = rowY + 15;
+      });
+
+      // اللغات
+      if (sy < PH - 70){
+        sy += 2;
+        sideHead("Sprachen");
+        setF(8,"normal",C.sideTxt);
+        tx(cv.langs).split("·").map(t=>t.trim()).forEach(l=>{
+          if (sy < PH - 22){ doc.text(l, sx, sy); sy += 11; }
+        });
+      }
+    }
+
+    // ============ ترويسة الصفحات التالية (عرض كامل) ============
+    function pageHeader(){
+      doc.setFillColor(C.ink[0],C.ink[1],C.ink[2]); doc.rect(0,0,PW,44,"F");
+      doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.rect(0,44,PW,2.5,"F");
+      setF(11,"bold",C.white); doc.text(fullName, 40, 27);
+      setF(7,"bold",C.gold2); doc.text(tx(cv.role).toUpperCase(), 40, 38);
+    }
+
+    let y = 42;
+    function ensureSpace(need){
+      if (y + need <= BOTTOM) return;
+      doc.addPage();
+      pageHeader();
+      mainX = 40; mainW = PW - 80;   // الصفحات التالية بعرض كامل
+      y = 72;
+    }
+    function secTitle(t){
+      ensureSpace(52);
+      doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.circle(mainX+3.2, y-3.6, 3.2, "F");
+      setF(12.5,"bold",C.ink); doc.text(tx(t).toUpperCase(), mainX+13, y);
+      doc.setDrawColor(C.gold[0],C.gold[1],C.gold[2]); doc.setLineWidth(1.3);
+      doc.line(mainX, y+6.5, mainX+mainW, y+6.5);
+      y += 23;
+    }
+
+    // —— ارسم الشريط الجانبي أولاً ——
+    drawSidebar();
+
+    // ============ Profil ============
+    secTitle("Profil");
+    lines(data.profile.tagline, 9.5, mainW).forEach(l=>{
+      ensureSpace(13); setF(9.5,"normal",C.txt); doc.text(l, mainX, y); y += 13;
+    });
+    y += 9;
+
+    // ============ Berufserfahrung ============
+    secTitle("Berufserfahrung");
+    cv.experience.forEach(e=>{
+      const tl = lines(e.title, 11, mainW-16, "bold");
+      const ol = lines(e.org, 9, mainW-16, "bold");
+      const dl = lines(e.desc, 9, mainW-16);
+      ensureSpace(11 + tl.length*13 + ol.length*11 + dl.length*11 + 12);
+      const top = y;
+      setF(7.5,"bold",C.mute); doc.text(tx(e.date).toUpperCase(), mainX+16, y); y += 11;
+      setF(11,"bold",C.ink);   tl.forEach(l=>{ doc.text(l, mainX+16, y); y += 13; });
+      setF(9,"bold",C.gold);   ol.forEach(l=>{ doc.text(l, mainX+16, y); y += 11; });
+      setF(9,"normal",C.txt);  dl.forEach(l=>{ doc.text(l, mainX+16, y); y += 11; });
+      doc.setDrawColor(C.line[0],C.line[1],C.line[2]); doc.setLineWidth(1.5);
+      doc.line(mainX+3.2, top+2, mainX+3.2, y-7);
+      doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.circle(mainX+3.2, top-3, 2.8, "F");
+      y += 12;
+    });
+    y += 2;
+
+    // ============ Ausbildung ============
+    secTitle("Akademische Ausbildung");
+    cv.education.forEach(e=>{
+      const tl = lines(e.degree, 11, mainW-16, "bold");
+      const ol = lines(e.org, 9, mainW-16, "bold");
+      const gl = lines(e.grade, 9, mainW-16);
+      ensureSpace(11 + tl.length*13 + ol.length*11 + gl.length*11 + 12);
+      const top = y;
+      setF(7.5,"bold",C.mute); doc.text(tx(e.date).toUpperCase(), mainX+16, y); y += 11;
+      setF(11,"bold",C.ink);   tl.forEach(l=>{ doc.text(l, mainX+16, y); y += 13; });
+      setF(9,"bold",C.gold);   ol.forEach(l=>{ doc.text(l, mainX+16, y); y += 11; });
+      setF(9,"normal",C.txt);  gl.forEach(l=>{ doc.text(l, mainX+16, y); y += 11; });
+      doc.setDrawColor(C.line[0],C.line[1],C.line[2]); doc.setLineWidth(1.5);
+      doc.line(mainX+3.2, top+2, mainX+3.2, y-7);
+      doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.circle(mainX+3.2, top-3, 2.8, "F");
+      y += 12;
+    });
+    y += 2;
+
+    // ============ Publikationen ============
+    secTitle("Wissenschaftliche Publikationen");
+    cv.publications.forEach(p=>{
+      const tl = lines(p.t, 9, mainW-58, "bold");
+      const sl = lines(p.s, 7.5, mainW-58, "italic");
+      const h = Math.max(34, 12 + tl.length*11 + sl.length*9 + 6);
+      ensureSpace(h + 8);
+      doc.setFillColor(C.paper[0],C.paper[1],C.paper[2]);
+      doc.setDrawColor(C.line[0],C.line[1],C.line[2]); doc.setLineWidth(0.6);
+      doc.roundedRect(mainX, y, mainW, h, 4, 4, "FD");
+      setF(16,"bold",C.gold); doc.text(p.y, mainX+12, y+22);
+      let ty = y + 15;
+      setF(9,"bold",C.ink);      tl.forEach(l=>{ doc.text(l, mainX+50, ty); ty += 11; });
+      setF(7.5,"italic",C.mute); sl.forEach(l=>{ doc.text(l, mainX+50, ty); ty += 9; });
+      y += h + 8;
+    });
+    y += 2;
+
+    // ============ Projekte (kompakt, gruppiert) ============
+    secTitle("Ausgewählte Projekte");
+    const groups = {};
+    data.projects.forEach(p=>{ const c = p.category || "other"; (groups[c]=groups[c]||[]).push(p); });
+    const cats = categoryOrder.filter(c=>groups[c]);
+    Object.keys(groups).forEach(c=>{ if(!cats.includes(c)) cats.push(c); });
+
+    cats.forEach(cat=>{
+      const items = groups[cat].slice().sort((a,b)=>projectYear(b)-projectYear(a));
+      ensureSpace(92);
+      const lbl = tx(catLabel(cat)).toUpperCase();
+      setF(8,"bold",C.white);
+      const lw = doc.getTextWidth(lbl);
+      doc.setFillColor(C.ink[0],C.ink[1],C.ink[2]);
+      doc.roundedRect(mainX, y-10, lw+46, 16, 3, 3, "F");
+      doc.text(lbl, mainX+9, y+1);
+      setF(8,"bold",C.gold2);
+      doc.text("(" + String(items.length).padStart(2,"0") + ")", mainX+lw+16, y+1);
+      y += 20;
+
+      items.forEach(p=>{
+        const nl = lines(p.name, 9.5, mainW-72, "bold");
+        let dl = lines(p.desc, 8, mainW-14);
+        if (dl.length > 2){ dl = dl.slice(0,2); dl[1] = dl[1].replace(/\s?\S*$/, " ..."); }
+        const techLine = lines(String(p.tech).split(",").map(t=>t.trim()).join(" · "), 6.8, mainW-14, "normal", "courier")[0];
+        ensureSpace(nl.length*11 + 10 + dl.length*10 + 9 + 11 + 9);
+        const top = y;
+        setF(9.5,"bold",C.ink);  nl.forEach(l=>{ doc.text(l, mainX+14, y); y += 11; });
+        setF(8,"bold",C.mute);   doc.text(tx(p.date), mainX+mainW, top, {align:"right"});
+        setF(7.5,"bold",C.gold); doc.text(lines(p.company,7.5,mainW-14,"bold")[0], mainX+14, y); y += 10;
+        setF(8,"normal",C.txt);  dl.forEach(l=>{ doc.text(l, mainX+14, y); y += 10; });
+        setF(6.8,"normal",C.mute,"courier"); doc.text(techLine, mainX+14, y); y += 10;
+        doc.setFillColor(C.gold[0],C.gold[1],C.gold[2]); doc.circle(mainX+16.5, y-2.5, 2, "F");
+        setF(7.8,"bold",C.ink);  doc.text(lines(p.result,7.8,mainW-32,"bold")[0], mainX+23, y); y += 11;
+        doc.setDrawColor(C.line[0],C.line[1],C.line[2]); doc.setLineWidth(1.2);
+        doc.line(mainX+3.2, top-6, mainX+3.2, y-7);
+        y += 7;
+      });
+    });
+
+    // ============ Ort, Datum & Unterschrift (deutsche Konvention) ============
+    ensureSpace(70);
+    y += 14;
+    const today = new Date().toLocaleDateString("de-DE", { day:"2-digit", month:"long", year:"numeric" });
+    setF(9.5,"normal",C.txt); doc.text("Laatzen, den " + today, mainX, y); y += 26;
+    setF(12,"italic",C.ink);  doc.text(fullName, mainX, y);
+    doc.setDrawColor(C.mute[0],C.mute[1],C.mute[2]); doc.setLineWidth(0.6);
+    doc.line(mainX, y+5, mainX+160, y+5);
+    setF(6.5,"normal",C.mute); doc.text("Unterschrift", mainX, y+14);
+
+    // ============ تذييل + ترقيم الصفحات ============
+    const n = doc.getNumberOfPages ? doc.getNumberOfPages() : doc.internal.getNumberOfPages();
+    for (let i=1; i<=n; i++){
+      doc.setPage(i);
+      setF(6.8,"normal",C.mute);
+      doc.text("Lebenslauf  ·  " + fullName + "  ·  Seite " + i + " / " + n,
+               PW-30, PH-20, {align:"right"});
+    }
+
+    doc.save("Lebenslauf-Anas-Al-Rajeh.pdf");
+    showToast("✓ Lebenslauf erstellt", "success");
+  }
 
   async function bootstrap() {
     try {
